@@ -664,3 +664,4 @@ export function PharmacyView({ data, onRefresh, onToast, user }: PharmacyViewPro
     </div>
   );
 }
+

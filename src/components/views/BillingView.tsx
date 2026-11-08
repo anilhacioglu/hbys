@@ -760,3 +760,4 @@ export function BillingView({ data, onRefresh, onToast, user }: BillingViewProps
     </div>
   );
 }
+
