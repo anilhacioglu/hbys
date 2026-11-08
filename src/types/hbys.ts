@@ -266,4 +266,16 @@ export interface AuditLogItem {
   createdAt: string;
 }
 
+export type TabId =
+  | "dashboard"
+  | "queue"
+  | "patients"
+  | "encounters"
+  | "prescriptions"
+  | "rooms"
+  | "labs"
+  | "staff"
+  | "audit";
+
+
 
