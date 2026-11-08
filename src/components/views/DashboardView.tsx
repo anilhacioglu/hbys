@@ -76,74 +76,104 @@ export function DashboardView({ data, onNavigateTab, onToast }: DashboardViewPro
 
   return (
     <div className="space-y-6">
-      {/* KPI Kartları */}
+      {/* Modern KPI Metrik Kartları (HealthTech Glassmorphism) */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm flex items-center justify-between">
+        {/* Hasta Kartı */}
+        <div
+          onClick={() => onNavigateTab("patients")}
+          className="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200/80 dark:border-slate-800 shadow-xs hover:shadow-md hover:border-sky-300 dark:hover:border-sky-500/50 transition-all duration-200 cursor-pointer group flex items-center justify-between"
+          title="Hasta Özlük Kartlarına Git"
+        >
           <div>
-            <span className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
               Kayıtlı Hasta Dosyası
             </span>
-            <div className="text-3xl font-black text-slate-900 dark:text-white mt-1">
+            <div className="text-3xl font-black text-slate-900 dark:text-white mt-1 group-hover:text-sky-600 dark:group-hover:text-sky-400 transition-colors">
               {data?.patients.length || 0}
             </div>
-            <span className="text-xs text-emerald-600 dark:text-emerald-400 font-semibold">
-              3NF Tekil Özlük Kartı
-            </span>
+            <div className="flex items-center gap-1.5 mt-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+              <span className="text-xs text-emerald-600 dark:text-emerald-400 font-semibold">
+                3NF Tekil Özlük Kartı
+              </span>
+            </div>
           </div>
-          <div className="p-3.5 rounded-2xl bg-sky-50 dark:bg-sky-950/40 text-sky-600 dark:text-sky-400">
-            <Users className="w-7 h-7" />
+          <div className="p-3.5 rounded-2xl bg-gradient-to-br from-sky-500/10 to-sky-500/20 text-sky-600 dark:text-sky-400 border border-sky-200/50 dark:border-sky-800/50 group-hover:scale-105 transition-transform">
+            <Users className="w-6 h-6" />
           </div>
         </div>
 
-        <div className="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm flex items-center justify-between">
+        {/* Muayene & Sıra Kartı */}
+        <div
+          onClick={() => onNavigateTab("queue")}
+          className="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200/80 dark:border-slate-800 shadow-xs hover:shadow-md hover:border-teal-300 dark:hover:border-teal-500/50 transition-all duration-200 cursor-pointer group flex items-center justify-between"
+          title="Poliklinik Sırasına Git"
+        >
           <div>
-            <span className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
               Poliklinik & Acil Muayene
             </span>
-            <div className="text-3xl font-black text-slate-900 dark:text-white mt-1">
+            <div className="text-3xl font-black text-slate-900 dark:text-white mt-1 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
               {data?.encounters.length || 0}
             </div>
-            <span className="text-xs text-sky-600 dark:text-sky-400 font-semibold">
-              {data?.appointments.filter((a) => a.status === "WAITING").length || 0} Sırada Bekleyen
-            </span>
+            <div className="flex items-center gap-1.5 mt-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-teal-500 animate-pulse"></span>
+              <span className="text-xs text-teal-600 dark:text-teal-400 font-semibold">
+                {data?.appointments.filter((a) => a.status === "WAITING").length || 0} Sırada Bekliyor
+              </span>
+            </div>
           </div>
-          <div className="p-3.5 rounded-2xl bg-teal-50 dark:bg-teal-950/40 text-teal-600 dark:text-teal-400">
-            <Stethoscope className="w-7 h-7" />
+          <div className="p-3.5 rounded-2xl bg-gradient-to-br from-teal-500/10 to-teal-500/20 text-teal-600 dark:text-teal-400 border border-teal-200/50 dark:border-teal-800/50 group-hover:scale-105 transition-transform">
+            <Stethoscope className="w-6 h-6" />
           </div>
         </div>
 
-        <div className="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm flex items-center justify-between">
+        {/* Yatak Kartı */}
+        <div
+          onClick={() => onNavigateTab("rooms")}
+          className="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200/80 dark:border-slate-800 shadow-xs hover:shadow-md hover:border-amber-300 dark:hover:border-amber-500/50 transition-all duration-200 cursor-pointer group flex items-center justify-between"
+          title="Yataklı Servis Haritasına Git"
+        >
           <div>
-            <span className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">
-              Yataklı Servis Doluluk
+            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+              Servis Yatak Doluluk
             </span>
-            <div className="text-3xl font-black text-slate-900 dark:text-white mt-1">
+            <div className="text-3xl font-black text-slate-900 dark:text-white mt-1 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
               {occupiedBedsCount} / {allBeds.length}
             </div>
-            <span className="text-xs text-amber-600 dark:text-amber-400 font-semibold">
-              %{allBeds.length ? Math.round((occupiedBedsCount / allBeds.length) * 100) : 0}{" "}
-              Kapasite Kullanımı
-            </span>
+            <div className="flex items-center gap-1.5 mt-1">
+              <span className="text-xs text-amber-600 dark:text-amber-400 font-semibold">
+                %{allBeds.length ? Math.round((occupiedBedsCount / allBeds.length) * 100) : 0}{" "}
+                Kapasite Kullanımı
+              </span>
+            </div>
           </div>
-          <div className="p-3.5 rounded-2xl bg-amber-50 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400">
-            <BedDouble className="w-7 h-7" />
+          <div className="p-3.5 rounded-2xl bg-gradient-to-br from-amber-500/10 to-amber-500/20 text-amber-600 dark:text-amber-400 border border-amber-200/50 dark:border-amber-800/50 group-hover:scale-105 transition-transform">
+            <BedDouble className="w-6 h-6" />
           </div>
         </div>
 
-        <div className="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm flex items-center justify-between">
+        {/* Kritik Lab & Reçete Kartı */}
+        <div
+          onClick={() => onNavigateTab("prescriptions")}
+          className="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200/80 dark:border-slate-800 shadow-xs hover:shadow-md hover:border-rose-300 dark:hover:border-rose-500/50 transition-all duration-200 cursor-pointer group flex items-center justify-between"
+          title="E-Reçetelere Git"
+        >
           <div>
-            <span className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
               Kritik Lab / E-Reçete
             </span>
             <div className="text-3xl font-black text-rose-600 dark:text-rose-400 mt-1">
               {criticalLabsCount} Kritik
             </div>
-            <span className="text-xs text-slate-600 dark:text-slate-400 font-semibold">
-              {data?.prescriptions.length || 0} Onaylı E-Reçete
-            </span>
+            <div className="flex items-center gap-1.5 mt-1">
+              <span className="text-xs text-slate-600 dark:text-slate-400 font-semibold">
+                {data?.prescriptions.length || 0} Onaylı E-Reçete
+              </span>
+            </div>
           </div>
-          <div className="p-3.5 rounded-2xl bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400">
-            <HeartPulse className="w-7 h-7" />
+          <div className="p-3.5 rounded-2xl bg-gradient-to-br from-rose-500/10 to-rose-500/20 text-rose-600 dark:text-rose-400 border border-rose-200/50 dark:border-rose-800/50 group-hover:scale-105 transition-transform">
+            <HeartPulse className="w-6 h-6" />
           </div>
         </div>
       </div>
@@ -203,47 +233,58 @@ export function DashboardView({ data, onNavigateTab, onToast }: DashboardViewPro
             tabIndex={0}
             role="region"
             aria-label="Son muayeneler tablosu"
-            className="overflow-auto max-w-full border border-slate-200 dark:border-slate-800 rounded-xl"
+            className="overflow-auto max-w-full border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm"
           >
             <table className="w-full text-left border-collapse text-xs">
-              <thead className="sticky top-0 z-10 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 uppercase">
+              <thead className="sticky top-0 z-10 bg-slate-100/90 dark:bg-slate-800/90 backdrop-blur text-slate-700 dark:text-slate-300 uppercase text-[10px] font-bold tracking-wider">
                 <tr>
                   <th className="py-2.5 px-3">Protokol</th>
-                  <th className="py-2.5 px-3">Hasta</th>
-                  <th className="py-2.5 px-3">Poliklinik / Hekim</th>
-                  <th className="py-2.5 px-3">Vital (Ateş / TA)</th>
+                  <th className="py-2.5 px-3">Hasta Kimliği</th>
+                  <th className="py-2.5 px-3">Hekim & Bölüm</th>
+                  <th className="py-2.5 px-3">Vital Bulgular</th>
                   <th className="py-2.5 px-3">ICD-10 Tanı</th>
                   <th className="py-2.5 px-3">Triaj</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-200 dark:divide-slate-800 text-slate-800 dark:text-slate-200">
+              <tbody className="divide-y divide-slate-100 dark:divide-slate-800/70 text-slate-800 dark:text-slate-200">
                 {(data?.encounters || []).slice(0, 5).map((enc) => (
-                  <tr key={enc.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/50">
-                    <td className="py-2.5 px-3 font-mono font-bold text-sky-800 dark:text-sky-400">
-                      {enc.protocolNo}
+                  <tr
+                    key={enc.id}
+                    className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors duration-150 group"
+                  >
+                    <td className="py-2.5 px-3 font-mono font-bold text-sky-800 dark:text-sky-300">
+                      <span className="px-2 py-0.5 rounded-lg bg-sky-50 dark:bg-sky-950/60 border border-sky-200/80 dark:border-sky-800/60">
+                        {enc.protocolNo}
+                      </span>
                     </td>
-                    <td className="py-2.5 px-3 font-bold text-slate-900 dark:text-white">
+                    <td className="py-2.5 px-3 font-bold text-slate-900 dark:text-white group-hover:text-sky-600 dark:group-hover:text-sky-400 transition-colors">
                       {enc.patient?.firstName} {enc.patient?.lastName}
                     </td>
                     <td className="py-2.5 px-3">
-                      <div className="font-semibold">{enc.department?.name}</div>
-                      <div className="text-slate-500 dark:text-slate-400">{enc.doctor?.fullTitleName}</div>
+                      <div className="font-semibold text-slate-800 dark:text-slate-200">{enc.department?.name}</div>
+                      <div className="text-[10px] text-slate-400">{enc.doctor?.fullTitleName}</div>
                     </td>
-                    <td className="py-2.5 px-3">
-                      {enc.vitalSigns?.temperature ?? "-"}°C •{" "}
-                      {enc.vitalSigns?.bloodPressureText ?? "-"}
+                    <td className="py-2.5 px-3 font-mono text-[11px]">
+                      {enc.vitalSigns ? (
+                        <span>
+                          {enc.vitalSigns.temperature}°C • {enc.vitalSigns.bloodPressureText} mmHg
+                        </span>
+                      ) : (
+                        <span className="text-slate-400">-</span>
+                      )}
                     </td>
-                    <td className="py-2.5 px-3 font-semibold text-slate-800 dark:text-slate-300">
-                      {enc.diagnosisCode} - {enc.diagnosisName}
+                    <td className="py-2.5 px-3 text-slate-700 dark:text-slate-300">
+                      <span className="font-bold text-sky-700 dark:text-sky-400">[{enc.diagnosisCode}]</span>{" "}
+                      <span className="truncate max-w-[160px] inline-block align-bottom">{enc.diagnosisName}</span>
                     </td>
                     <td className="py-2.5 px-3">
                       <span
-                        className={`px-2 py-0.5 rounded-full font-bold ${
+                        className={`px-2 py-0.5 rounded-full text-[10px] font-bold border ${
                           enc.triageColor === "Kırmızı"
-                            ? "bg-rose-100 text-rose-700 dark:bg-rose-950/60 dark:text-rose-300"
+                            ? "bg-rose-50 text-rose-700 border-rose-200 dark:bg-rose-950/60 dark:text-rose-300 dark:border-rose-800"
                             : enc.triageColor === "Sarı"
-                            ? "bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300"
-                            : "bg-emerald-100 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300"
+                            ? "bg-amber-50 text-amber-800 border-amber-200 dark:bg-amber-950/60 dark:text-amber-300 dark:border-amber-800"
+                            : "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/60 dark:text-emerald-300 dark:border-emerald-800"
                         }`}
                       >
                         {enc.triageColor}

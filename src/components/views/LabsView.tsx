@@ -259,78 +259,87 @@ export function LabsView({ data, onRefresh, onToast }: LabsViewProps) {
           tabIndex={0}
           role="region"
           aria-label="Laboratuvar tetkik tablosu"
-          className="overflow-auto max-w-full border border-slate-200 dark:border-slate-800 rounded-xl"
+          className="overflow-auto max-w-full border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm"
         >
           <table className="w-full text-left border-collapse text-xs">
-            <thead className="sticky top-0 z-10 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 uppercase">
+            <thead className="sticky top-0 z-10 bg-slate-100/90 dark:bg-slate-800/90 backdrop-blur text-slate-700 dark:text-slate-300 uppercase text-[11px] font-bold tracking-wider">
               <tr>
-                <th className="py-3 px-3">İstem Kodu</th>
-                <th className="py-3 px-3">Hasta</th>
-                <th className="py-3 px-3">Kategori / Tetkik</th>
-                <th className="py-3 px-3">Sonuç</th>
-                <th className="py-3 px-3">Referans</th>
-                <th className="py-3 px-3">Durum</th>
-                <th className="py-3 px-3 text-right">İşlem</th>
+                <th className="py-3 px-3.5">İstem Kodu</th>
+                <th className="py-3 px-3.5">Hasta Kimliği</th>
+                <th className="py-3 px-3.5">Kategori & Tetkik</th>
+                <th className="py-3 px-3.5">Sonuç Değeri</th>
+                <th className="py-3 px-3.5">Referans Aralığı</th>
+                <th className="py-3 px-3.5">Durum</th>
+                <th className="py-3 px-3.5 text-right">İşlem</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-200 dark:divide-slate-800">
+            <tbody className="divide-y divide-slate-100 dark:divide-slate-800/70">
               {paginatedLabs.map((lab) => (
-                <tr key={lab.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/50">
-                  <td className="py-3 px-3 font-mono font-bold text-indigo-700 dark:text-indigo-400">
-                    {lab.orderCode}
+                <tr
+                  key={lab.id}
+                  className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors duration-150 group"
+                >
+                  <td className="py-3.5 px-3.5 font-mono font-bold text-indigo-700 dark:text-indigo-400 whitespace-nowrap">
+                    <span className="px-2 py-0.5 rounded-lg bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200/80 dark:border-indigo-800/60">
+                      {lab.orderCode}
+                    </span>
                   </td>
-                  <td className="py-3 px-3">
-                    <div className="font-bold text-slate-900 dark:text-white">
+                  <td className="py-3.5 px-3.5">
+                    <div className="font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
                       {lab.patient?.firstName} {lab.patient?.lastName}
                     </div>
-                    <div className="text-slate-500 dark:text-slate-400">{lab.doctor?.fullTitleName}</div>
+                    <div className="text-[11px] text-slate-400 mt-0.5">{lab.doctor?.fullTitleName}</div>
                   </td>
-                  <td className="py-3 px-3">
-                    <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 mr-1 border border-slate-200 dark:border-slate-700">
+                  <td className="py-3.5 px-3.5">
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 mr-1.5 border border-slate-200 dark:border-slate-700">
                       {lab.category}
                     </span>
                     <span className="font-semibold text-slate-900 dark:text-white">{lab.testName}</span>
                   </td>
-                  <td className="py-3 px-3">
+                  <td className="py-3.5 px-3.5 whitespace-nowrap">
                     {lab.resultValue ? (
                       <span
-                        className={`font-bold ${
-                          lab.isCritical ? "text-rose-600 dark:text-rose-400" : "text-slate-900 dark:text-slate-100"
+                        className={`font-black text-xs px-2.5 py-0.5 rounded-md ${
+                          lab.isCritical
+                            ? "text-rose-700 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/60 border border-rose-200 dark:border-rose-800/70 animate-pulse inline-flex items-center gap-1"
+                            : "text-slate-900 dark:text-slate-100 bg-slate-50 dark:bg-slate-800"
                         }`}
                       >
-                        {lab.isCritical && "⚠️ "}
-                        {lab.resultValue}
+                        {lab.isCritical && "⚠️"} {lab.resultValue}
                       </span>
                     ) : (
-                      <span className="text-slate-400 italic">Çalışılıyor...</span>
+                      <span className="text-slate-400 italic text-[11px]">Çalışılıyor...</span>
                     )}
                   </td>
-                  <td className="py-3 px-3 text-slate-500 dark:text-slate-400">{lab.referenceRange || "-"}</td>
-                  <td className="py-3 px-3">
+                  <td className="py-3.5 px-3.5 text-slate-500 dark:text-slate-400 font-mono text-[11px]">
+                    {lab.referenceRange || "-"}
+                  </td>
+                  <td className="py-3.5 px-3.5 whitespace-nowrap">
                     <span
-                      className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                      className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${
                         lab.status === "COMPLETED"
-                          ? "bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-900/50"
-                          : "bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-900/50"
+                          ? "bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-900/50"
+                          : "bg-amber-50 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300 border-amber-200 dark:border-amber-900/50"
                       }`}
                     >
-                      {lab.status === "COMPLETED" ? "Sonuçlandı" : "Bekliyor"}
+                      {lab.status === "COMPLETED" ? "✓ Sonuçlandı" : "⏳ Bekliyor"}
                     </span>
                   </td>
-                  <td className="py-3 px-3 text-right space-x-1">
+                  <td className="py-3.5 px-3.5 text-right space-x-1.5 whitespace-nowrap">
                     {lab.status === "PENDING" && (
                       <button
                         onClick={() => handleCompleteLabOrder(lab.id)}
-                        className="px-2.5 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-semibold"
+                        className="px-2.5 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs inline-flex items-center transition shadow-xs"
                       >
                         Sonuç Gir
                       </button>
                     )}
                     <button
                       onClick={() => handleDelete(lab.id)}
-                      className="p-1 text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded"
+                      className="p-1.5 text-rose-500 hover:text-rose-700 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/50 rounded-xl transition inline-flex items-center"
+                      title="Tetkik Kaydını Sil"
                     >
-                      <Trash2 className="w-4 h-4 inline" />
+                      <Trash2 className="w-3.5 h-3.5" />
                     </button>
                   </td>
                 </tr>
