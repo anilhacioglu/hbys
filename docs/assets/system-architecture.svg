@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 640" width="100%" height="auto" style="background:#090d16; border-radius:16px; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+  <defs>
+    <linearGradient id="layer1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0284c7"/>
+      <stop offset="100%" stop-color="#38bdf8"/>
+    </linearGradient>
+    <linearGradient id="layer2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#059669"/>
+      <stop offset="100%" stop-color="#34d399"/>
+    </linearGradient>
+    <linearGradient id="layer3" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#7c3aed"/>
+      <stop offset="100%" stop-color="#a78bfa"/>
+    </linearGradient>
+    <linearGradient id="layer4" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#d97706"/>
+      <stop offset="100%" stop-color="#fbbf24"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Title -->
+  <text x="50" y="52" font-size="24" font-weight="900" fill="#ffffff">🏛️ HBYS v2.0 • 4 Katmanlı Kurumsal Sistem Mimarisi</text>
+  <text x="50" y="78" font-size="13" font-weight="400" fill="#94a3b8">Next.js 15 App Router, TypeScript, Prisma ORM ve SQLite 3NF İlişkisel Veritabanı</text>
+
+  <!-- LAYER 1: CLIENT & PRESENTATION -->
+  <g transform="translate(50, 110)">
+    <rect width="1000" height="105" rx="12" fill="#0f172a" stroke="#0284c7" stroke-width="1.5"/>
+    <rect width="220" height="26" rx="6" fill="url(#layer1)" x="20" y="-13"/>
+    <text x="130" y="4" font-size="11" font-weight="800" fill="#ffffff" text-anchor="middle">1. SUNUM &amp; ARAYÜZ KATMANI</text>
+    <text x="30" y="45" font-size="14" font-weight="700" fill="#ffffff">Next.js 15 (React 19) • Tailwind CSS • Lucide Icons • Gece Nöbeti (Dark Mode)</text>
+    <text x="30" y="70" font-size="12" fill="#94a3b8">Bento-Grid Dashboard • Collapsible Sidebar • 3-Kademeli Klinik Stepper • Command Palette (Ctrl+K) • Global Kısayollar (F2-F7)</text>
+    <text x="30" y="90" font-size="11" fill="#38bdf8" font-family="monospace">src/app/page.tsx • src/components/views/* • src/components/LoginView.tsx</text>
+  </g>
+
+  <!-- Down Arrow 1 -->
+  <g transform="translate(540, 222)">
+    <polygon points="0,0 12,0 6,10" fill="#38bdf8"/>
+    <line x1="6" y1="-8" x2="6" y2="4" stroke="#38bdf8" stroke-width="2"/>
+  </g>
+
+  <!-- LAYER 2: SECURITY & AUTH -->
+  <g transform="translate(50, 240)">
+    <rect width="1000" height="105" rx="12" fill="#0f172a" stroke="#059669" stroke-width="1.5"/>
+    <rect width="250" height="26" rx="6" fill="url(#layer2)" x="20" y="-13"/>
+    <text x="145" y="4" font-size="11" font-weight="800" fill="#ffffff" text-anchor="middle">2. GÜVENLİK &amp; ERİŞİM KONTROLÜ</text>
+    <text x="30" y="45" font-size="14" font-weight="700" fill="#ffffff">BCrypt Parola Hashleme • Web Crypto HMAC-SHA256 JWT • 7 Rol RBAC</text>
+    <text x="30" y="70" font-size="12" fill="#94a3b8">HTTP-Only Güvenli Oturum Çerezleri • Rol Bazlı Yetki Denetimi • SQL Injection Koruması • KVKK/HIPAA Değiştirilemez Audit Log</text>
+    <text x="30" y="90" font-size="11" fill="#34d399" font-family="monospace">src/lib/auth.ts • src/lib/audit.ts • src/app/api/auth/*</text>
+  </g>
+
+  <!-- Down Arrow 2 -->
+  <g transform="translate(540, 352)">
+    <polygon points="0,0 12,0 6,10" fill="#34d399"/>
+    <line x1="6" y1="-8" x2="6" y2="4" stroke="#34d399" stroke-width="2"/>
+  </g>
+
+  <!-- LAYER 3: BUSINESS & SERVICES -->
+  <g transform="translate(50, 370)">
+    <rect width="1000" height="105" rx="12" fill="#0f172a" stroke="#7c3aed" stroke-width="1.5"/>
+    <rect width="230" height="26" rx="6" fill="url(#layer3)" x="20" y="-13"/>
+    <text x="135" y="4" font-size="11" font-weight="800" fill="#ffffff" text-anchor="middle">3. KLİNİK İŞ MANTIĞI &amp; API</text>
+    <text x="30" y="45" font-size="14" font-weight="700" fill="#ffffff">Parametrik REST Endpoints • Transaction Tabanlı İş Akışları • Doğrulayıcılar</text>
+    <text x="30" y="70" font-size="12" fill="#94a3b8">MEDULA Çoklu E-Reçete Motoru • Dinamik Yatak Doluluk/Taburculuk • Panik Değer Laboratuvar Bildirimi • Otomatik VKİ Hesaplayıcı</text>
+    <text x="30" y="90" font-size="11" fill="#a78bfa" font-family="monospace">src/app/api/hbys/route.ts • src/lib/validators.ts • src/lib/export-csv.ts</text>
+  </g>
+
+  <!-- Down Arrow 3 -->
+  <g transform="translate(540, 482)">
+    <polygon points="0,0 12,0 6,10" fill="#a78bfa"/>
+    <line x1="6" y1="-8" x2="6" y2="4" stroke="#a78bfa" stroke-width="2"/>
+  </g>
+
+  <!-- LAYER 4: DATABASE & STORAGE -->
+  <g transform="translate(50, 500)">
+    <rect width="1000" height="105" rx="12" fill="#0f172a" stroke="#d97706" stroke-width="1.5"/>
+    <rect width="250" height="26" rx="6" fill="url(#layer4)" x="20" y="-13"/>
+    <text x="145" y="4" font-size="11" font-weight="800" fill="#ffffff" text-anchor="middle">4. KALICILIK &amp; 3NF VERİTABANI</text>
+    <text x="30" y="45" font-size="14" font-weight="700" fill="#ffffff">Prisma ORM • 3. Normal Form (3NF) İlişkisel SQLite • Otomatik Seed Verisi</text>
+    <text x="30" y="70" font-size="12" fill="#94a3b8">12 İlişkisel Tablo (Patient, Staff, Encounter, VitalSign, Prescription, Bed, LabOrder, Invoice vb.) • Sıfır SQL Enjeksiyonu</text>
+    <text x="30" y="90" font-size="11" fill="#fbbf24" font-family="monospace">prisma/schema.prisma • prisma/hbys.db • src/lib/seed-data.ts</text>
+  </g>
+</svg>

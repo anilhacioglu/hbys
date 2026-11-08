@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 520" width="100%" height="auto" style="background:#0b1120; border-radius:16px; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+  <defs>
+    <linearGradient id="headerGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0284c7"/>
+      <stop offset="100%" stop-color="#0d9488"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Title Section -->
+  <text x="40" y="50" font-size="22" font-weight="900" fill="#ffffff">🏥 HBYS v2.0 • Rol Bazlı Erişim Kontrolü (RBAC) Matrisi</text>
+  <text x="40" y="76" font-size="13" font-weight="400" fill="#94a3b8">Her personelin görev alanına göre menü görünürlüğü, klavye kısayolu ve veri yetkilendirmesi</text>
+
+  <!-- Table Container -->
+  <g transform="translate(40, 105)">
+    <!-- Header Row -->
+    <rect width="1020" height="42" rx="8" fill="#1e293b"/>
+    <text x="20" y="26" font-size="12" font-weight="800" fill="#38bdf8">MENÜ / MODÜL</text>
+    <text x="260" y="26" font-size="11" font-weight="800" fill="#cbd5e1" text-anchor="middle">ADMIN</text>
+    <text x="370" y="26" font-size="11" font-weight="800" fill="#cbd5e1" text-anchor="middle">DOCTOR</text>
+    <text x="480" y="26" font-size="11" font-weight="800" fill="#cbd5e1" text-anchor="middle">SEKRETER</text>
+    <text x="590" y="26" font-size="11" font-weight="800" fill="#cbd5e1" text-anchor="middle">HEMŞİRE</text>
+    <text x="700" y="26" font-size="11" font-weight="800" fill="#cbd5e1" text-anchor="middle">ECZACI</text>
+    <text x="810" y="26" font-size="11" font-weight="800" fill="#cbd5e1" text-anchor="middle">VEZNE</text>
+    <text x="920" y="26" font-size="11" font-weight="800" fill="#cbd5e1" text-anchor="middle">LABORANT</text>
+
+    <!-- Rows Definitions (y=48 step 38) -->
+    <!-- Row 1: Dashboard -->
+    <g transform="translate(0, 48)">
+      <rect width="1020" height="34" rx="6" fill="#0f172a"/>
+      <text x="20" y="22" font-size="12" font-weight="700" fill="#f8fafc">📊 Gösterge Paneli (Dashboard)</text>
+      <!-- All green checks -->
+      <circle cx="260" cy="17" r="9" fill="#10b981"/><text x="260" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✓</text>
+      <circle cx="370" cy="17" r="9" fill="#10b981"/><text x="370" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✓</text>
+      <circle cx="480" cy="17" r="9" fill="#10b981"/><text x="480" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✓</text>
+      <circle cx="590" cy="17" r="9" fill="#10b981"/><text x="590" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✓</text>
+      <circle cx="700" cy="17" r="9" fill="#10b981"/><text x="700" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✓</text>
+      <circle cx="810" cy="17" r="9" fill="#10b981"/><text x="810" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✓</text>
+      <circle cx="920" cy="17" r="9" fill="#10b981"/><text x="920" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✓</text>
+    </g>
+
+    <!-- Row 2: Queue -->
+    <g transform="translate(0, 86)">
+      <rect width="1020" height="34" rx="6" fill="#141e33"/>
+      <text x="20" y="22" font-size="12" font-weight="600" fill="#e2e8f0">⏱️ Poliklinik Randevu &amp; Sırası</text>
+      <circle cx="260" cy="17" r="9" fill="#10b981"/><text x="260" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✓</text>
+      <circle cx="370" cy="17" r="9" fill="#10b981"/><text x="370" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✓</text>
+      <circle cx="480" cy="17" r="9" fill="#10b981"/><text x="480" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✓</text>
+      <circle cx="590" cy="17" r="9" fill="#10b981"/><text x="590" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✓</text>
+      <circle cx="700" cy="17" r="9" fill="#334155"/><text x="700" y="21" font-size="10" font-weight="700" fill="#64748b" text-anchor="middle">-</text>
+      <circle cx="810" cy="17" r="9" fill="#334155"/><text x="810" y="21" font-size="10" font-weight="700" fill="#64748b" text-anchor="middle">-</text>
+      <circle cx="920" cy="17" r="9" fill="#334155"/><text x="920" y="21" font-size="10" font-weight="700" fill="#64748b" text-anchor="middle">-</text>
+    </g>
+
+    <!-- Row 3: Patients (F2) -->
+    <g transform="translate(0, 124)">
+      <rect width="1020" height="34" rx="6" fill="#0f172a"/>
+      <text x="20" y="22" font-size="12" font-weight="600" fill="#e2e8f0">👤 Hasta Özlük Dosyaları [F2]</text>
+      <circle cx="260" cy="17" r="9" fill="#10b981"/><text x="260" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✓</text>
+      <circle cx="370" cy="17" r="9" fill="#10b981"/><text x="370" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✓</text>
+      <circle cx="480" cy="17" r="9" fill="#10b981"/><text x="480" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✓</text>
+      <circle cx="590" cy="17" r="9" fill="#10b981"/><text x="590" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✓</text>
+      <circle cx="700" cy="17" r="9" fill="#334155"/><text x="700" y="21" font-size="10" font-weight="700" fill="#64748b" text-anchor="middle">-</text>
+      <circle cx="810" cy="17" r="9" fill="#10b981"/><text x="810" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✓</text>
+      <circle cx="920" cy="17" r="9" fill="#334155"/><text x="920" y="21" font-size="10" font-weight="700" fill="#64748b" text-anchor="middle">-</text>
+    </g>
+
+    <!-- Row 4: Encounters (F3) -->
+    <g transform="translate(0, 162)">
+      <rect width="1020" height="34" rx="6" fill="#141e33"/>
+      <text x="20" y="22" font-size="12" font-weight="600" fill="#e2e8f0">🩺 Poliklinik &amp; Acil Muayene [F3]</text>
+      <circle cx="260" cy="17" r="9" fill="#10b981"/><text x="260" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✓</text>
+      <circle cx="370" cy="17" r="9" fill="#10b981"/><text x="370" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✓</text>
+      <circle cx="480" cy="17" r="9" fill="#ef4444"/><text x="480" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✕</text>
+      <circle cx="590" cy="17" r="9" fill="#ef4444"/><text x="590" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✕</text>
+      <circle cx="700" cy="17" r="9" fill="#ef4444"/><text x="700" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✕</text>
+      <circle cx="810" cy="17" r="9" fill="#ef4444"/><text x="810" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✕</text>
+      <circle cx="920" cy="17" r="9" fill="#ef4444"/><text x="920" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✕</text>
+    </g>
+
+    <!-- Row 5: Prescriptions (F4) -->
+    <g transform="translate(0, 200)">
+      <rect width="1020" height="34" rx="6" fill="#0f172a"/>
+      <text x="20" y="22" font-size="12" font-weight="600" fill="#e2e8f0">💊 E-Reçete &amp; MEDULA [F4]</text>
+      <circle cx="260" cy="17" r="9" fill="#10b981"/><text x="260" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✓</text>
+      <circle cx="370" cy="17" r="9" fill="#10b981"/><text x="370" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✓</text>
+      <circle cx="480" cy="17" r="9" fill="#ef4444"/><text x="480" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✕</text>
+      <circle cx="590" cy="17" r="9" fill="#ef4444"/><text x="590" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✕</text>
+      <circle cx="700" cy="17" r="9" fill="#10b981"/><text x="700" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✓</text>
+      <circle cx="810" cy="17" r="9" fill="#ef4444"/><text x="810" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✕</text>
+      <circle cx="920" cy="17" r="9" fill="#ef4444"/><text x="920" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✕</text>
+    </g>
+
+    <!-- Row 6: Rooms (F5) -->
+    <g transform="translate(0, 238)">
+      <rect width="1020" height="34" rx="6" fill="#141e33"/>
+      <text x="20" y="22" font-size="12" font-weight="600" fill="#e2e8f0">🛏️ Servis, Oda &amp; Yatak Haritası [F5]</text>
+      <circle cx="260" cy="17" r="9" fill="#10b981"/><text x="260" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✓</text>
+      <circle cx="370" cy="17" r="9" fill="#10b981"/><text x="370" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✓</text>
+      <circle cx="480" cy="17" r="9" fill="#ef4444"/><text x="480" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✕</text>
+      <circle cx="590" cy="17" r="9" fill="#10b981"/><text x="590" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✓</text>
+      <circle cx="700" cy="17" r="9" fill="#ef4444"/><text x="700" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✕</text>
+      <circle cx="810" cy="17" r="9" fill="#ef4444"/><text x="810" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✕</text>
+      <circle cx="920" cy="17" r="9" fill="#ef4444"/><text x="920" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✕</text>
+    </g>
+
+    <!-- Row 7: Pharmacy (F6) -->
+    <g transform="translate(0, 276)">
+      <rect width="1020" height="34" rx="6" fill="#0f172a"/>
+      <text x="20" y="22" font-size="12" font-weight="600" fill="#e2e8f0">📦 Eczane Depo &amp; İlaç Stok [F6]</text>
+      <circle cx="260" cy="17" r="9" fill="#10b981"/><text x="260" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✓</text>
+      <circle cx="370" cy="17" r="9" fill="#10b981"/><text x="370" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✓</text>
+      <circle cx="480" cy="17" r="9" fill="#ef4444"/><text x="480" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✕</text>
+      <circle cx="590" cy="17" r="9" fill="#ef4444"/><text x="590" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✕</text>
+      <circle cx="700" cy="17" r="9" fill="#10b981"/><text x="700" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✓</text>
+      <circle cx="810" cy="17" r="9" fill="#ef4444"/><text x="810" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✕</text>
+      <circle cx="920" cy="17" r="9" fill="#ef4444"/><text x="920" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✕</text>
+    </g>
+
+    <!-- Row 8: Billing (F7) -->
+    <g transform="translate(0, 314)">
+      <rect width="1020" height="34" rx="6" fill="#141e33"/>
+      <text x="20" y="22" font-size="12" font-weight="600" fill="#e2e8f0">💳 Vezne, Kasa &amp; SGK Fatura [F7]</text>
+      <circle cx="260" cy="17" r="9" fill="#10b981"/><text x="260" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✓</text>
+      <circle cx="370" cy="17" r="9" fill="#ef4444"/><text x="370" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✕</text>
+      <circle cx="480" cy="17" r="9" fill="#10b981"/><text x="480" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✓</text>
+      <circle cx="590" cy="17" r="9" fill="#ef4444"/><text x="590" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✕</text>
+      <circle cx="700" cy="17" r="9" fill="#ef4444"/><text x="700" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✕</text>
+      <circle cx="810" cy="17" r="9" fill="#10b981"/><text x="810" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✓</text>
+      <circle cx="920" cy="17" r="9" fill="#ef4444"/><text x="920" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✕</text>
+    </g>
+
+    <!-- Row 9: Labs -->
+    <g transform="translate(0, 352)">
+      <rect width="1020" height="34" rx="6" fill="#0f172a"/>
+      <text x="20" y="22" font-size="12" font-weight="600" fill="#e2e8f0">🔬 Laboratuvar &amp; Radyoloji</text>
+      <circle cx="260" cy="17" r="9" fill="#10b981"/><text x="260" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✓</text>
+      <circle cx="370" cy="17" r="9" fill="#10b981"/><text x="370" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✓</text>
+      <circle cx="480" cy="17" r="9" fill="#ef4444"/><text x="480" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✕</text>
+      <circle cx="590" cy="17" r="9" fill="#ef4444"/><text x="590" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✕</text>
+      <circle cx="700" cy="17" r="9" fill="#ef4444"/><text x="700" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✕</text>
+      <circle cx="810" cy="17" r="9" fill="#ef4444"/><text x="810" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✕</text>
+      <circle cx="920" cy="17" r="9" fill="#10b981"/><text x="920" y="21" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">✓</text>
+    </g>
+  </g>
+</svg>

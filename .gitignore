@@ -5,7 +5,12 @@ dist/
 *.log
 *.tsbuildinfo
 .DS_Store
-prisma/hbys.db
+prisma/*.db
+prisma/*.db-journal
+prisma/*.db-shm
+prisma/*.db-wal
+.env.local
+.env.*.local
 legacy-winforms/Hastane Bilgi Yönetim Sistemi/.vs/
 legacy-winforms/Hastane Bilgi Yönetim Sistemi/bin/
 legacy-winforms/Hastane Bilgi Yönetim Sistemi/obj/
