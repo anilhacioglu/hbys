@@ -19,6 +19,9 @@ const ROLE_PERMISSIONS: Record<string, string[]> = {
   prescription: ["ADMIN", "DOCTOR"],
   admission: ["ADMIN", "DOCTOR", "NURSE"],
   labOrder: ["ADMIN", "DOCTOR", "NURSE"],
+  invoice: ["ADMIN", "RECEPTIONIST", "DOCTOR"],
+  medication: ["ADMIN", "DOCTOR"],
+  medication_stock: ["ADMIN", "DOCTOR", "NURSE"],
   staff: ["ADMIN"],
 };
 
@@ -39,6 +42,7 @@ export async function GET() {
       labOrders,
       medications,
       diagnoses,
+      invoices,
     ] = await Promise.all([
       prisma.department.findMany({ orderBy: { name: "asc" } }),
       prisma.staff.findMany({
@@ -106,6 +110,15 @@ export async function GET() {
       }),
       prisma.medication.findMany({ orderBy: { name: "asc" } }),
       prisma.diagnosisCatalog.findMany({ orderBy: { code: "asc" } }),
+      prisma.invoice.findMany({
+        include: {
+          patient: true,
+          encounter: true,
+          admission: true,
+          items: true,
+        },
+        orderBy: { createdAt: "desc" },
+      }),
     ]);
 
     const safeStaff = staff.map(({ passwordHash: _, ...rest }) => rest);
@@ -122,6 +135,7 @@ export async function GET() {
       labOrders,
       medications,
       diagnoses,
+      invoices,
     });
   } catch (error) {
     console.error("HBYS veri çekme hatası:", error);
@@ -341,7 +355,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ success: true, item: created });
     }
 
-    // 5. YENİ ÇOKLU İLAÇLI E-REÇETE KAYDI
+    // 5. YENİ ÇOKLU İLAÇLI E-REÇETE KAYDI & OTOMATİK ECZANE STOK DÜŞÜMÜ
     if (entity === "prescription") {
       if (!Array.isArray(data.items) || data.items.length === 0) {
         return NextResponse.json(
@@ -353,29 +367,51 @@ export async function POST(request: Request) {
       const count = await prisma.prescription.count();
       const prescriptionNo = `EREC-2026-${9040 + count + 1}`;
 
-      const created = await prisma.prescription.create({
-        data: {
-          prescriptionNo,
-          patientId: Number(data.patientId),
-          doctorId: Number(data.doctorId),
-          encounterId: data.encounterId ? Number(data.encounterId) : null,
-          diagnosis: data.diagnosis?.trim() || null,
-          notes: data.notes?.trim() || null,
-          items: {
-            create: data.items.map((item: Record<string, unknown>) => ({
-              medicationId: item.medicationId ? Number(item.medicationId) : null,
-              medicationName: String(item.medicationName || ""),
-              usageMethod: String(item.usageMethod || "Ağızdan (Oral)"),
-              period: Number(item.period || 1),
-              periodUnit: String(item.periodUnit || "Günde"),
-              boxCount: Number(item.boxCount || 1),
-              doseCount: Number(item.doseCount || 2),
-              doseAmount: String(item.doseAmount || "1 Tablet"),
-              instructions: item.instructions ? String(item.instructions) : null,
-            })),
+      const created = await prisma.$transaction(async (tx) => {
+        const rx = await tx.prescription.create({
+          data: {
+            prescriptionNo,
+            patientId: Number(data.patientId),
+            doctorId: Number(data.doctorId),
+            encounterId: data.encounterId ? Number(data.encounterId) : null,
+            diagnosis: data.diagnosis?.trim() || null,
+            notes: data.notes?.trim() || null,
+            items: {
+              create: data.items.map((item: Record<string, unknown>) => ({
+                medicationId: item.medicationId ? Number(item.medicationId) : null,
+                medicationName: String(item.medicationName || ""),
+                usageMethod: String(item.usageMethod || "Ağızdan (Oral)"),
+                period: Number(item.period || 1),
+                periodUnit: String(item.periodUnit || "Günde"),
+                boxCount: Number(item.boxCount || 1),
+                doseCount: Number(item.doseCount || 2),
+                doseAmount: String(item.doseAmount || "1 Tablet"),
+                instructions: item.instructions ? String(item.instructions) : null,
+              })),
+            },
           },
-        },
-        include: { items: true },
+          include: { items: true },
+        });
+
+        // Eczane Otomatik Stok Düşümü: Her reçete edilen ilacın kutu adedi stoktan düşülür
+        for (const item of data.items) {
+          const boxCount = Number(item.boxCount || 1);
+          if (item.medicationName) {
+            const med = await tx.medication.findFirst({
+              where: { name: String(item.medicationName) },
+            });
+            if (med) {
+              await tx.medication.update({
+                where: { id: med.id },
+                data: {
+                  stockCount: Math.max(0, med.stockCount - boxCount),
+                },
+              });
+            }
+          }
+        }
+
+        return rx;
       });
 
       return NextResponse.json({ success: true, item: created });
@@ -452,6 +488,82 @@ export async function POST(request: Request) {
           isCritical: Boolean(data.isCritical),
           completedAt: data.resultValue ? new Date() : null,
           notes: data.notes?.trim() || null,
+        },
+      });
+      return NextResponse.json({ success: true, item: created });
+    }
+
+    // 8. YENİ VEZNE FATURASI / HİZMET TAHAKKUKU
+    if (entity === "invoice") {
+      const count = await prisma.invoice.count();
+      const invoiceNo = `FTR-2026-${1000 + count + 1}`;
+      const itemsList = Array.isArray(data.items) ? data.items : [];
+      const totalAmount = Number(
+        data.totalAmount ||
+          itemsList.reduce(
+            (acc: number, it: any) => acc + (Number(it.totalPrice) || Number(it.unitPrice) || 0),
+            0
+          ) ||
+          50
+      );
+      const patientShare = Number(data.patientShare !== undefined ? data.patientShare : totalAmount);
+      const sgkCoverage = Number(data.sgkCoverage !== undefined ? data.sgkCoverage : Math.max(0, totalAmount - patientShare));
+
+      const created = await prisma.invoice.create({
+        data: {
+          invoiceNo,
+          patientId: Number(data.patientId),
+          encounterId: data.encounterId ? Number(data.encounterId) : null,
+          admissionId: data.admissionId ? Number(data.admissionId) : null,
+          totalAmount,
+          sgkCoverage,
+          patientShare,
+          status: data.status || "PENDING",
+          paymentMethod: data.paymentMethod || null,
+          paidAt: data.status === "PAID" ? new Date() : null,
+          cashierName: data.cashierName || (currentUser?.fullTitleName || "Vezne Memuru"),
+          notes: data.notes?.trim() || null,
+          items: {
+            create: itemsList.map((item: any) => ({
+              serviceType: String(item.serviceType || "MUAYENE"),
+              description: String(item.description || "Sağlık Hizmeti Bedeli"),
+              unitPrice: Number(item.unitPrice || 0),
+              quantity: Number(item.quantity || 1),
+              totalPrice: Number(item.totalPrice || item.unitPrice || 0),
+            })),
+          },
+        },
+        include: { items: true, patient: true },
+      });
+      return NextResponse.json({ success: true, item: created });
+    }
+
+    // 9. ECZANE İLAÇ STOK DÜZENLEME / ARTTIRIMI
+    if (entity === "medication_stock") {
+      const medId = Number(data.id);
+      const addCount = Number(data.addCount || 50);
+      const updated = await prisma.medication.update({
+        where: { id: medId },
+        data: { stockCount: { increment: addCount } },
+      });
+      return NextResponse.json({ success: true, item: updated });
+    }
+
+    // 10. YENİ İLAÇ KATALOĞU GİRİŞİ
+    if (entity === "medication") {
+      const barcode = data.barcode?.trim() || `869${Date.now().toString().slice(-9)}`;
+      const created = await prisma.medication.create({
+        data: {
+          barcode,
+          name: data.name.trim(),
+          activeIngredient: data.activeIngredient?.trim() || "Etken Madde",
+          category: data.category || "Genel İlaç",
+          defaultUsage: data.defaultUsage || "Ağızdan (Oral)",
+          defaultPeriod: Number(data.defaultPeriod || 1),
+          defaultPeriodUnit: data.defaultPeriodUnit || "Günde",
+          defaultDoseCount: Number(data.defaultDoseCount || 2),
+          defaultDoseAmount: data.defaultDoseAmount || "1 Tablet",
+          stockCount: Number(data.stockCount || 100),
         },
       });
       return NextResponse.json({ success: true, item: created });
@@ -677,6 +789,35 @@ export async function PUT(request: Request) {
       return NextResponse.json({ success: true, item: updated });
     }
 
+    if (entity === "invoice") {
+      const status = data.status || "PAID";
+      const updated = await prisma.invoice.update({
+        where: { id: recordId },
+        data: {
+          status,
+          paymentMethod: data.paymentMethod || "NAKIT",
+          paidAt: status === "PAID" ? new Date() : null,
+          cashierName: data.cashierName || (currentUser?.fullTitleName || "Vezne Memuru"),
+          notes: data.notes !== undefined ? data.notes : undefined,
+        },
+        include: { items: true, patient: true },
+      });
+      return NextResponse.json({ success: true, item: updated });
+    }
+
+    if (entity === "medication") {
+      const updated = await prisma.medication.update({
+        where: { id: recordId },
+        data: {
+          name: data.name ? String(data.name).trim() : undefined,
+          activeIngredient: data.activeIngredient ? String(data.activeIngredient).trim() : undefined,
+          category: data.category || undefined,
+          stockCount: data.stockCount !== undefined ? Number(data.stockCount) : undefined,
+        },
+      });
+      return NextResponse.json({ success: true, item: updated });
+    }
+
     return NextResponse.json({ error: "Güncellenemeyen kayıt türü." }, { status: 400 });
   } catch (error) {
     console.error("HBYS PUT hatası:", error);
@@ -735,6 +876,8 @@ export async function DELETE(request: Request) {
       });
     } else if (entity === "labOrder") {
       await prisma.labOrder.delete({ where: { id } });
+    } else if (entity === "invoice") {
+      await prisma.invoice.delete({ where: { id } });
     }
 
     if (currentUser) {

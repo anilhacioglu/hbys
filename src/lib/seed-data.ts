@@ -9,6 +9,94 @@ export async function ensureDatabaseSeeded(force = false) {
   try {
     const existingCount = await prisma.department.count();
     if (existingCount > 0 && !force) {
+      // Fatura tablosu boşsa örnek faturaları oluştur
+      const existingInvoiceCount = await prisma.invoice.count();
+      if (existingInvoiceCount === 0) {
+        const allPatients = await prisma.patient.findMany({ take: 5 });
+        const allEncounters = await prisma.encounter.findMany({ take: 5 });
+        if (allPatients.length >= 4) {
+          await prisma.invoice.create({
+            data: {
+              invoiceNo: "FTR-2026-1001",
+              patientId: allPatients[0].id,
+              encounterId: allEncounters[0]?.id || null,
+              totalAmount: 220,
+              sgkCoverage: 170,
+              patientShare: 50,
+              status: "PAID",
+              paymentMethod: "NAKIT",
+              paidAt: new Date(),
+              cashierName: "Vezne Memuru Sibel Tekin",
+              notes: "Kardiyoloji poliklinik muayene ve EKG bedeli tahsil edildi.",
+              items: {
+                create: [
+                  { serviceType: "MUAYENE", description: "Kardiyoloji Poliklinik Katkı Payı", unitPrice: 15, quantity: 1, totalPrice: 15 },
+                  { serviceType: "TETKIK", description: "12 Derivasyonlu EKG & Efor Testi", unitPrice: 35, quantity: 1, totalPrice: 35 },
+                  { serviceType: "DIGER", description: "SGK Karşılanan Sağlık Hizmeti", unitPrice: 170, quantity: 1, totalPrice: 170 },
+                ],
+              },
+            },
+          });
+          await prisma.invoice.create({
+            data: {
+              invoiceNo: "FTR-2026-1002",
+              patientId: allPatients[1].id,
+              encounterId: allEncounters[1]?.id || null,
+              totalAmount: 145,
+              sgkCoverage: 130,
+              patientShare: 15,
+              status: "PAID",
+              paymentMethod: "KREDI_KARTI",
+              paidAt: new Date(),
+              cashierName: "Vezne Memuru Sibel Tekin",
+              notes: "POS Slip No: 440192. Tahsilat tamamlandı.",
+              items: {
+                create: [
+                  { serviceType: "MUAYENE", description: "Dahiliye Muayene Katkı Payı", unitPrice: 15, quantity: 1, totalPrice: 15 },
+                  { serviceType: "TETKIK", description: "Tam Kan Sayımı (Hemogram)", unitPrice: 130, quantity: 1, totalPrice: 130 },
+                ],
+              },
+            },
+          });
+          await prisma.invoice.create({
+            data: {
+              invoiceNo: "FTR-2026-1003",
+              patientId: allPatients[2].id,
+              encounterId: allEncounters[2]?.id || null,
+              totalAmount: 165,
+              sgkCoverage: 120,
+              patientShare: 45,
+              status: "PENDING",
+              notes: "Laboratuvar tetkik sonuçlanınca vezneye uğrayacak.",
+              items: {
+                create: [
+                  { serviceType: "MUAYENE", description: "Endokrin & Dahiliye Muayene Katkı Payı", unitPrice: 15, quantity: 1, totalPrice: 15 },
+                  { serviceType: "TETKIK", description: "Açlık Kan Şekeri & HbA1c Testi", unitPrice: 30, quantity: 1, totalPrice: 30 },
+                  { serviceType: "DIGER", description: "SGK Laboratuvar Hizmet Payı", unitPrice: 120, quantity: 1, totalPrice: 120 },
+                ],
+              },
+            },
+          });
+          await prisma.invoice.create({
+            data: {
+              invoiceNo: "FTR-2026-1004",
+              patientId: allPatients[3].id,
+              totalAmount: 510,
+              sgkCoverage: 350,
+              patientShare: 160,
+              status: "PENDING",
+              notes: "Yataklı servis yatışı devam ediyor. Taburculukta tahsil edilecek.",
+              items: {
+                create: [
+                  { serviceType: "YATAK", description: "2. Kat Servis Yatak Bedeli (2 Gün x 50 TL)", unitPrice: 50, quantity: 2, totalPrice: 100 },
+                  { serviceType: "TETKIK", description: "Sağ Cruris 2 Yönlü Direkt Röntgen Grafisi", unitPrice: 60, quantity: 1, totalPrice: 60 },
+                  { serviceType: "DIGER", description: "SGK Cerrahi & Pansiyon Katkısı", unitPrice: 350, quantity: 1, totalPrice: 350 },
+                ],
+              },
+            },
+          });
+        }
+      }
       return;
     }
 

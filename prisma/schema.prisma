@@ -93,6 +93,7 @@ model Patient {
   prescriptions  Prescription[]
   admissions     Admission[]
   labOrders      LabOrder[]
+  invoices       Invoice[]
 }
 
 // 4. RANDEVU VE POLİKLİNİK SIRA / KUYRUK YÖNETİMİ (Appointments)
@@ -150,6 +151,7 @@ model Encounter {
   prescriptions    Prescription[]
   labOrders        LabOrder[]
   admission        Admission?
+  invoices         Invoice[]
 }
 
 // 6. VİTAL BULGULAR (VitalSigns)
@@ -280,6 +282,7 @@ model Admission {
   room                  Room       @relation(fields: [roomId], references: [id])
   bed                   Bed        @relation(fields: [bedId], references: [id])
   encounter             Encounter? @relation(fields: [encounterId], references: [id])
+  invoices              Invoice[]
 }
 
 // 10. LABORATUVAR VE RADYOLOJİ TETKİK TAKİBİ (LabOrders)
@@ -313,11 +316,48 @@ model AuditLog {
   userName   String   // İşlemi yapan personel (Örn: "dr.mehmet - Uz. Dr. Mehmet Öz")
   userRole   String   // ADMIN | DOCTOR | RECEPTIONIST | NURSE
   action     String   // LOGIN | LOGOUT | CREATE | UPDATE | DELETE | PRESCRIBE | ADMIT | DISCHARGE | LAB_ORDER | PASSWORD_CHANGE
-  entityType String   // Auth | Patient | Staff | Encounter | Prescription | Admission | LabOrder
-  entityId   String?  // İlgili kayıt referansı (Örn: "HST-2026-001", "EREC-2026-8841")
+  entityType String   // Auth | Patient | Staff | Encounter | Prescription | Admission | LabOrder | Invoice
+  entityId   String?  // İlgili kayıt referansı (Örn: "HST-2026-001", "EREC-2026-8841", "FTR-2026-1001")
   details    String?  // Açıklayıcı işlem detayı
   ipAddress  String?  // İstemci IP adresi
   createdAt  DateTime @default(now())
 }
+
+// 12. VEZNE, KASA & SGK KATKI PAYI FATURALANDIRMA (Invoices & InvoiceItems)
+model Invoice {
+  id            Int           @id @default(autoincrement())
+  invoiceNo     String        @unique // Örn: FTR-2026-1001
+  patientId     Int
+  encounterId   Int?
+  admissionId   Int?
+  totalAmount   Float         // Toplam Fatura Tutarı (TL)
+  sgkCoverage   Float         @default(0) // SGK'nın Karşıladığı Kısım (TL)
+  patientShare  Float         // Hastanın Ödeyeceği Tutar (TL)
+  status        String        @default("PENDING") // PENDING (Bekliyor) | PAID (Tahsil Edildi) | CANCELLED (İptal)
+  paymentMethod String?       // NAKIT | KREDI_KARTI | HAVALE | SGK_MUAF
+  paidAt        DateTime?     // Tahsil Edilme Tarihi
+  cashierName   String?       // Veznedar / Tahsil Eden
+  notes         String?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  patient       Patient       @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  encounter     Encounter?    @relation(fields: [encounterId], references: [id])
+  admission     Admission?    @relation(fields: [admissionId], references: [id])
+  items         InvoiceItem[]
+}
+
+model InvoiceItem {
+  id          Int      @id @default(autoincrement())
+  invoiceId   Int
+  serviceType String   // MUAYENE | TETKIK | YATAK | ILAC | DIGER
+  description String   // Hizmet / Kalem Açıklaması
+  unitPrice   Float    // Birim Fiyat (TL)
+  quantity    Int      @default(1)
+  totalPrice  Float    // Toplam Tutar (TL)
+
+  invoice     Invoice  @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+}
+
 
 

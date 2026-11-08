@@ -227,6 +227,38 @@ export interface LabOrder {
   doctor: StaffMember;
 }
 
+export interface InvoiceItem {
+  id: number;
+  invoiceId: number;
+  serviceType: "MUAYENE" | "TETKIK" | "YATAK" | "ILAC" | "DIGER";
+  description: string;
+  unitPrice: number;
+  quantity: number;
+  totalPrice: number;
+}
+
+export interface Invoice {
+  id: number;
+  invoiceNo: string;
+  patientId: number;
+  encounterId?: number | null;
+  admissionId?: number | null;
+  totalAmount: number;
+  sgkCoverage: number;
+  patientShare: number;
+  status: "PENDING" | "PAID" | "CANCELLED";
+  paymentMethod?: "NAKIT" | "KREDI_KARTI" | "HAVALE" | "SGK_MUAF" | null;
+  paidAt?: string | null;
+  cashierName?: string | null;
+  notes?: string | null;
+  createdAt: string;
+  updatedAt: string;
+  patient?: Patient;
+  encounter?: Encounter | null;
+  admission?: Admission | null;
+  items: InvoiceItem[];
+}
+
 export interface HbysPayload {
   departments: Department[];
   staff: StaffMember[];
@@ -239,6 +271,7 @@ export interface HbysPayload {
   labOrders: LabOrder[];
   medications: Medication[];
   diagnoses: DiagnosisItem[];
+  invoices: Invoice[];
 }
 
 export interface LoggedInUser {
@@ -274,8 +307,11 @@ export type TabId =
   | "prescriptions"
   | "rooms"
   | "labs"
+  | "pharmacy"
+  | "billing"
   | "staff"
   | "audit";
+
 
 
 

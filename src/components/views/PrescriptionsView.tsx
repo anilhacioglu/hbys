@@ -279,7 +279,7 @@ export function PrescriptionsView({
                 >
                   {(data?.medications || []).map((m) => (
                     <option key={m.id} value={m.name}>
-                      {m.name} ({m.activeIngredient})
+                      {m.name} ({m.activeIngredient}) — [Stok: {m.stockCount} Kutu]
                     </option>
                   ))}
                 </select>

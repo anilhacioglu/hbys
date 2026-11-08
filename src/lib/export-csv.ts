@@ -159,4 +159,54 @@ export function exportLabsCsv(labOrders: any[]) {
   ]);
 }
 
+export function exportInvoicesCsv(invoices: any[]) {
+  if (!invoices || invoices.length === 0) return;
+  exportToCsv("HBYS_Vezne_Fatura_Raporu", invoices, [
+    { key: "invoiceNo", title: "Fatura No" },
+    {
+      key: "createdAt",
+      title: "Düzenleme Tarihi",
+      format: (v) => (v ? new Date(v).toLocaleString("tr-TR") : ""),
+    },
+    { key: "patient.nationalId", title: "Hasta TC" },
+    { key: "patient.firstName", title: "Hasta Adı" },
+    { key: "patient.lastName", title: "Hasta Soyadı" },
+    { key: "totalAmount", title: "Toplam Tutar (TL)", format: (v) => `${Number(v).toFixed(2)} TL` },
+    { key: "sgkCoverage", title: "SGK Karşılanan (TL)", format: (v) => `${Number(v).toFixed(2)} TL` },
+    { key: "patientShare", title: "Hasta Payı (TL)", format: (v) => `${Number(v).toFixed(2)} TL` },
+    {
+      key: "status",
+      title: "Tahsilat Durumu",
+      format: (v) => (v === "PAID" ? "ÖDENDİ" : v === "CANCELLED" ? "İPTAL" : "BEKLİYOR"),
+    },
+    { key: "paymentMethod", title: "Ödeme Yöntemi" },
+    {
+      key: "paidAt",
+      title: "Ödeme Tarihi",
+      format: (v) => (v ? new Date(v).toLocaleString("tr-TR") : "-"),
+    },
+    { key: "cashierName", title: "Veznedar" },
+    { key: "notes", title: "Açıklama" },
+  ]);
+}
+
+export function exportPharmacyStockCsv(medications: any[]) {
+  if (!medications || medications.length === 0) return;
+  exportToCsv("HBYS_Eczane_Ilac_Stok_Raporu", medications, [
+    { key: "barcode", title: "Barkod" },
+    { key: "name", title: "İlaç Ticari Adı" },
+    { key: "activeIngredient", title: "Etken Madde" },
+    { key: "category", title: "Kategori" },
+    { key: "stockCount", title: "Mevcut Kutu Stoğu", format: (v) => `${v} Kutu` },
+    {
+      key: "stockCount",
+      title: "Stok Durum Uyarısı",
+      format: (v) => (v <= 0 ? "TÜKENDİ!" : v < 10 ? "KRİTİK DÜŞÜK" : "Yeterli"),
+    },
+    { key: "defaultUsage", title: "Kullanım Yolu" },
+    { key: "defaultDoseAmount", title: "Varsayılan Doz" },
+  ]);
+}
+
+
 

@@ -4,8 +4,10 @@ import React, { useEffect, useMemo, useState } from "react";
 import { HbysPayload, Patient, TabId } from "@/types/hbys";
 import {
   BedDouble,
+  Boxes,
   CalendarClock,
   Command,
+  CreditCard,
   Download,
   FileSpreadsheet,
   FlaskConical,
@@ -124,6 +126,28 @@ export function CommandPaletteModal({
         icon: BedDouble,
         run: () => {
           onNavigateTab("rooms");
+          onClose();
+        },
+      },
+      {
+        id: "view-pharmacy",
+        title: "Eczane & Depo İlaç Stok Takibi",
+        category: "Klinik İşlemler",
+        shortcut: "F6",
+        icon: Boxes,
+        run: () => {
+          onNavigateTab("pharmacy");
+          onClose();
+        },
+      },
+      {
+        id: "view-billing",
+        title: "Vezne, Kasa & SGK Faturalandırma",
+        category: "Finans & İdari",
+        shortcut: "F7",
+        icon: CreditCard,
+        run: () => {
+          onNavigateTab("billing");
           onClose();
         },
       },
@@ -359,3 +383,4 @@ export function CommandPaletteModal({
     </div>
   );
 }
+

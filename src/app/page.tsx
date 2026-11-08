@@ -26,12 +26,16 @@ import { PrescriptionsView } from "@/components/views/PrescriptionsView";
 import { RoomsView } from "@/components/views/RoomsView";
 import { LabsView } from "@/components/views/LabsView";
 import { StaffView } from "@/components/views/StaffView";
+import { BillingView } from "@/components/views/BillingView";
+import { PharmacyView } from "@/components/views/PharmacyView";
 
 import {
   BedDouble,
+  Boxes,
   CalendarClock,
   CheckCircle2,
   Command,
+  CreditCard,
   FlaskConical,
   Hospital,
   KeyRound,
@@ -156,6 +160,20 @@ export default function HbysApp() {
         e.preventDefault();
         setActiveTab("rooms");
         showToast("success", "F5: Yataklı Servis Haritası ekranına geçildi.");
+        return;
+      }
+      // F6: Eczane & Depo Stok
+      if (e.key === "F6") {
+        e.preventDefault();
+        setActiveTab("pharmacy");
+        showToast("success", "F6: Eczane & Depo Stok ekranına geçildi.");
+        return;
+      }
+      // F7: Vezne & Kasa
+      if (e.key === "F7") {
+        e.preventDefault();
+        setActiveTab("billing");
+        showToast("success", "F7: Vezne, Kasa & Faturalandırma ekranına geçildi.");
         return;
       }
     }
@@ -291,6 +309,8 @@ export default function HbysApp() {
               { id: "encounters", label: "Muayene & Vital Bulgular", icon: Stethoscope, shortcut: "F3" },
               { id: "prescriptions", label: "Çoklu İlaçlı E-Reçete", icon: Pill, shortcut: "F4" },
               { id: "rooms", label: "Oda, Yatak & Servis Yatışı", icon: BedDouble, shortcut: "F5" },
+              { id: "pharmacy", label: "Eczane & Depo Stok", icon: Boxes, shortcut: "F6" },
+              { id: "billing", label: "Vezne, Kasa & Fatura", icon: CreditCard, shortcut: "F7", roles: ["ADMIN", "RECEPTIONIST", "DOCTOR"] },
               { id: "labs", label: "Laboratuvar & Radyoloji", icon: FlaskConical },
               { id: "staff", label: "Personel & Hekim Yönetimi", icon: Shield, roles: ["ADMIN"] },
               { id: "audit", label: "Güvenlik & Denetim İzi", icon: ShieldAlert, roles: ["ADMIN", "DOCTOR"] },
@@ -508,6 +528,24 @@ export default function HbysApp() {
               onRefresh={fetchHbysData}
               onToast={showToast}
               onSelectPatientDetail={setSelectedPatientDetail}
+            />
+          )}
+
+          {activeTab === "pharmacy" && (
+            <PharmacyView
+              data={data}
+              onRefresh={fetchHbysData}
+              onToast={showToast}
+              user={user}
+            />
+          )}
+
+          {activeTab === "billing" && (
+            <BillingView
+              data={data}
+              onRefresh={fetchHbysData}
+              onToast={showToast}
+              user={user}
             />
           )}
 
