@@ -40,6 +40,10 @@ export default function PatientDetailModal({
   labOrders,
   onClose,
 }: Props) {
+  const [activeTab, setActiveTab] = React.useState<
+    "overview" | "encounters" | "prescriptions" | "labs" | "admissions"
+  >("overview");
+
   if (!patient) return null;
 
   const patientEncounters = encounters.filter((e) => e.patientId === patient.id);
@@ -102,42 +106,67 @@ export default function PatientDetailModal({
           <div className="text-xs font-semibold text-slate-700 mt-1">RESMİ HASTA EPİKRİZ VE ÇIKIŞ ÖZETİ FORMU</div>
         </div>
 
+        {/* Modal Alt Sekme Navigasyonu (Modern EHR Gezintisi) */}
+        <div className="flex items-center gap-1.5 px-6 py-2.5 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/60 print:hidden overflow-x-auto">
+          {[
+            { id: "overview", label: "Genel Özet & Özgeçmiş" },
+            { id: "encounters", label: `Muayene & Epikriz (${patientEncounters.length})` },
+            { id: "prescriptions", label: `E-Reçeteler (${patientPrescriptions.length})` },
+            { id: "labs", label: `Laboratuvar (${patientLabs.length})` },
+            { id: "admissions", label: `Servis Yatışları (${patientAdmissions.length})` },
+          ].map((tab) => (
+            <button
+              key={tab.id}
+              type="button"
+              onClick={() => setActiveTab(tab.id as any)}
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition whitespace-nowrap ${
+                activeTab === tab.id
+                  ? "bg-sky-600 text-white shadow-xs"
+                  : "text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800"
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
 
         {/* İçerik */}
-        <div className="p-6 max-h-[82vh] overflow-y-auto space-y-6 text-slate-900 dark:text-slate-100">
+        <div className="p-6 max-h-[80vh] overflow-y-auto space-y-6 text-slate-900 dark:text-slate-100">
           {/* Tıbbi Özgeçmiş & Alerji Kartları */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800 rounded-xl p-4">
-              <div className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400 mb-1">
-                Kronik Özgeçmiş
+          <div className={activeTab === "overview" ? "block" : "hidden print:block"}>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800 rounded-xl p-4">
+                <div className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400 mb-1">
+                  Kronik Özgeçmiş
+                </div>
+                <div className="text-sm text-slate-800 dark:text-slate-200">
+                  {patient.chronicHistory || "Bilinen kronik hastalık kaydı yok."}
+                </div>
               </div>
-              <div className="text-sm text-slate-800 dark:text-slate-200">
-                {patient.chronicHistory || "Bilinen kronik hastalık kaydı yok."}
+              <div className="bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800 rounded-xl p-4">
+                <div className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400 mb-1">
+                  Soygeçmiş (Aile Öyküsü)
+                </div>
+                <div className="text-sm text-slate-800 dark:text-slate-200">
+                  {patient.familyHistory || "Aile öyküsü belirtilmemiş."}
+                </div>
               </div>
-            </div>
-            <div className="bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800 rounded-xl p-4">
-              <div className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400 mb-1">
-                Soygeçmiş (Aile Öyküsü)
-              </div>
-              <div className="text-sm text-slate-800 dark:text-slate-200">
-                {patient.familyHistory || "Aile öyküsü belirtilmemiş."}
-              </div>
-            </div>
-            <div className="bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/50 rounded-xl p-4">
-              <div className="text-xs font-bold uppercase text-rose-600 dark:text-rose-400 mb-1 flex items-center gap-1">
-                <AlertTriangle className="w-3.5 h-3.5" /> İlaç / Besin Alerjileri & Uyarılar
-              </div>
-              <div className="text-sm font-semibold text-rose-900 dark:text-rose-200">
-                {patient.allergies || "Bilinen alerji yok"}
-              </div>
-              <div className="text-xs text-rose-700 dark:text-rose-300 mt-1">
-                Güvence: {patient.insuranceType} • Tel: {patient.phone || "-"}
+              <div className="bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/50 rounded-xl p-4">
+                <div className="text-xs font-bold uppercase text-rose-600 dark:text-rose-400 mb-1 flex items-center gap-1">
+                  <AlertTriangle className="w-3.5 h-3.5" /> İlaç / Besin Alerjileri & Uyarılar
+                </div>
+                <div className="text-sm font-semibold text-rose-900 dark:text-rose-200">
+                  {patient.allergies || "Bilinen alerji yok"}
+                </div>
+                <div className="text-xs text-rose-700 dark:text-rose-300 mt-1">
+                  Güvence: {patient.insuranceType} • Tel: {patient.phone || "-"}
+                </div>
               </div>
             </div>
           </div>
 
           {/* 1. Muayene / Vizit Geçmişi */}
-          <div>
+          <div className={activeTab === "overview" || activeTab === "encounters" ? "block" : "hidden print:block"}>
             <h4 className="text-sm font-bold text-slate-800 dark:text-white mb-3 flex items-center gap-2">
               <Activity className="w-4 h-4 text-sky-600 dark:text-sky-400" /> Poliklinik & Acil Muayene (Vizit) Geçmişi ({patientEncounters.length})
             </h4>
@@ -221,7 +250,7 @@ export default function PatientDetailModal({
 
           {/* 2. Alt Grid: Reçeteler, Tetkikler, Yatışlar */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="border border-slate-200 dark:border-slate-800 rounded-xl p-4 bg-slate-50/50 dark:bg-slate-800/40">
+            <div className={activeTab === "overview" || activeTab === "prescriptions" ? "border border-slate-200 dark:border-slate-800 rounded-xl p-4 bg-slate-50/50 dark:bg-slate-800/40" : "hidden print:block border border-slate-200 dark:border-slate-800 rounded-xl p-4 bg-slate-50/50 dark:bg-slate-800/40"}>
               <h5 className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400 mb-2 flex items-center gap-1.5">
                 <Pill className="w-4 h-4 text-teal-600 dark:text-teal-400" /> Yazılan E-Reçeteler ({patientPrescriptions.length})
               </h5>
@@ -242,7 +271,7 @@ export default function PatientDetailModal({
               </div>
             </div>
 
-            <div className="border border-slate-200 dark:border-slate-800 rounded-xl p-4 bg-slate-50/50 dark:bg-slate-800/40">
+            <div className={activeTab === "overview" || activeTab === "labs" ? "border border-slate-200 dark:border-slate-800 rounded-xl p-4 bg-slate-50/50 dark:bg-slate-800/40" : "hidden print:block border border-slate-200 dark:border-slate-800 rounded-xl p-4 bg-slate-50/50 dark:bg-slate-800/40"}>
               <h5 className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400 mb-2 flex items-center gap-1.5">
                 <FlaskConical className="w-4 h-4 text-indigo-600 dark:text-indigo-400" /> Laboratuvar & Radyoloji ({patientLabs.length})
               </h5>
@@ -265,7 +294,7 @@ export default function PatientDetailModal({
               </div>
             </div>
 
-            <div className="border border-slate-200 dark:border-slate-800 rounded-xl p-4 bg-slate-50/50 dark:bg-slate-800/40">
+            <div className={activeTab === "overview" || activeTab === "admissions" ? "border border-slate-200 dark:border-slate-800 rounded-xl p-4 bg-slate-50/50 dark:bg-slate-800/40" : "hidden print:block border border-slate-200 dark:border-slate-800 rounded-xl p-4 bg-slate-50/50 dark:bg-slate-800/40"}>
               <h5 className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400 mb-2 flex items-center gap-1.5">
                 <BedDouble className="w-4 h-4 text-amber-600 dark:text-amber-400" /> Servis Yatış Geçmişi ({patientAdmissions.length})
               </h5>
