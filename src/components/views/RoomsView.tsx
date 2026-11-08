@@ -117,18 +117,18 @@ export function RoomsView({
         {(data?.rooms || []).map((room) => (
           <div
             key={room.id}
-            className="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm space-y-3"
+            className="bg-white dark:bg-slate-900 rounded-2xl p-4 border border-slate-200 dark:border-slate-800 shadow-sm space-y-3"
           >
             <div className="flex items-center justify-between">
               <div>
-                <span className="text-sm font-black text-slate-900">
+                <span className="text-sm font-black text-slate-900 dark:text-white">
                   ODA {room.roomNumber}
                 </span>
-                <div className="text-[11px] text-slate-500">
+                <div className="text-[11px] text-slate-500 dark:text-slate-400">
                   {room.department?.name} • {room.floor}. Kat
                 </div>
               </div>
-              <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-sky-50 text-sky-800 border border-sky-200">
+              <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-sky-50 dark:bg-sky-950/60 text-sky-800 dark:text-sky-300 border border-sky-200 dark:border-sky-800">
                 {room.roomType}
               </span>
             </div>
@@ -141,8 +141,8 @@ export function RoomsView({
                     key={bed.id}
                     className={`p-2.5 rounded-xl border text-xs flex items-center justify-between ${
                       bed.isOccupied
-                        ? "bg-rose-50/70 border-rose-200 text-rose-950"
-                        : "bg-emerald-50/70 border-emerald-200 text-emerald-950"
+                        ? "bg-rose-50/70 dark:bg-rose-950/30 border-rose-200 dark:border-rose-900/50 text-rose-950 dark:text-rose-200"
+                        : "bg-emerald-50/70 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-900/50 text-emerald-950 dark:text-emerald-200"
                     }`}
                   >
                     <div>
@@ -165,14 +165,14 @@ export function RoomsView({
                             <button
                               type="button"
                               onClick={() => onSelectPatientDetail(activeAdm.patient)}
-                              className="px-2 py-0.5 rounded bg-white hover:bg-slate-100 text-slate-800 font-semibold text-[10px] border border-slate-300 transition"
+                              className="px-2 py-0.5 rounded bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold text-[10px] border border-slate-300 dark:border-slate-700 transition"
                             >
                               Dosya
                             </button>
                           </div>
                         </div>
                       ) : (
-                        <div className="text-[11px] text-emerald-700 font-medium mt-0.5">
+                        <div className="text-[11px] text-emerald-700 dark:text-emerald-400 font-medium mt-0.5">
                           <span>Müsait (Boş Yatak)</span>
                           <button
                             type="button"
@@ -180,7 +180,7 @@ export function RoomsView({
                               setForm((prev) => ({ ...prev, bedId: String(bed.id) }));
                               onToast("success", `Yatak ${bed.bedNumber} form için seçildi.`);
                             }}
-                            className="block mt-1 text-[10px] font-bold text-emerald-800 hover:underline"
+                            className="block mt-1 text-[10px] font-bold text-emerald-800 dark:text-emerald-300 hover:underline"
                           >
                             + Bu Yatağa Yatış Ver
                           </button>
@@ -190,8 +190,8 @@ export function RoomsView({
                     <span
                       className={`px-2 py-0.5 rounded-full text-[10px] font-bold shrink-0 self-start ${
                         bed.isOccupied
-                          ? "bg-rose-200 text-rose-800"
-                          : "bg-emerald-200 text-emerald-800"
+                          ? "bg-rose-200 dark:bg-rose-900/60 text-rose-800 dark:text-rose-200"
+                          : "bg-emerald-200 dark:bg-emerald-900/60 text-emerald-800 dark:text-emerald-200"
                       }`}
                     >
                       {bed.isOccupied ? "DOLU" : "BOŞ"}
@@ -209,21 +209,21 @@ export function RoomsView({
         <form
           onSubmit={handleCreateAdmission}
           method="POST"
-          className="lg:col-span-4 bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-3 h-fit"
+          className="lg:col-span-4 bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm space-y-3 h-fit"
         >
-          <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
-            <BedDouble className="w-4 h-4 text-sky-600" /> Yeni Servis Yatışı & Oda Ataması
+          <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
+            <BedDouble className="w-4 h-4 text-sky-600 dark:text-sky-400" /> Yeni Servis Yatışı & Oda Ataması
           </h3>
 
           <div>
-            <label htmlFor="adm-pat" className="block text-xs font-semibold text-slate-700 mb-1">
+            <label htmlFor="adm-pat" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
               Yatış Yapılacak Hasta
             </label>
             <select
               id="adm-pat"
               value={form.patientId}
               onChange={(e) => setForm({ ...form, patientId: e.target.value })}
-              className="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs"
+              className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-3 py-2 text-xs"
             >
               {(data?.patients || []).map((p) => (
                 <option key={p.id} value={p.id}>
@@ -234,14 +234,14 @@ export function RoomsView({
           </div>
 
           <div>
-            <label htmlFor="adm-bed" className="block text-xs font-semibold text-slate-700 mb-1">
+            <label htmlFor="adm-bed" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
               Müsait (Boş) Oda / Yatak Seçin
             </label>
             <select
               id="adm-bed"
               value={form.bedId}
               onChange={(e) => setForm({ ...form, bedId: e.target.value })}
-              className="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs font-bold text-emerald-800"
+              className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-emerald-800 dark:text-emerald-400 font-bold px-3 py-2 text-xs"
             >
               {(data?.rooms || [])
                 .flatMap((r) =>
@@ -261,14 +261,14 @@ export function RoomsView({
           </div>
 
           <div>
-            <label htmlFor="adm-doc" className="block text-xs font-semibold text-slate-700 mb-1">
+            <label htmlFor="adm-doc" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
               Sorumlu Servis Hekimi
             </label>
             <select
               id="adm-doc"
               value={form.doctorId}
               onChange={(e) => setForm({ ...form, doctorId: e.target.value })}
-              className="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs"
+              className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-3 py-2 text-xs"
             >
               {doctors.map((d: StaffMember) => (
                 <option key={d.id} value={d.id}>
@@ -280,7 +280,7 @@ export function RoomsView({
 
           <div className="grid grid-cols-2 gap-2.5">
             <div>
-              <label htmlFor="adm-in" className="block text-xs font-semibold text-slate-700 mb-1">
+              <label htmlFor="adm-in" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 Yatış Tarihi
               </label>
               <input
@@ -288,11 +288,11 @@ export function RoomsView({
                 type="date"
                 value={form.admissionDate}
                 onChange={(e) => setForm({ ...form, admissionDate: e.target.value })}
-                className="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs"
+                className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-3 py-2 text-xs"
               />
             </div>
             <div>
-              <label htmlFor="adm-out" className="block text-xs font-semibold text-slate-700 mb-1">
+              <label htmlFor="adm-out" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
                 Tahmini Çıkış Tarihi
               </label>
               <input
@@ -300,13 +300,13 @@ export function RoomsView({
                 type="date"
                 value={form.estimatedDischarge}
                 onChange={(e) => setForm({ ...form, estimatedDischarge: e.target.value })}
-                className="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs"
+                className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-3 py-2 text-xs"
               />
             </div>
           </div>
 
           <div>
-            <label htmlFor="adm-comp" className="block text-xs font-semibold text-slate-700 mb-1">
+            <label htmlFor="adm-comp" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
               Refakatçi Adı Soyadı
             </label>
             <input
@@ -315,12 +315,12 @@ export function RoomsView({
               placeholder="Örn: Ayşe Karaca (Eşi)"
               value={form.companionName}
               onChange={(e) => setForm({ ...form, companionName: e.target.value })}
-              className="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs"
+              className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-3 py-2 text-xs"
             />
           </div>
 
           <div>
-            <label htmlFor="adm-diag" className="block text-xs font-semibold text-slate-700 mb-1">
+            <label htmlFor="adm-diag" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
               Yatış Endikasyonu / Tanı Notu
             </label>
             <input
@@ -330,7 +330,7 @@ export function RoomsView({
               placeholder="Örn: Post-op gözlem ve IV antibiyoterapi"
               value={form.diagnosis}
               onChange={(e) => setForm({ ...form, diagnosis: e.target.value })}
-              className="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs"
+              className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-3 py-2 text-xs"
             />
           </div>
 
@@ -343,18 +343,18 @@ export function RoomsView({
         </form>
 
         {/* Yatış Listesi */}
-        <div className="lg:col-span-8 bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-4">
-          <h3 className="text-sm font-bold text-slate-900">
+        <div className="lg:col-span-8 bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
+          <h3 className="text-sm font-bold text-slate-900 dark:text-white">
             Aktif ve Geçmiş Yataklı Servis Yatışları ({data?.admissions.length || 0})
           </h3>
           <div
             tabIndex={0}
             role="region"
             aria-label="Yatış listesi tablosu"
-            className="overflow-auto max-w-full border border-slate-200 rounded-xl"
+            className="overflow-auto max-w-full border border-slate-200 dark:border-slate-800 rounded-xl"
           >
             <table className="w-full text-left border-collapse text-xs">
-              <thead className="sticky top-0 z-10 bg-slate-100 text-slate-700 uppercase">
+              <thead className="sticky top-0 z-10 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 uppercase">
                 <tr>
                   <th className="py-3 px-3">Oda / Yatak</th>
                   <th className="py-3 px-3">Hasta (TC Kimlik)</th>
@@ -365,31 +365,31 @@ export function RoomsView({
                   <th className="py-3 px-3 text-right">İşlem</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-200">
+              <tbody className="divide-y divide-slate-200 dark:divide-slate-800">
                 {(data?.admissions || []).map((adm) => (
-                  <tr key={adm.id} className="hover:bg-slate-50">
+                  <tr key={adm.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/50">
                     <td className="py-3 px-3">
-                      <span className="font-black text-sky-800">
+                      <span className="font-black text-sky-800 dark:text-sky-300">
                         Oda {adm.room?.roomNumber}
                       </span>
-                      <div className="font-mono text-[11px] text-slate-600">
+                      <div className="font-mono text-[11px] text-slate-600 dark:text-slate-400">
                         Yatak: {adm.bed?.bedNumber}
                       </div>
                     </td>
                     <td className="py-3 px-3">
-                      <div className="font-bold text-slate-900">
+                      <div className="font-bold text-slate-900 dark:text-white">
                         {adm.patient?.firstName} {adm.patient?.lastName}
                       </div>
-                      <div className="font-mono text-slate-500">
+                      <div className="font-mono text-slate-500 dark:text-slate-400">
                         {adm.patient?.nationalId}
                       </div>
                     </td>
-                    <td className="py-3 px-3">{adm.doctor?.fullTitleName}</td>
-                    <td className="py-3 px-3">
+                    <td className="py-3 px-3 text-slate-700 dark:text-slate-300">{adm.doctor?.fullTitleName}</td>
+                    <td className="py-3 px-3 text-slate-700 dark:text-slate-300">
                       <div>
                         Giriş: {new Date(adm.admissionDate).toLocaleDateString("tr-TR")}
                       </div>
-                      <div className="text-slate-500">
+                      <div className="text-slate-500 dark:text-slate-400">
                         Planlanan:{" "}
                         {adm.estimatedDischarge
                           ? new Date(adm.estimatedDischarge).toLocaleDateString("tr-TR")
@@ -397,8 +397,8 @@ export function RoomsView({
                       </div>
                     </td>
                     <td className="py-3 px-3">
-                      <div className="font-medium text-slate-800">{adm.diagnosis || "-"}</div>
-                      <div className="text-slate-500">
+                      <div className="font-medium text-slate-800 dark:text-slate-200">{adm.diagnosis || "-"}</div>
+                      <div className="text-slate-500 dark:text-slate-400">
                         Refakatçi: {adm.companionName || "-"}
                       </div>
                     </td>
@@ -406,8 +406,8 @@ export function RoomsView({
                       <span
                         className={`px-2.5 py-1 rounded-full font-bold ${
                           adm.status === "ACTIVE"
-                            ? "bg-rose-100 text-rose-700"
-                            : "bg-emerald-100 text-emerald-700"
+                            ? "bg-rose-100 dark:bg-rose-950/60 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-900/50"
+                            : "bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-900/50"
                         }`}
                       >
                         {adm.status === "ACTIVE" ? "Yatıyor (Aktif)" : "Taburcu Oldu"}
@@ -424,7 +424,7 @@ export function RoomsView({
                       )}
                       <button
                         onClick={() => handleDelete(adm.id)}
-                        className="p-1 text-rose-600 hover:bg-rose-50 rounded"
+                        className="p-1 text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded"
                       >
                         <Trash2 className="w-4 h-4 inline" />
                       </button>
@@ -439,3 +439,4 @@ export function RoomsView({
     </div>
   );
 }
+

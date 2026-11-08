@@ -213,10 +213,10 @@ export function PatientsView({
       <form
         onSubmit={handleSavePatient}
         method="POST"
-        className="lg:col-span-4 bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-3 h-fit"
+        className="lg:col-span-4 bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm space-y-3 h-fit"
       >
         <div className="flex items-center justify-between">
-          <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+          <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
             <UserPlus className="w-4 h-4 text-sky-600" />
             {editingPatientId
               ? `Hasta #${editingPatientId} Güncelle (UPDATE)`
@@ -226,7 +226,7 @@ export function PatientsView({
             <button
               type="button"
               onClick={handleCancelEdit}
-              className="text-xs text-rose-600 font-semibold hover:underline"
+              className="text-xs text-rose-600 dark:text-rose-400 font-semibold hover:underline"
             >
               İptal
             </button>
@@ -234,7 +234,7 @@ export function PatientsView({
         </div>
 
         <div>
-          <label htmlFor="pat-tc" className="block text-xs font-semibold text-slate-700 mb-1">
+          <label htmlFor="pat-tc" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
             TC Kimlik Numarası (11 Hane) *
           </label>
           <input
@@ -250,13 +250,13 @@ export function PatientsView({
             placeholder="11 haneli TC Kimlik No"
             value={form.nationalId}
             onChange={(e) => setForm({ ...form, nationalId: e.target.value })}
-            className="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs font-mono"
+            className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-3 py-2 text-xs font-mono"
           />
         </div>
 
         <div className="grid grid-cols-2 gap-2.5">
           <div>
-            <label htmlFor="pat-fn" className="block text-xs font-semibold text-slate-700 mb-1">
+            <label htmlFor="pat-fn" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
               Ad *
             </label>
             <input
@@ -266,11 +266,11 @@ export function PatientsView({
               required
               value={form.firstName}
               onChange={(e) => setForm({ ...form, firstName: e.target.value })}
-              className="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs"
+              className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-3 py-2 text-xs"
             />
           </div>
           <div>
-            <label htmlFor="pat-ln" className="block text-xs font-semibold text-slate-700 mb-1">
+            <label htmlFor="pat-ln" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
               Soyad *
             </label>
             <input
@@ -280,14 +280,14 @@ export function PatientsView({
               required
               value={form.lastName}
               onChange={(e) => setForm({ ...form, lastName: e.target.value })}
-              className="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs"
+              className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-3 py-2 text-xs"
             />
           </div>
         </div>
 
         <div className="grid grid-cols-2 gap-2.5">
           <div>
-            <label htmlFor="pat-father" className="block text-xs font-semibold text-slate-700 mb-1">
+            <label htmlFor="pat-father" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
               Baba Adı
             </label>
             <input
@@ -296,11 +296,11 @@ export function PatientsView({
               type="text"
               value={form.fatherName}
               onChange={(e) => setForm({ ...form, fatherName: e.target.value })}
-              className="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs"
+              className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-3 py-2 text-xs"
             />
           </div>
           <div>
-            <label htmlFor="pat-city" className="block text-xs font-semibold text-slate-700 mb-1">
+            <label htmlFor="pat-city" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
               Doğum Yeri
             </label>
             <select
@@ -308,7 +308,7 @@ export function PatientsView({
               name="birthPlace"
               value={form.birthPlace}
               onChange={(e) => setForm({ ...form, birthPlace: e.target.value })}
-              className="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs"
+              className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-3 py-2 text-xs"
             >
               {CITIES.map((c) => (
                 <option key={c} value={c}>
@@ -321,7 +321,7 @@ export function PatientsView({
 
         <div className="grid grid-cols-3 gap-2">
           <div>
-            <label htmlFor="pat-dob" className="block text-xs font-semibold text-slate-700 mb-1">
+            <label htmlFor="pat-dob" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
               Doğum Tarihi
             </label>
             <input
@@ -330,11 +330,11 @@ export function PatientsView({
               type="date"
               value={form.birthDate}
               onChange={(e) => setForm({ ...form, birthDate: e.target.value })}
-              className="w-full rounded-xl border border-slate-300 px-2.5 py-2 text-xs"
+              className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-2.5 py-2 text-xs"
             />
           </div>
           <div>
-            <label htmlFor="pat-gender" className="block text-xs font-semibold text-slate-700 mb-1">
+            <label htmlFor="pat-gender" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
               Cinsiyet
             </label>
             <select
@@ -342,14 +342,14 @@ export function PatientsView({
               name="gender"
               value={form.gender}
               onChange={(e) => setForm({ ...form, gender: e.target.value })}
-              className="w-full rounded-xl border border-slate-300 px-2.5 py-2 text-xs"
+              className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-2.5 py-2 text-xs"
             >
               <option value="Erkek">Erkek</option>
               <option value="Kadın">Kadın</option>
             </select>
           </div>
           <div>
-            <label htmlFor="pat-blood" className="block text-xs font-semibold text-slate-700 mb-1">
+            <label htmlFor="pat-blood" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
               Kan Grubu
             </label>
             <select
@@ -357,7 +357,7 @@ export function PatientsView({
               name="bloodType"
               value={form.bloodType}
               onChange={(e) => setForm({ ...form, bloodType: e.target.value })}
-              className="w-full rounded-xl border border-slate-300 px-2.5 py-2 text-xs"
+              className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-2.5 py-2 text-xs"
             >
               {BLOOD_TYPES.map((b) => (
                 <option key={b} value={b}>
@@ -370,7 +370,7 @@ export function PatientsView({
 
         <div className="grid grid-cols-2 gap-2.5">
           <div>
-            <label htmlFor="pat-ins" className="block text-xs font-semibold text-slate-700 mb-1">
+            <label htmlFor="pat-ins" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
               Sosyal Güvence
             </label>
             <select
@@ -378,7 +378,7 @@ export function PatientsView({
               name="insuranceType"
               value={form.insuranceType}
               onChange={(e) => setForm({ ...form, insuranceType: e.target.value })}
-              className="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs"
+              className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-3 py-2 text-xs"
             >
               {INSURANCES.map((ins) => (
                 <option key={ins} value={ins}>
@@ -388,7 +388,7 @@ export function PatientsView({
             </select>
           </div>
           <div>
-            <label htmlFor="pat-phone" className="block text-xs font-semibold text-slate-700 mb-1">
+            <label htmlFor="pat-phone" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
               Telefon
             </label>
             <input
@@ -398,13 +398,13 @@ export function PatientsView({
               placeholder="0532..."
               value={form.phone}
               onChange={(e) => setForm({ ...form, phone: e.target.value })}
-              className="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs"
+              className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-3 py-2 text-xs"
             />
           </div>
         </div>
 
         <div>
-          <label htmlFor="pat-chronic" className="block text-xs font-semibold text-slate-700 mb-1">
+          <label htmlFor="pat-chronic" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
             Özgeçmiş (Kronik Hastalıklar / Ameliyatlar)
           </label>
           <input
@@ -413,13 +413,13 @@ export function PatientsView({
             type="text"
             value={form.chronicHistory}
             onChange={(e) => setForm({ ...form, chronicHistory: e.target.value })}
-            className="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs"
+            className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-3 py-2 text-xs"
           />
         </div>
 
         <div className="grid grid-cols-2 gap-2.5">
           <div>
-            <label htmlFor="pat-family" className="block text-xs font-semibold text-slate-700 mb-1">
+            <label htmlFor="pat-family" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
               Soygeçmiş (Aile Öyküsü)
             </label>
             <input
@@ -428,11 +428,11 @@ export function PatientsView({
               type="text"
               value={form.familyHistory}
               onChange={(e) => setForm({ ...form, familyHistory: e.target.value })}
-              className="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs"
+              className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-3 py-2 text-xs"
             />
           </div>
           <div>
-            <label htmlFor="pat-allergy" className="block text-xs font-semibold text-slate-700 mb-1">
+            <label htmlFor="pat-allergy" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
               İlaç / Besin Alerjileri
             </label>
             <input
@@ -442,7 +442,7 @@ export function PatientsView({
               placeholder="Örn: Penisilin"
               value={form.allergies}
               onChange={(e) => setForm({ ...form, allergies: e.target.value })}
-              className="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs"
+              className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-3 py-2 text-xs"
             />
           </div>
         </div>
@@ -456,16 +456,16 @@ export function PatientsView({
       </form>
 
       {/* Hasta Listesi & Tablo */}
-      <div className="lg:col-span-8 bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-4">
+      <div className="lg:col-span-8 bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <h3 className="text-sm font-bold text-slate-900">
+          <h3 className="text-sm font-bold text-slate-900 dark:text-white">
             Kayıtlı Hasta Özlük Kartları ({filteredPatients.length})
           </h3>
           <div className="flex items-center gap-2">
             <button
               type="button"
               onClick={handleExport}
-              className="px-3 py-1.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 font-bold text-xs border border-emerald-200 transition inline-flex items-center gap-1.5 shadow-sm"
+              className="px-3 py-1.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 hover:bg-emerald-100 dark:hover:bg-emerald-900/40 text-emerald-800 dark:text-emerald-300 font-bold text-xs border border-emerald-200 dark:border-emerald-800 transition inline-flex items-center gap-1.5 shadow-sm"
               title="Hastaları Excel / CSV olarak indir"
             >
               <Download className="w-3.5 h-3.5" /> Excel / CSV İndir
@@ -482,7 +482,7 @@ export function PatientsView({
                   setPatientSearch(e.target.value);
                   setPatientPage(1);
                 }}
-                className="w-full pl-9 pr-3 py-2 rounded-xl border border-slate-300 text-xs"
+                className="w-full pl-9 pr-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-xs"
               />
             </div>
           </div>
@@ -492,10 +492,10 @@ export function PatientsView({
           tabIndex={0}
           role="region"
           aria-label="Hasta kayıtları tablosu"
-          className="overflow-auto max-w-full border border-slate-200 rounded-xl"
+          className="overflow-auto max-w-full border border-slate-200 dark:border-slate-800 rounded-xl"
         >
           <table className="w-full text-left border-collapse text-xs">
-            <thead className="sticky top-0 z-10 bg-slate-100 text-slate-700 uppercase">
+            <thead className="sticky top-0 z-10 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 uppercase">
               <tr>
                 <th className="py-3 px-3">ID / Dosya</th>
                 <th className="py-3 px-3">TC Kimlik No</th>
@@ -506,52 +506,52 @@ export function PatientsView({
                 <th className="py-3 px-3 text-right">İşlemler</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-200">
+            <tbody className="divide-y divide-slate-200 dark:divide-slate-800 text-slate-800 dark:text-slate-200">
               {paginatedPatients.map((p) => (
-                <tr key={p.id} className="hover:bg-slate-50">
+                <tr key={p.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/50">
                   <td className="py-3 px-3">
-                    <span className="font-bold text-slate-900">#{p.id}</span>
-                    <div className="font-mono text-[11px] text-sky-700">{p.fileNo}</div>
+                    <span className="font-bold text-slate-900 dark:text-white">#{p.id}</span>
+                    <div className="font-mono text-[11px] text-sky-700 dark:text-sky-400">{p.fileNo}</div>
                   </td>
-                  <td className="py-3 px-3 font-mono font-bold text-slate-800">
+                  <td className="py-3 px-3 font-mono font-bold text-slate-800 dark:text-slate-300">
                     {p.nationalId}
                   </td>
                   <td className="py-3 px-3">
-                    <div className="font-bold text-slate-900">
+                    <div className="font-bold text-slate-900 dark:text-white">
                       {p.firstName} {p.lastName}
                     </div>
-                    <div className="text-slate-500">
+                    <div className="text-slate-500 dark:text-slate-400">
                       Baba: {p.fatherName || "-"} • {p.gender}
                     </div>
                   </td>
                   <td className="py-3 px-3">
                     <div>{new Date(p.birthDate).toLocaleDateString("tr-TR")}</div>
-                    <span className="font-bold text-rose-600">{p.bloodType}</span>
+                    <span className="font-bold text-rose-600 dark:text-rose-400">{p.bloodType}</span>
                   </td>
                   <td className="py-3 px-3">{p.insuranceType}</td>
                   <td className="py-3 px-3">
-                    <span className="px-2 py-0.5 rounded bg-sky-50 text-sky-700 font-semibold">
+                    <span className="px-2 py-0.5 rounded bg-sky-50 dark:bg-sky-950/60 text-sky-700 dark:text-sky-300 font-semibold">
                       {p._count?.encounters || 0} Muayene • {p._count?.prescriptions || 0} Reçete
                     </span>
                   </td>
                   <td className="py-3 px-3 text-right space-x-1 whitespace-nowrap">
                     <button
                       onClick={() => onSelectPatientDetail(p)}
-                      className="px-2 py-1 rounded-lg bg-sky-50 text-sky-700 hover:bg-sky-100 font-semibold inline-flex items-center gap-1"
+                      className="px-2 py-1 rounded-lg bg-sky-50 dark:bg-sky-950/50 text-sky-700 dark:text-sky-300 hover:bg-sky-100 dark:hover:bg-sky-900/50 font-semibold inline-flex items-center gap-1"
                       title="Tam Hasta Dosyası / Epikriz"
                     >
                       <Eye className="w-3.5 h-3.5" /> Dosya
                     </button>
                     <button
                       onClick={() => startEditPatient(p)}
-                      className="px-2 py-1 rounded-lg bg-amber-50 text-amber-700 hover:bg-amber-100 font-semibold inline-flex items-center gap-1"
+                      className="px-2 py-1 rounded-lg bg-amber-50 dark:bg-amber-950/50 text-amber-700 dark:text-amber-300 hover:bg-amber-100 dark:hover:bg-amber-900/50 font-semibold inline-flex items-center gap-1"
                       title="Güncelle (UPDATE)"
                     >
                       <Edit3 className="w-3.5 h-3.5" /> Düzenle
                     </button>
                     <button
                       onClick={() => handleDelete(p.id)}
-                      className="p-1 text-rose-600 hover:bg-rose-50 rounded"
+                      className="p-1 text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/50 rounded"
                       title="Sil"
                     >
                       <Trash2 className="w-4 h-4 inline" />
@@ -564,8 +564,8 @@ export function PatientsView({
         </div>
 
         {/* Sayfalama Kontrolleri */}
-        <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-100 text-xs">
-          <div className="flex items-center gap-2 text-slate-500">
+        <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-100 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-400">
+          <div className="flex items-center gap-2">
             <span>Sayfa Başına:</span>
             <select
               value={patientPageSize}
@@ -573,7 +573,7 @@ export function PatientsView({
                 setPatientPageSize(Number(e.target.value));
                 setPatientPage(1);
               }}
-              className="px-2 py-1 rounded-lg border border-slate-200 bg-white text-xs font-semibold text-slate-700"
+              className="px-2 py-1 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs font-semibold text-slate-700 dark:text-slate-200"
             >
               <option value={5}>5</option>
               <option value={10}>10</option>
@@ -592,18 +592,18 @@ export function PatientsView({
               type="button"
               disabled={patientPage <= 1}
               onClick={() => setPatientPage((p) => Math.max(1, p - 1))}
-              className="p-1.5 rounded-lg border border-slate-200 hover:bg-slate-100 disabled:opacity-40 disabled:hover:bg-transparent transition text-slate-700"
+              className="p-1.5 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-40 disabled:hover:bg-transparent transition text-slate-700 dark:text-slate-300"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
-            <span className="px-3 py-1 rounded-lg bg-sky-50 text-sky-800 font-bold border border-sky-200">
+            <span className="px-3 py-1 rounded-lg bg-sky-50 dark:bg-sky-950/60 text-sky-800 dark:text-sky-300 font-bold border border-sky-200 dark:border-sky-800">
               {patientPage} / {totalPatientPages}
             </span>
             <button
               type="button"
               disabled={patientPage >= totalPatientPages}
               onClick={() => setPatientPage((p) => Math.min(totalPatientPages, p + 1))}
-              className="p-1.5 rounded-lg border border-slate-200 hover:bg-slate-100 disabled:opacity-40 disabled:hover:bg-transparent transition text-slate-700"
+              className="p-1.5 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-40 disabled:hover:bg-transparent transition text-slate-700 dark:text-slate-300"
             >
               <ChevronRight className="w-4 h-4" />
             </button>
@@ -613,3 +613,4 @@ export function PatientsView({
     </div>
   );
 }
+

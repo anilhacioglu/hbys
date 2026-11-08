@@ -15,6 +15,7 @@ import PrescriptionPrintModal from "@/components/PrescriptionPrintModal";
 import PatientDetailModal from "@/components/PatientDetailModal";
 import { AuditLogView } from "@/components/AuditLogView";
 import { ChangePasswordModal } from "@/components/ChangePasswordModal";
+import { CommandPaletteModal } from "@/components/CommandPaletteModal";
 
 // Modüler Görünümler (Paket 1: Mimari Refactoring)
 import { DashboardView } from "@/components/views/DashboardView";
@@ -30,16 +31,20 @@ import {
   BedDouble,
   CalendarClock,
   CheckCircle2,
+  Command,
   FlaskConical,
   Hospital,
   KeyRound,
   LayoutDashboard,
   LogOut,
+  Moon,
   Pill,
   RefreshCw,
+  Search,
   Shield,
   ShieldAlert,
   Stethoscope,
+  Sun,
   Users,
 } from "lucide-react";
 
@@ -54,6 +59,10 @@ export default function HbysApp() {
   const [selectedPrescription, setSelectedPrescription] = useState<Prescription | null>(null);
   const [selectedPatientDetail, setSelectedPatientDetail] = useState<Patient | null>(null);
   const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
+  const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
+
+  // Gece Nöbeti (Dark Mode) State'i
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
 
   // Sekmeler Arası Ön-Doldurma State'leri
   const [encounterPrefill, setEncounterPrefill] = useState<{
@@ -78,6 +87,81 @@ export default function HbysApp() {
     setToast({ type, text });
     setTimeout(() => setToast(null), 4000);
   }
+
+  // Gece Nöbeti Tema Kontrolü
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("hbys_theme");
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const initialDark = savedTheme === "dark" || (!savedTheme && prefersDark);
+    setIsDarkMode(initialDark);
+    if (initialDark) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, []);
+
+  function toggleDarkMode() {
+    setIsDarkMode((prev) => {
+      const next = !prev;
+      if (next) {
+        document.documentElement.classList.add("dark");
+        localStorage.setItem("hbys_theme", "dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+        localStorage.setItem("hbys_theme", "light");
+      }
+      return next;
+    });
+  }
+
+  // Global Kısayol Tuşları (Ctrl+K, F2, F3, F4, F5)
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      // Ctrl+K veya Cmd+K: Hızlı Komut Paleti
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setIsCommandPaletteOpen((prev) => !prev);
+        return;
+      }
+      // Alt+T: Gece Nöbeti Modu Değiştir
+      if (e.altKey && e.key.toLowerCase() === "t") {
+        e.preventDefault();
+        toggleDarkMode();
+        return;
+      }
+      // F2: Hasta Sekmesi
+      if (e.key === "F2") {
+        e.preventDefault();
+        setActiveTab("patients");
+        showToast("success", "F2: Hasta Özlük Kartları ekranına geçildi.");
+        return;
+      }
+      // F3: Muayene Sekmesi
+      if (e.key === "F3") {
+        e.preventDefault();
+        setActiveTab("encounters");
+        showToast("success", "F3: Muayene & Vital Bulgular ekranına geçildi.");
+        return;
+      }
+      // F4: Reçete Sekmesi
+      if (e.key === "F4") {
+        e.preventDefault();
+        setActiveTab("prescriptions");
+        showToast("success", "F4: E-Reçete ekranına geçildi.");
+        return;
+      }
+      // F5: Yatak / Oda Sekmesi (Sayfa yenilemesini engelle)
+      if (e.key === "F5") {
+        e.preventDefault();
+        setActiveTab("rooms");
+        showToast("success", "F5: Yataklı Servis Haritası ekranına geçildi.");
+        return;
+      }
+    }
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   async function fetchHbysData() {
     setLoading(true);
@@ -159,20 +243,31 @@ export default function HbysApp() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col lg:flex-row bg-slate-100 text-slate-900">
+    <div className="min-h-screen flex flex-col lg:flex-row bg-slate-100 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-200">
       {/* SOL MENÜ (SIDEBAR) */}
       <aside className="w-full lg:w-72 bg-slate-900 text-white flex flex-col justify-between shrink-0 border-r border-slate-800">
         <div>
-          <div className="p-5 border-b border-slate-800 flex items-center gap-3">
-            <div className="p-2.5 rounded-xl bg-gradient-to-br from-sky-500 to-teal-500 text-slate-950">
-              <Hospital className="w-6 h-6" />
-            </div>
-            <div>
-              <div className="font-black text-base tracking-tight">HBYS KURUMSAL</div>
-              <div className="text-[11px] text-sky-300 font-medium">
-                v2.0 • 3NF SQLite & Next.js
+          <div className="p-5 border-b border-slate-800 flex items-center justify-between gap-3">
+            <div className="flex items-center gap-3">
+              <div className="p-2.5 rounded-xl bg-gradient-to-br from-sky-500 to-teal-500 text-slate-950">
+                <Hospital className="w-6 h-6" />
+              </div>
+              <div>
+                <div className="font-black text-base tracking-tight">HBYS KURUMSAL</div>
+                <div className="text-[11px] text-sky-300 font-medium">
+                  v2.0 • 3NF SQLite & Next.js
+                </div>
               </div>
             </div>
+            {/* Hızlı Arama İkon Butonu */}
+            <button
+              type="button"
+              onClick={() => setIsCommandPaletteOpen(true)}
+              className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition"
+              title="Komut Paletini Aç (Ctrl + K)"
+            >
+              <Command className="w-4 h-4 text-sky-400" />
+            </button>
           </div>
 
           {/* Aktif Kullanıcı & RBAC Rol Kartı */}
@@ -192,10 +287,10 @@ export default function HbysApp() {
             {[
               { id: "dashboard", label: "Gösterge Paneli (Özet)", icon: LayoutDashboard },
               { id: "queue", label: "Randevu & Poliklinik Sırası", icon: CalendarClock },
-              { id: "patients", label: "Hasta Kayıt & Özlük Kartı", icon: Users },
-              { id: "encounters", label: "Muayene & Vital Bulgular", icon: Stethoscope },
-              { id: "prescriptions", label: "Çoklu İlaçlı E-Reçete", icon: Pill },
-              { id: "rooms", label: "Oda, Yatak & Servis Yatışı", icon: BedDouble },
+              { id: "patients", label: "Hasta Kayıt & Özlük Kartı", icon: Users, shortcut: "F2" },
+              { id: "encounters", label: "Muayene & Vital Bulgular", icon: Stethoscope, shortcut: "F3" },
+              { id: "prescriptions", label: "Çoklu İlaçlı E-Reçete", icon: Pill, shortcut: "F4" },
+              { id: "rooms", label: "Oda, Yatak & Servis Yatışı", icon: BedDouble, shortcut: "F5" },
               { id: "labs", label: "Laboratuvar & Radyoloji", icon: FlaskConical },
               { id: "staff", label: "Personel & Hekim Yönetimi", icon: Shield, roles: ["ADMIN"] },
               { id: "audit", label: "Güvenlik & Denetim İzi", icon: ShieldAlert, roles: ["ADMIN", "DOCTOR"] },
@@ -208,14 +303,27 @@ export default function HbysApp() {
                   <button
                     key={item.id}
                     onClick={() => setActiveTab(item.id as TabId)}
-                    className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition ${
+                    className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold transition ${
                       active
                         ? "bg-sky-500 text-slate-950 font-bold shadow-md shadow-sky-500/20"
                         : "text-slate-300 hover:bg-slate-800 hover:text-white"
                     }`}
                   >
-                    <Icon className="w-4 h-4 shrink-0" />
-                    <span>{item.label}</span>
+                    <div className="flex items-center gap-3">
+                      <Icon className="w-4 h-4 shrink-0" />
+                      <span>{item.label}</span>
+                    </div>
+                    {item.shortcut && (
+                      <kbd
+                        className={`text-[9px] font-mono px-1.5 py-0.5 rounded border ${
+                          active
+                            ? "bg-sky-600/30 border-sky-700/50 text-slate-950 font-bold"
+                            : "bg-slate-800 border-slate-700 text-slate-400"
+                        }`}
+                      >
+                        {item.shortcut}
+                      </kbd>
+                    )}
                   </button>
                 );
               })}
@@ -224,6 +332,25 @@ export default function HbysApp() {
 
         {/* Alt Menü & Oturum */}
         <div className="p-4 border-t border-slate-800 space-y-2">
+          {/* Gece Nöbeti Modu Hızlı Toggle */}
+          <button
+            type="button"
+            onClick={toggleDarkMode}
+            className="w-full py-2 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-200 flex items-center justify-between transition"
+          >
+            <div className="flex items-center gap-2">
+              {isDarkMode ? (
+                <Sun className="w-4 h-4 text-amber-400" />
+              ) : (
+                <Moon className="w-4 h-4 text-indigo-400" />
+              )}
+              <span>{isDarkMode ? "Gündüz Moduna Geç" : "Gece Nöbeti Modu"}</span>
+            </div>
+            <kbd className="text-[10px] font-mono text-slate-400 bg-slate-900 px-1.5 py-0.5 rounded border border-slate-700">
+              Alt+T
+            </kbd>
+          </button>
+
           <button
             onClick={() => setIsPasswordModalOpen(true)}
             className="w-full py-2 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-200 flex items-center justify-center gap-2 transition"
@@ -248,9 +375,9 @@ export default function HbysApp() {
       {/* ANA İÇERİK ALANI */}
       <main className="flex-1 flex flex-col min-w-0">
         {/* Üst Bar */}
-        <header className="bg-white border-b border-slate-200 px-6 py-4 flex flex-wrap items-center justify-between gap-4">
+        <header className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 px-6 py-4 flex flex-wrap items-center justify-between gap-4 transition-colors">
           <div>
-            <h1 className="text-lg font-black text-slate-900">
+            <h1 className="text-lg font-black text-slate-900 dark:text-white">
               {activeTab === "dashboard" && "Hastane Genel Durum ve İstatistik Paneli"}
               {activeTab === "queue" && "Poliklinik Randevu ve Muayene Sırası (Kuyruk) Yönetimi"}
               {activeTab === "patients" && "Tekil Hasta Özlük Kartı ve Dosya Yönetimi"}
@@ -261,25 +388,61 @@ export default function HbysApp() {
               {activeTab === "staff" && "Hastane Personeli, Hekim Kadrosu ve RBAC Yetki Yönetimi"}
               {activeTab === "audit" && "Güvenlik, Kimlik Doğrulama ve KVKK Denetim İzi (Audit Log)"}
             </h1>
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-slate-500 dark:text-slate-400">
               Tüm kayıtlar yerel ilişkisel SQLite veritabanında (`hbys.db`) anlık olarak güncellenir.
             </p>
           </div>
 
-          {toast && (
-            <div
-              role="status"
-              aria-live="polite"
-              className={`px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 shadow-sm border ${
-                toast.type === "success"
-                  ? "bg-emerald-50 border-emerald-200 text-emerald-800"
-                  : "bg-rose-50 border-rose-200 text-rose-800"
-              }`}
+          <div className="flex items-center gap-3">
+            {/* Hızlı Arama Çubuğu (Ctrl + K) */}
+            <button
+              type="button"
+              onClick={() => setIsCommandPaletteOpen(true)}
+              className="hidden sm:flex items-center gap-2 px-3.5 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs text-slate-500 dark:text-slate-400 hover:border-sky-400 dark:hover:border-sky-500 hover:text-slate-900 dark:hover:text-slate-100 transition shadow-sm group"
+              title="Hızlı Arama ve Komut Paletini Aç (Ctrl + K)"
             >
-              <CheckCircle2 className="w-4 h-4" />
-              {toast.text}
-            </div>
-          )}
+              <Search className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400 group-hover:scale-110 transition" />
+              <span>Hasta veya Komut Ara...</span>
+              <kbd className="ml-2 px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-700 text-[10px] font-mono text-slate-700 dark:text-slate-300 font-bold border border-slate-300 dark:border-slate-600">
+                Ctrl + K
+              </kbd>
+            </button>
+
+            {/* Gece Nöbeti Modu Butonu */}
+            <button
+              type="button"
+              onClick={toggleDarkMode}
+              className="px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 transition flex items-center gap-1.5 shadow-sm"
+              title={isDarkMode ? "Gündüz Moduna Geç" : "Gece Nöbeti Moduna Geç (Göz Koruma)"}
+            >
+              {isDarkMode ? (
+                <>
+                  <Sun className="w-4 h-4 text-amber-400" />
+                  <span className="hidden md:inline">Gündüz Modu</span>
+                </>
+              ) : (
+                <>
+                  <Moon className="w-4 h-4 text-indigo-500" />
+                  <span className="hidden md:inline">Gece Nöbeti</span>
+                </>
+              )}
+            </button>
+
+            {toast && (
+              <div
+                role="status"
+                aria-live="polite"
+                className={`px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 shadow-sm border ${
+                  toast.type === "success"
+                    ? "bg-emerald-50 dark:bg-emerald-950/40 border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300"
+                    : "bg-rose-50 dark:bg-rose-950/40 border-rose-200 dark:border-rose-800 text-rose-800 dark:text-rose-300"
+                }`}
+              >
+                <CheckCircle2 className="w-4 h-4" />
+                {toast.text}
+              </div>
+            )}
+          </div>
         </header>
 
         {/* Sekme İçerikleri */}
@@ -369,6 +532,17 @@ export default function HbysApp() {
       </main>
 
       {/* MODALLAR */}
+      <CommandPaletteModal
+        isOpen={isCommandPaletteOpen}
+        onClose={() => setIsCommandPaletteOpen(false)}
+        data={data}
+        onNavigateTab={setActiveTab}
+        onSelectPatient={setSelectedPatientDetail}
+        onOpenPasswordModal={() => setIsPasswordModalOpen(true)}
+        isDarkMode={isDarkMode}
+        onToggleDarkMode={toggleDarkMode}
+        onToast={showToast}
+      />
       <PrescriptionPrintModal
         prescription={selectedPrescription}
         onClose={() => setSelectedPrescription(null)}

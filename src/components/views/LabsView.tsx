@@ -120,21 +120,21 @@ export function LabsView({ data, onRefresh, onToast }: LabsViewProps) {
       <form
         onSubmit={handleCreateLabOrder}
         method="POST"
-        className="lg:col-span-4 bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-3.5 h-fit"
+        className="lg:col-span-4 bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm space-y-3.5 h-fit"
       >
-        <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
-          <FlaskConical className="w-4 h-4 text-indigo-600" /> Yeni Tahlil / Görüntüleme İstemi
+        <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
+          <FlaskConical className="w-4 h-4 text-indigo-600 dark:text-indigo-400" /> Yeni Tahlil / Görüntüleme İstemi
         </h3>
 
         <div>
-          <label htmlFor="lab-pat" className="block text-xs font-semibold text-slate-700 mb-1">
+          <label htmlFor="lab-pat" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
             Hasta
           </label>
           <select
             id="lab-pat"
             value={form.patientId}
             onChange={(e) => setForm({ ...form, patientId: e.target.value })}
-            className="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs"
+            className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-3 py-2 text-xs"
           >
             {(data?.patients || []).map((p) => (
               <option key={p.id} value={p.id}>
@@ -145,14 +145,14 @@ export function LabsView({ data, onRefresh, onToast }: LabsViewProps) {
         </div>
 
         <div>
-          <label htmlFor="lab-doc" className="block text-xs font-semibold text-slate-700 mb-1">
+          <label htmlFor="lab-doc" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
             İsteyen Hekim
           </label>
           <select
             id="lab-doc"
             value={form.doctorId}
             onChange={(e) => setForm({ ...form, doctorId: e.target.value })}
-            className="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs"
+            className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-3 py-2 text-xs"
           >
             {doctors.map((d: StaffMember) => (
               <option key={d.id} value={d.id}>
@@ -164,14 +164,14 @@ export function LabsView({ data, onRefresh, onToast }: LabsViewProps) {
 
         <div className="grid grid-cols-2 gap-2.5">
           <div>
-            <label htmlFor="lab-cat" className="block text-xs font-semibold text-slate-700 mb-1">
+            <label htmlFor="lab-cat" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
               Birim / Kategori
             </label>
             <select
               id="lab-cat"
               value={form.category}
               onChange={(e) => setForm({ ...form, category: e.target.value })}
-              className="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs"
+              className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-3 py-2 text-xs"
             >
               <option value="BIYOKIMYA">Biyokimya</option>
               <option value="HEMATOLOJI">Hematoloji</option>
@@ -180,7 +180,7 @@ export function LabsView({ data, onRefresh, onToast }: LabsViewProps) {
             </select>
           </div>
           <div>
-            <label htmlFor="lab-test" className="block text-xs font-semibold text-slate-700 mb-1">
+            <label htmlFor="lab-test" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
               Tetkik Adı
             </label>
             <input
@@ -189,14 +189,14 @@ export function LabsView({ data, onRefresh, onToast }: LabsViewProps) {
               required
               value={form.testName}
               onChange={(e) => setForm({ ...form, testName: e.target.value })}
-              className="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs"
+              className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-3 py-2 text-xs"
             />
           </div>
         </div>
 
         <div className="grid grid-cols-2 gap-2.5">
           <div>
-            <label htmlFor="lab-val" className="block text-xs font-semibold text-slate-700 mb-1">
+            <label htmlFor="lab-val" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
               Sonuç Değeri (Opsiyonel)
             </label>
             <input
@@ -205,11 +205,11 @@ export function LabsView({ data, onRefresh, onToast }: LabsViewProps) {
               placeholder="Boş bırakılırsa Bekliyor olur"
               value={form.resultValue}
               onChange={(e) => setForm({ ...form, resultValue: e.target.value })}
-              className="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs"
+              className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-3 py-2 text-xs"
             />
           </div>
           <div>
-            <label htmlFor="lab-ref" className="block text-xs font-semibold text-slate-700 mb-1">
+            <label htmlFor="lab-ref" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
               Referans Aralığı
             </label>
             <input
@@ -217,12 +217,12 @@ export function LabsView({ data, onRefresh, onToast }: LabsViewProps) {
               type="text"
               value={form.referenceRange}
               onChange={(e) => setForm({ ...form, referenceRange: e.target.value })}
-              className="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs"
+              className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-3 py-2 text-xs"
             />
           </div>
         </div>
 
-        <label className="flex items-center gap-2 text-xs font-semibold text-rose-700 cursor-pointer">
+        <label className="flex items-center gap-2 text-xs font-semibold text-rose-700 dark:text-rose-400 cursor-pointer">
           <input
             type="checkbox"
             checked={form.isCritical}
@@ -240,15 +240,15 @@ export function LabsView({ data, onRefresh, onToast }: LabsViewProps) {
       </form>
 
       {/* Tetkik Listesi */}
-      <div className="lg:col-span-8 bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-4">
+      <div className="lg:col-span-8 bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
         <div className="flex items-center justify-between gap-3">
-          <h3 className="text-sm font-bold text-slate-900">
+          <h3 className="text-sm font-bold text-slate-900 dark:text-white">
             Laboratuvar ve Radyoloji Tetkik Sonuçları ({allLabs.length})
           </h3>
           <button
             type="button"
             onClick={handleExport}
-            className="px-3 py-1.5 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-800 font-bold text-xs border border-indigo-200 transition inline-flex items-center gap-1.5 shadow-sm"
+            className="px-3 py-1.5 rounded-xl bg-indigo-50 dark:bg-indigo-950/50 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 text-indigo-800 dark:text-indigo-300 font-bold text-xs border border-indigo-200 dark:border-indigo-800 transition inline-flex items-center gap-1.5 shadow-sm"
             title="Laboratuvar sonuçlarını Excel / CSV olarak indir"
           >
             <Download className="w-3.5 h-3.5" /> Excel İndir
@@ -259,10 +259,10 @@ export function LabsView({ data, onRefresh, onToast }: LabsViewProps) {
           tabIndex={0}
           role="region"
           aria-label="Laboratuvar tetkik tablosu"
-          className="overflow-auto max-w-full border border-slate-200 rounded-xl"
+          className="overflow-auto max-w-full border border-slate-200 dark:border-slate-800 rounded-xl"
         >
           <table className="w-full text-left border-collapse text-xs">
-            <thead className="sticky top-0 z-10 bg-slate-100 text-slate-700 uppercase">
+            <thead className="sticky top-0 z-10 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 uppercase">
               <tr>
                 <th className="py-3 px-3">İstem Kodu</th>
                 <th className="py-3 px-3">Hasta</th>
@@ -273,29 +273,29 @@ export function LabsView({ data, onRefresh, onToast }: LabsViewProps) {
                 <th className="py-3 px-3 text-right">İşlem</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-200">
+            <tbody className="divide-y divide-slate-200 dark:divide-slate-800">
               {paginatedLabs.map((lab) => (
-                <tr key={lab.id} className="hover:bg-slate-50">
-                  <td className="py-3 px-3 font-mono font-bold text-indigo-700">
+                <tr key={lab.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                  <td className="py-3 px-3 font-mono font-bold text-indigo-700 dark:text-indigo-400">
                     {lab.orderCode}
                   </td>
                   <td className="py-3 px-3">
-                    <div className="font-bold text-slate-900">
+                    <div className="font-bold text-slate-900 dark:text-white">
                       {lab.patient?.firstName} {lab.patient?.lastName}
                     </div>
-                    <div className="text-slate-500">{lab.doctor?.fullTitleName}</div>
+                    <div className="text-slate-500 dark:text-slate-400">{lab.doctor?.fullTitleName}</div>
                   </td>
                   <td className="py-3 px-3">
-                    <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 mr-1">
+                    <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 mr-1 border border-slate-200 dark:border-slate-700">
                       {lab.category}
                     </span>
-                    <span className="font-semibold text-slate-900">{lab.testName}</span>
+                    <span className="font-semibold text-slate-900 dark:text-white">{lab.testName}</span>
                   </td>
                   <td className="py-3 px-3">
                     {lab.resultValue ? (
                       <span
                         className={`font-bold ${
-                          lab.isCritical ? "text-rose-600" : "text-slate-900"
+                          lab.isCritical ? "text-rose-600 dark:text-rose-400" : "text-slate-900 dark:text-slate-100"
                         }`}
                       >
                         {lab.isCritical && "⚠️ "}
@@ -305,13 +305,13 @@ export function LabsView({ data, onRefresh, onToast }: LabsViewProps) {
                       <span className="text-slate-400 italic">Çalışılıyor...</span>
                     )}
                   </td>
-                  <td className="py-3 px-3 text-slate-500">{lab.referenceRange || "-"}</td>
+                  <td className="py-3 px-3 text-slate-500 dark:text-slate-400">{lab.referenceRange || "-"}</td>
                   <td className="py-3 px-3">
                     <span
                       className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
                         lab.status === "COMPLETED"
-                          ? "bg-emerald-100 text-emerald-700"
-                          : "bg-amber-100 text-amber-800"
+                          ? "bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-900/50"
+                          : "bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-900/50"
                       }`}
                     >
                       {lab.status === "COMPLETED" ? "Sonuçlandı" : "Bekliyor"}
@@ -321,14 +321,14 @@ export function LabsView({ data, onRefresh, onToast }: LabsViewProps) {
                     {lab.status === "PENDING" && (
                       <button
                         onClick={() => handleCompleteLabOrder(lab.id)}
-                        className="px-2.5 py-1 rounded-lg bg-indigo-600 text-white font-semibold"
+                        className="px-2.5 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-semibold"
                       >
                         Sonuç Gir
                       </button>
                     )}
                     <button
                       onClick={() => handleDelete(lab.id)}
-                      className="p-1 text-rose-600 hover:bg-rose-50 rounded"
+                      className="p-1 text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded"
                     >
                       <Trash2 className="w-4 h-4 inline" />
                     </button>
@@ -340,8 +340,8 @@ export function LabsView({ data, onRefresh, onToast }: LabsViewProps) {
         </div>
 
         {/* Laboratuvar Sayfalama Kontrolleri */}
-        <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-100 text-xs">
-          <div className="flex items-center gap-2 text-slate-500">
+        <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-100 dark:border-slate-800 text-xs">
+          <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
             <span>Sayfa Başına:</span>
             <select
               value={pageSize}
@@ -349,7 +349,7 @@ export function LabsView({ data, onRefresh, onToast }: LabsViewProps) {
                 setPageSize(Number(e.target.value));
                 setPage(1);
               }}
-              className="px-2 py-1 rounded-lg border border-slate-200 bg-white text-xs font-semibold text-slate-700"
+              className="px-2 py-1 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs font-semibold text-slate-700 dark:text-slate-300"
             >
               <option value={5}>5</option>
               <option value={10}>10</option>
@@ -367,18 +367,18 @@ export function LabsView({ data, onRefresh, onToast }: LabsViewProps) {
               type="button"
               disabled={page <= 1}
               onClick={() => setPage((p) => Math.max(1, p - 1))}
-              className="p-1.5 rounded-lg border border-slate-200 hover:bg-slate-100 disabled:opacity-40 disabled:hover:bg-transparent transition text-slate-700"
+              className="p-1.5 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-40 disabled:hover:bg-transparent transition text-slate-700 dark:text-slate-300"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
-            <span className="px-3 py-1 rounded-lg bg-indigo-50 text-indigo-800 font-bold border border-indigo-200">
+            <span className="px-3 py-1 rounded-lg bg-indigo-50 dark:bg-indigo-950/60 text-indigo-800 dark:text-indigo-300 font-bold border border-indigo-200 dark:border-indigo-800">
               {page} / {totalPages}
             </span>
             <button
               type="button"
               disabled={page >= totalPages}
               onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-              className="p-1.5 rounded-lg border border-slate-200 hover:bg-slate-100 disabled:opacity-40 disabled:hover:bg-transparent transition text-slate-700"
+              className="p-1.5 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-40 disabled:hover:bg-transparent transition text-slate-700 dark:text-slate-300"
             >
               <ChevronRight className="w-4 h-4" />
             </button>
@@ -388,3 +388,4 @@ export function LabsView({ data, onRefresh, onToast }: LabsViewProps) {
     </div>
   );
 }
+

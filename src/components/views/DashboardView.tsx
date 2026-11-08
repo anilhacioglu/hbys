@@ -78,71 +78,71 @@ export function DashboardView({ data, onNavigateTab, onToast }: DashboardViewPro
     <div className="space-y-6">
       {/* KPI Kartları */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-center justify-between">
+        <div className="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm flex items-center justify-between">
           <div>
-            <span className="text-xs font-bold uppercase text-slate-500">
+            <span className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">
               Kayıtlı Hasta Dosyası
             </span>
-            <div className="text-3xl font-black text-slate-900 mt-1">
+            <div className="text-3xl font-black text-slate-900 dark:text-white mt-1">
               {data?.patients.length || 0}
             </div>
-            <span className="text-xs text-emerald-600 font-semibold">
+            <span className="text-xs text-emerald-600 dark:text-emerald-400 font-semibold">
               3NF Tekil Özlük Kartı
             </span>
           </div>
-          <div className="p-3.5 rounded-2xl bg-sky-50 text-sky-600">
+          <div className="p-3.5 rounded-2xl bg-sky-50 dark:bg-sky-950/40 text-sky-600 dark:text-sky-400">
             <Users className="w-7 h-7" />
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-center justify-between">
+        <div className="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm flex items-center justify-between">
           <div>
-            <span className="text-xs font-bold uppercase text-slate-500">
+            <span className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">
               Poliklinik & Acil Muayene
             </span>
-            <div className="text-3xl font-black text-slate-900 mt-1">
+            <div className="text-3xl font-black text-slate-900 dark:text-white mt-1">
               {data?.encounters.length || 0}
             </div>
-            <span className="text-xs text-sky-600 font-semibold">
+            <span className="text-xs text-sky-600 dark:text-sky-400 font-semibold">
               {data?.appointments.filter((a) => a.status === "WAITING").length || 0} Sırada Bekleyen
             </span>
           </div>
-          <div className="p-3.5 rounded-2xl bg-teal-50 text-teal-600">
+          <div className="p-3.5 rounded-2xl bg-teal-50 dark:bg-teal-950/40 text-teal-600 dark:text-teal-400">
             <Stethoscope className="w-7 h-7" />
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-center justify-between">
+        <div className="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm flex items-center justify-between">
           <div>
-            <span className="text-xs font-bold uppercase text-slate-500">
+            <span className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">
               Yataklı Servis Doluluk
             </span>
-            <div className="text-3xl font-black text-slate-900 mt-1">
+            <div className="text-3xl font-black text-slate-900 dark:text-white mt-1">
               {occupiedBedsCount} / {allBeds.length}
             </div>
-            <span className="text-xs text-amber-600 font-semibold">
+            <span className="text-xs text-amber-600 dark:text-amber-400 font-semibold">
               %{allBeds.length ? Math.round((occupiedBedsCount / allBeds.length) * 100) : 0}{" "}
               Kapasite Kullanımı
             </span>
           </div>
-          <div className="p-3.5 rounded-2xl bg-amber-50 text-amber-600">
+          <div className="p-3.5 rounded-2xl bg-amber-50 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400">
             <BedDouble className="w-7 h-7" />
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-center justify-between">
+        <div className="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm flex items-center justify-between">
           <div>
-            <span className="text-xs font-bold uppercase text-slate-500">
+            <span className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">
               Kritik Lab / E-Reçete
             </span>
-            <div className="text-3xl font-black text-rose-600 mt-1">
+            <div className="text-3xl font-black text-rose-600 dark:text-rose-400 mt-1">
               {criticalLabsCount} Kritik
             </div>
-            <span className="text-xs text-slate-600 font-semibold">
+            <span className="text-xs text-slate-600 dark:text-slate-400 font-semibold">
               {data?.prescriptions.length || 0} Onaylı E-Reçete
             </span>
           </div>
-          <div className="p-3.5 rounded-2xl bg-rose-50 text-rose-600">
+          <div className="p-3.5 rounded-2xl bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400">
             <HeartPulse className="w-7 h-7" />
           </div>
         </div>
@@ -150,8 +150,8 @@ export function DashboardView({ data, onNavigateTab, onToast }: DashboardViewPro
 
       {/* Triaj Dağılımı & Poliklinik Özeti */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-4">
-          <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+        <div className="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
+          <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
             <Activity className="w-4 h-4 text-rose-600" /> Acil ve Poliklinik Triaj Dağılımı
           </h3>
           <div className="space-y-3">
@@ -168,13 +168,13 @@ export function DashboardView({ data, onNavigateTab, onToast }: DashboardViewPro
               const pct = Math.round((count / total) * 100);
               return (
                 <div key={t.key} className="space-y-1">
-                  <div className="flex justify-between text-xs font-semibold">
+                  <div className="flex justify-between text-xs font-semibold text-slate-700 dark:text-slate-300">
                     <span>{t.label}</span>
                     <span>
                       {count} Hasta (%{pct})
                     </span>
                   </div>
-                  <div className="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden">
+                  <div className="w-full h-2.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
                     <div
                       className={`h-full ${t.bar} rounded-full`}
                       style={{ width: `${Math.max(pct, 6)}%` }}
@@ -187,14 +187,14 @@ export function DashboardView({ data, onNavigateTab, onToast }: DashboardViewPro
         </div>
 
         {/* Kritik Laboratuvar Sonuçları ve Son Muayeneler */}
-        <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-3 lg:col-span-2">
+        <div className="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm space-y-3 lg:col-span-2">
           <div className="flex items-center justify-between">
-            <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
               <AlertTriangle className="w-4 h-4 text-rose-600" /> Kritik Tetkik Uyarıları ve Son Muayeneler
             </h3>
             <button
               onClick={() => onNavigateTab("encounters")}
-              className="text-xs font-bold text-sky-600 hover:underline"
+              className="text-xs font-bold text-sky-600 dark:text-sky-400 hover:underline"
             >
               Tüm Muayeneleri Gör →
             </button>
@@ -203,10 +203,10 @@ export function DashboardView({ data, onNavigateTab, onToast }: DashboardViewPro
             tabIndex={0}
             role="region"
             aria-label="Son muayeneler tablosu"
-            className="overflow-auto max-w-full border border-slate-200 rounded-xl"
+            className="overflow-auto max-w-full border border-slate-200 dark:border-slate-800 rounded-xl"
           >
             <table className="w-full text-left border-collapse text-xs">
-              <thead className="sticky top-0 z-10 bg-slate-100 text-slate-700 uppercase">
+              <thead className="sticky top-0 z-10 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 uppercase">
                 <tr>
                   <th className="py-2.5 px-3">Protokol</th>
                   <th className="py-2.5 px-3">Hasta</th>
@@ -216,34 +216,34 @@ export function DashboardView({ data, onNavigateTab, onToast }: DashboardViewPro
                   <th className="py-2.5 px-3">Triaj</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-200">
+              <tbody className="divide-y divide-slate-200 dark:divide-slate-800 text-slate-800 dark:text-slate-200">
                 {(data?.encounters || []).slice(0, 5).map((enc) => (
-                  <tr key={enc.id} className="hover:bg-slate-50">
-                    <td className="py-2.5 px-3 font-mono font-bold text-sky-800">
+                  <tr key={enc.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                    <td className="py-2.5 px-3 font-mono font-bold text-sky-800 dark:text-sky-400">
                       {enc.protocolNo}
                     </td>
-                    <td className="py-2.5 px-3 font-bold text-slate-900">
+                    <td className="py-2.5 px-3 font-bold text-slate-900 dark:text-white">
                       {enc.patient?.firstName} {enc.patient?.lastName}
                     </td>
                     <td className="py-2.5 px-3">
                       <div className="font-semibold">{enc.department?.name}</div>
-                      <div className="text-slate-500">{enc.doctor?.fullTitleName}</div>
+                      <div className="text-slate-500 dark:text-slate-400">{enc.doctor?.fullTitleName}</div>
                     </td>
                     <td className="py-2.5 px-3">
                       {enc.vitalSigns?.temperature ?? "-"}°C •{" "}
                       {enc.vitalSigns?.bloodPressureText ?? "-"}
                     </td>
-                    <td className="py-2.5 px-3 font-semibold text-slate-800">
+                    <td className="py-2.5 px-3 font-semibold text-slate-800 dark:text-slate-300">
                       {enc.diagnosisCode} - {enc.diagnosisName}
                     </td>
                     <td className="py-2.5 px-3">
                       <span
                         className={`px-2 py-0.5 rounded-full font-bold ${
                           enc.triageColor === "Kırmızı"
-                            ? "bg-rose-100 text-rose-700"
+                            ? "bg-rose-100 text-rose-700 dark:bg-rose-950/60 dark:text-rose-300"
                             : enc.triageColor === "Sarı"
-                            ? "bg-amber-100 text-amber-800"
-                            : "bg-emerald-100 text-emerald-700"
+                            ? "bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300"
+                            : "bg-emerald-100 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300"
                         }`}
                       >
                         {enc.triageColor}
@@ -260,8 +260,8 @@ export function DashboardView({ data, onNavigateTab, onToast }: DashboardViewPro
       {/* Poliklinik Yoğunluk Dağılımı & Kurumsal Raporlama Merkezi */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Poliklinik Dağılım Grafiği */}
-        <div className="lg:col-span-7 bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-4">
-          <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+        <div className="lg:col-span-7 bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
+          <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
             <BarChart3 className="w-4 h-4 text-sky-600" /> Poliklinik ve Branş Hasta Dağılım Grafiği
           </h3>
           <div className="space-y-3">
@@ -286,14 +286,14 @@ export function DashboardView({ data, onNavigateTab, onToast }: DashboardViewPro
               return (
                 <div key={dept.id} className="space-y-1">
                   <div className="flex justify-between text-xs font-semibold">
-                    <span className="text-slate-800">
+                    <span className="text-slate-800 dark:text-slate-200">
                       {dept.name} <span className="text-slate-400 font-normal">({dept.floor})</span>
                     </span>
-                    <span className="text-slate-600 font-mono">
+                    <span className="text-slate-600 dark:text-slate-400 font-mono">
                       {encCount} Muayene • {aptCount} Randevu
                     </span>
                   </div>
-                  <div className="w-full h-3 bg-slate-100 rounded-full overflow-hidden flex">
+                  <div className="w-full h-3 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden flex">
                     <div
                       className="h-full bg-gradient-to-r from-sky-500 to-teal-500 rounded-full transition-all duration-500"
                       style={{ width: `${Math.max(pct, 5)}%` }}
@@ -374,3 +374,4 @@ export function DashboardView({ data, onNavigateTab, onToast }: DashboardViewPro
     </div>
   );
 }
+

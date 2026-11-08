@@ -229,15 +229,15 @@ export function EncountersView({
       <form
         onSubmit={handleCreateEncounter}
         method="POST"
-        className="lg:col-span-5 bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-3 h-fit"
+        className="lg:col-span-5 bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm space-y-3 h-fit"
       >
-        <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+        <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
           <Stethoscope className="w-4 h-4 text-teal-600" /> Yeni Poliklinik / Acil Muayene & Vital Bulgu Girişi
         </h3>
 
         <div className="grid grid-cols-2 gap-2.5">
           <div>
-            <label htmlFor="enc-pat" className="block text-xs font-semibold text-slate-700 mb-1">
+            <label htmlFor="enc-pat" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
               Hasta
             </label>
             <select
@@ -245,7 +245,7 @@ export function EncountersView({
               name="patientId"
               value={form.patientId}
               onChange={(e) => setForm({ ...form, patientId: e.target.value })}
-              className="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs"
+              className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-3 py-2 text-xs"
             >
               {(data?.patients || []).map((p) => (
                 <option key={p.id} value={p.id}>
@@ -255,7 +255,7 @@ export function EncountersView({
             </select>
           </div>
           <div>
-            <label htmlFor="enc-doc" className="block text-xs font-semibold text-slate-700 mb-1">
+            <label htmlFor="enc-doc" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
               Muayene Eden Hekim
             </label>
             <select
@@ -263,7 +263,7 @@ export function EncountersView({
               name="doctorId"
               value={form.doctorId}
               onChange={(e) => setForm({ ...form, doctorId: e.target.value })}
-              className="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs"
+              className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-3 py-2 text-xs"
             >
               {doctors.map((d: StaffMember) => (
                 <option key={d.id} value={d.id}>
@@ -276,7 +276,7 @@ export function EncountersView({
 
         <div className="grid grid-cols-3 gap-2">
           <div>
-            <label htmlFor="enc-dept" className="block text-xs font-semibold text-slate-700 mb-1">
+            <label htmlFor="enc-dept" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
               Poliklinik
             </label>
             <select
@@ -284,7 +284,7 @@ export function EncountersView({
               name="departmentId"
               value={form.departmentId}
               onChange={(e) => setForm({ ...form, departmentId: e.target.value })}
-              className="w-full rounded-xl border border-slate-300 px-2.5 py-2 text-xs"
+              className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-2.5 py-2 text-xs"
             >
               {(data?.departments || []).map((d) => (
                 <option key={d.id} value={d.id}>
@@ -294,7 +294,7 @@ export function EncountersView({
             </select>
           </div>
           <div>
-            <label htmlFor="enc-triage" className="block text-xs font-semibold text-slate-700 mb-1">
+            <label htmlFor="enc-triage" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
               Triaj Rengi
             </label>
             <select
@@ -302,7 +302,7 @@ export function EncountersView({
               name="triageColor"
               value={form.triageColor}
               onChange={(e) => setForm({ ...form, triageColor: e.target.value })}
-              className="w-full rounded-xl border border-slate-300 px-2.5 py-2 text-xs font-bold"
+              className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-2.5 py-2 text-xs font-bold"
             >
               <option value="Yeşil">🟢 Yeşil Alan</option>
               <option value="Sarı">🟡 Sarı Alan</option>
@@ -311,7 +311,7 @@ export function EncountersView({
             </select>
           </div>
           <div>
-            <label htmlFor="enc-admtype" className="block text-xs font-semibold text-slate-700 mb-1">
+            <label htmlFor="enc-admtype" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
               Kabul Şekli
             </label>
             <select
@@ -319,7 +319,7 @@ export function EncountersView({
               name="admissionType"
               value={form.admissionType}
               onChange={(e) => setForm({ ...form, admissionType: e.target.value })}
-              className="w-full rounded-xl border border-slate-300 px-2.5 py-2 text-xs"
+              className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-2.5 py-2 text-xs"
             >
               <option value="Poliklinik Ayaktan">Poliklinik Ayaktan</option>
               <option value="Acil Ayaktan">Acil Ayaktan</option>
@@ -330,13 +330,13 @@ export function EncountersView({
         </div>
 
         {/* Vital Bulgular */}
-        <fieldset className="p-3 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
-          <legend className="text-[11px] font-bold uppercase text-sky-800 px-1">
+        <fieldset className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 space-y-2">
+          <legend className="text-[11px] font-bold uppercase text-sky-800 dark:text-sky-300 px-1">
             Vital Bulgular (Ondalıklı Ateş & Otomatik VKİ: {liveBmi})
           </legend>
           <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
             <div>
-              <label htmlFor="v-temp" className="block text-[10px] font-semibold text-slate-600">
+              <label htmlFor="v-temp" className="block text-[10px] font-semibold text-slate-600 dark:text-slate-400">
                 Ateş (°C)
               </label>
               <input
@@ -345,11 +345,11 @@ export function EncountersView({
                 step="0.1"
                 value={form.temperature}
                 onChange={(e) => setForm({ ...form, temperature: e.target.value })}
-                className="w-full rounded-lg border border-slate-300 px-2 py-1.5 text-xs"
+                className="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-2 py-1.5 text-xs"
               />
             </div>
             <div>
-              <label htmlFor="v-sys" className="block text-[10px] font-semibold text-slate-600">
+              <label htmlFor="v-sys" className="block text-[10px] font-semibold text-slate-600 dark:text-slate-400">
                 B.Tansiyon
               </label>
               <input
@@ -357,11 +357,11 @@ export function EncountersView({
                 type="number"
                 value={form.systolicBp}
                 onChange={(e) => setForm({ ...form, systolicBp: e.target.value })}
-                className="w-full rounded-lg border border-slate-300 px-2 py-1.5 text-xs"
+                className="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-2 py-1.5 text-xs"
               />
             </div>
             <div>
-              <label htmlFor="v-dia" className="block text-[10px] font-semibold text-slate-600">
+              <label htmlFor="v-dia" className="block text-[10px] font-semibold text-slate-600 dark:text-slate-400">
                 K.Tansiyon
               </label>
               <input
@@ -369,11 +369,11 @@ export function EncountersView({
                 type="number"
                 value={form.diastolicBp}
                 onChange={(e) => setForm({ ...form, diastolicBp: e.target.value })}
-                className="w-full rounded-lg border border-slate-300 px-2 py-1.5 text-xs"
+                className="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-2 py-1.5 text-xs"
               />
             </div>
             <div>
-              <label htmlFor="v-hr" className="block text-[10px] font-semibold text-slate-600">
+              <label htmlFor="v-hr" className="block text-[10px] font-semibold text-slate-600 dark:text-slate-400">
                 Nabız (/dk)
               </label>
               <input
@@ -381,11 +381,11 @@ export function EncountersView({
                 type="number"
                 value={form.heartRate}
                 onChange={(e) => setForm({ ...form, heartRate: e.target.value })}
-                className="w-full rounded-lg border border-slate-300 px-2 py-1.5 text-xs"
+                className="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-2 py-1.5 text-xs"
               />
             </div>
             <div>
-              <label htmlFor="v-kg" className="block text-[10px] font-semibold text-slate-600">
+              <label htmlFor="v-kg" className="block text-[10px] font-semibold text-slate-600 dark:text-slate-400">
                 Kilo (kg)
               </label>
               <input
@@ -394,11 +394,11 @@ export function EncountersView({
                 step="0.5"
                 value={form.weightKg}
                 onChange={(e) => setForm({ ...form, weightKg: e.target.value })}
-                className="w-full rounded-lg border border-slate-300 px-2 py-1.5 text-xs"
+                className="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-2 py-1.5 text-xs"
               />
             </div>
             <div>
-              <label htmlFor="v-cm" className="block text-[10px] font-semibold text-slate-600">
+              <label htmlFor="v-cm" className="block text-[10px] font-semibold text-slate-600 dark:text-slate-400">
                 Boy (cm)
               </label>
               <input
@@ -406,7 +406,7 @@ export function EncountersView({
                 type="number"
                 value={form.heightCm}
                 onChange={(e) => setForm({ ...form, heightCm: e.target.value })}
-                className="w-full rounded-lg border border-slate-300 px-2 py-1.5 text-xs"
+                className="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-2 py-1.5 text-xs"
               />
             </div>
           </div>
@@ -414,44 +414,44 @@ export function EncountersView({
 
         {/* Hasta Alerji Uyarı Şeridi */}
         {selectedPatient?.allergies && (
-          <div className="p-2.5 bg-rose-50 border border-rose-300 rounded-xl text-rose-900 text-xs flex items-center gap-2 font-bold animate-pulse">
+          <div className="p-2.5 bg-rose-50 dark:bg-rose-950/40 border border-rose-300 dark:border-rose-800 rounded-xl text-rose-900 dark:text-rose-300 text-xs flex items-center gap-2 font-bold animate-pulse">
             <AlertTriangle className="w-4 h-4 text-rose-600 shrink-0" />
             <span>Klinik Uyarı: Hastanın &quot;{selectedPatient.allergies}&quot; alerji kaydı bulunmaktadır!</span>
           </div>
         )}
 
         {/* Hızlı Klinik Muayene Şablonları */}
-        <div className="space-y-1.5 p-3 rounded-xl bg-slate-50 border border-slate-200">
+        <div className="space-y-1.5 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-bold uppercase text-slate-600">Hızlı Klinik Şablonlar:</span>
+            <span className="text-[11px] font-bold uppercase text-slate-600 dark:text-slate-300">Hızlı Klinik Şablonlar:</span>
             <span className="text-[10px] text-slate-400">Tek tıkla tanı ve bulguları doldurur</span>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5">
             <button
               type="button"
               onClick={() => applyClinicalTemplate("USYE")}
-              className="px-2 py-1.5 rounded-lg bg-white hover:bg-sky-50 text-sky-800 text-[11px] font-semibold border border-slate-200 hover:border-sky-300 transition text-center shadow-sm"
+              className="px-2 py-1.5 rounded-lg bg-white dark:bg-slate-800 hover:bg-sky-50 dark:hover:bg-sky-950/50 text-sky-800 dark:text-sky-300 text-[11px] font-semibold border border-slate-200 dark:border-slate-700 hover:border-sky-300 transition text-center shadow-sm"
             >
               🦠 ÜSYE
             </button>
             <button
               type="button"
               onClick={() => applyClinicalTemplate("HT")}
-              className="px-2 py-1.5 rounded-lg bg-white hover:bg-rose-50 text-rose-800 text-[11px] font-semibold border border-slate-200 hover:border-rose-300 transition text-center shadow-sm"
+              className="px-2 py-1.5 rounded-lg bg-white dark:bg-slate-800 hover:bg-rose-50 dark:hover:bg-rose-950/50 text-rose-800 dark:text-rose-300 text-[11px] font-semibold border border-slate-200 dark:border-slate-700 hover:border-rose-300 transition text-center shadow-sm"
             >
               💓 Hipertansiyon
             </button>
             <button
               type="button"
               onClick={() => applyClinicalTemplate("GE")}
-              className="px-2 py-1.5 rounded-lg bg-white hover:bg-amber-50 text-amber-800 text-[11px] font-semibold border border-slate-200 hover:border-amber-300 transition text-center shadow-sm"
+              className="px-2 py-1.5 rounded-lg bg-white dark:bg-slate-800 hover:bg-amber-50 dark:hover:bg-amber-950/50 text-amber-800 dark:text-amber-300 text-[11px] font-semibold border border-slate-200 dark:border-slate-700 hover:border-amber-300 transition text-center shadow-sm"
             >
               🥣 Gastroenterit
             </button>
             <button
               type="button"
               onClick={() => applyClinicalTemplate("ROUTINE")}
-              className="px-2 py-1.5 rounded-lg bg-white hover:bg-emerald-50 text-emerald-800 text-[11px] font-semibold border border-slate-200 hover:border-emerald-300 transition text-center shadow-sm"
+              className="px-2 py-1.5 rounded-lg bg-white dark:bg-slate-800 hover:bg-emerald-50 dark:hover:bg-emerald-950/50 text-emerald-800 dark:text-emerald-300 text-[11px] font-semibold border border-slate-200 dark:border-slate-700 hover:border-emerald-300 transition text-center shadow-sm"
             >
               🩺 Check-Up
             </button>
@@ -459,7 +459,7 @@ export function EncountersView({
         </div>
 
         <div>
-          <label htmlFor="enc-comp" className="block text-xs font-semibold text-slate-700 mb-1">
+          <label htmlFor="enc-comp" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
             Ana Şikayet & Hikaye *
           </label>
           <input
@@ -469,13 +469,13 @@ export function EncountersView({
             placeholder="Hastanın başvuru şikayeti..."
             value={form.complaint}
             onChange={(e) => setForm({ ...form, complaint: e.target.value })}
-            className="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs"
+            className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-3 py-2 text-xs"
           />
         </div>
 
         <div className="grid grid-cols-2 gap-2.5">
           <div>
-            <label htmlFor="enc-phys" className="block text-xs font-semibold text-slate-700 mb-1">
+            <label htmlFor="enc-phys" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
               Fiziki Muayene Bulgusu
             </label>
             <input
@@ -483,11 +483,11 @@ export function EncountersView({
               type="text"
               value={form.physicalFindings}
               onChange={(e) => setForm({ ...form, physicalFindings: e.target.value })}
-              className="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs"
+              className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-3 py-2 text-xs"
             />
           </div>
           <div>
-            <label htmlFor="enc-lab" className="block text-xs font-semibold text-slate-700 mb-1">
+            <label htmlFor="enc-lab" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
               Laboratuvar / Radyoloji Özeti
             </label>
             <input
@@ -495,13 +495,13 @@ export function EncountersView({
               type="text"
               value={form.labSummary}
               onChange={(e) => setForm({ ...form, labSummary: e.target.value })}
-              className="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs"
+              className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-3 py-2 text-xs"
             />
           </div>
         </div>
 
         <div>
-          <label htmlFor="enc-icd" className="block text-xs font-semibold text-slate-700 mb-1">
+          <label htmlFor="enc-icd" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
             ICD-10 Tanı Kataloğundan Seçin
           </label>
           <select
@@ -515,7 +515,7 @@ export function EncountersView({
                 diagnosisName: found?.name || "",
               });
             }}
-            className="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs font-semibold text-sky-900"
+            className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sky-900 dark:text-sky-300 px-3 py-2 text-xs font-semibold"
           >
             {(data?.diagnoses || []).map((diag) => (
               <option key={diag.id} value={diag.code}>
@@ -527,7 +527,7 @@ export function EncountersView({
 
         <div className="grid grid-cols-2 gap-2.5">
           <div>
-            <label htmlFor="enc-treat" className="block text-xs font-semibold text-slate-700 mb-1">
+            <label htmlFor="enc-treat" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
               Uygulanan Tedavi
             </label>
             <input
@@ -535,11 +535,11 @@ export function EncountersView({
               type="text"
               value={form.treatment}
               onChange={(e) => setForm({ ...form, treatment: e.target.value })}
-              className="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs"
+              className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-3 py-2 text-xs"
             />
           </div>
           <div>
-            <label htmlFor="enc-dis" className="block text-xs font-semibold text-slate-700 mb-1">
+            <label htmlFor="enc-dis" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
               Çıkış Şekli / Karar
             </label>
             <select
@@ -552,7 +552,7 @@ export function EncountersView({
                   decision: e.target.value,
                 })
               }
-              className="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs"
+              className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-3 py-2 text-xs"
             >
               <option value="Şifa ile Taburcu">Şifa ile Taburcu</option>
               <option value="Reçete ile Ayaktan Takip">Reçete ile Ayaktan Takip</option>
@@ -572,16 +572,16 @@ export function EncountersView({
       </form>
 
       {/* Muayene Listesi */}
-      <div className="lg:col-span-7 bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-4">
+      <div className="lg:col-span-7 bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
         <div className="flex flex-wrap items-center justify-between gap-2">
-          <h3 className="text-sm font-bold text-slate-900">
+          <h3 className="text-sm font-bold text-slate-900 dark:text-white">
             Muayene ve Vizit Kayıtları ({filteredEncounters.length})
           </h3>
           <div className="flex items-center gap-2">
             <button
               type="button"
               onClick={handleExport}
-              className="px-3 py-1.5 rounded-xl bg-teal-50 hover:bg-teal-100 text-teal-800 font-bold text-xs border border-teal-200 transition inline-flex items-center gap-1.5 shadow-sm"
+              className="px-3 py-1.5 rounded-xl bg-teal-50 dark:bg-teal-950/40 hover:bg-teal-100 dark:hover:bg-teal-900/40 text-teal-800 dark:text-teal-300 font-bold text-xs border border-teal-200 dark:border-teal-800 transition inline-flex items-center gap-1.5 shadow-sm"
               title="Muayeneleri Excel / CSV olarak indir"
             >
               <Download className="w-3.5 h-3.5" /> Excel İndir
@@ -596,8 +596,8 @@ export function EncountersView({
                   }}
                   className={`px-2.5 py-1 rounded-lg text-xs font-bold ${
                     triageFilter === c
-                      ? "bg-slate-900 text-white"
-                      : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                      ? "bg-slate-900 dark:bg-sky-600 text-white"
+                      : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
                   }`}
                 >
                   {c === "ALL" ? "Tümü" : `${c} Alan`}
@@ -611,17 +611,17 @@ export function EncountersView({
           {paginatedEncounters.map((enc) => (
             <div
               key={enc.id}
-              className="border border-slate-200 rounded-xl p-4 hover:border-sky-300 transition space-y-2"
+              className="border border-slate-200 dark:border-slate-800 rounded-xl p-4 hover:border-sky-300 dark:hover:border-sky-600 transition space-y-2 bg-white dark:bg-slate-900"
             >
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <div className="flex items-center gap-2">
-                  <span className="font-mono text-xs font-bold px-2 py-0.5 bg-sky-100 text-sky-800 rounded">
+                  <span className="font-mono text-xs font-bold px-2 py-0.5 bg-sky-100 dark:bg-sky-950/60 text-sky-800 dark:text-sky-300 rounded">
                     {enc.protocolNo}
                   </span>
-                  <span className="font-bold text-sm text-slate-900">
+                  <span className="font-bold text-sm text-slate-900 dark:text-white">
                     {enc.patient?.firstName} {enc.patient?.lastName}
                   </span>
-                  <span className="text-xs text-slate-500 font-mono">
+                  <span className="text-xs text-slate-500 dark:text-slate-400 font-mono">
                     ({enc.patient?.nationalId})
                   </span>
                 </div>
@@ -629,17 +629,17 @@ export function EncountersView({
                   <span
                     className={`text-xs font-bold px-2.5 py-0.5 rounded-full ${
                       enc.triageColor === "Kırmızı"
-                        ? "bg-rose-100 text-rose-700"
+                        ? "bg-rose-100 text-rose-700 dark:bg-rose-950/60 dark:text-rose-300"
                         : enc.triageColor === "Sarı"
-                        ? "bg-amber-100 text-amber-800"
-                        : "bg-emerald-100 text-emerald-700"
+                        ? "bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300"
+                        : "bg-emerald-100 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300"
                     }`}
                   >
                     Triaj: {enc.triageColor}
                   </span>
                   <button
                     onClick={() => handleDelete(enc.id)}
-                    className="p-1 text-rose-500 hover:bg-rose-50 rounded"
+                    className="p-1 text-rose-500 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/50 rounded"
                   >
                     <Trash2 className="w-4 h-4" />
                   </button>
@@ -647,7 +647,7 @@ export function EncountersView({
               </div>
 
               {enc.vitalSigns && (
-                <div className="flex flex-wrap gap-3 bg-slate-50 px-3 py-1.5 rounded-lg text-xs text-slate-700">
+                <div className="flex flex-wrap gap-3 bg-slate-50 dark:bg-slate-800/60 px-3 py-1.5 rounded-lg text-xs text-slate-700 dark:text-slate-300">
                   <span>🌡️ Ateş: <b>{enc.vitalSigns.temperature}°C</b></span>
                   <span>❤️ TA: <b>{enc.vitalSigns.bloodPressureText} mmHg</b></span>
                   <span>💓 Nabız: <b>{enc.vitalSigns.heartRate}/dk</b></span>
@@ -655,7 +655,7 @@ export function EncountersView({
                 </div>
               )}
 
-              <div className="text-xs text-slate-700 space-y-1">
+              <div className="text-xs text-slate-700 dark:text-slate-300 space-y-1">
                 <div>
                   <b>Hekim / Bölüm:</b> {enc.doctor?.fullTitleName} ({enc.department?.name}) •{" "}
                   <b>Kabul:</b> {enc.admissionType}
@@ -663,25 +663,25 @@ export function EncountersView({
                 <div>
                   <b>Şikayet & Bulgular:</b> {enc.complaint} — {enc.physicalFindings || "-"}
                 </div>
-                <div className="text-sky-900 font-semibold">
+                <div className="text-sky-900 dark:text-sky-400 font-semibold">
                   <b>ICD-10 Tanı:</b> [{enc.diagnosisCode}] {enc.diagnosisName} →{" "}
-                  <span className="text-emerald-700">{enc.dischargeType}</span>
+                  <span className="text-emerald-700 dark:text-emerald-400">{enc.dischargeType}</span>
                 </div>
               </div>
 
               {/* Muayeneden Hızlı Aksiyonlar */}
-              <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-100">
+              <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-100 dark:border-slate-800">
                 <div className="flex items-center gap-1.5">
                   <button
                     onClick={() => onStartPrescription(enc)}
-                    className="px-2.5 py-1 rounded-lg bg-teal-50 hover:bg-teal-100 text-teal-800 font-bold text-[11px] inline-flex items-center gap-1 border border-teal-200 transition"
+                    className="px-2.5 py-1 rounded-lg bg-teal-50 dark:bg-teal-950/50 hover:bg-teal-100 dark:hover:bg-teal-900/50 text-teal-800 dark:text-teal-300 font-bold text-[11px] inline-flex items-center gap-1 border border-teal-200 dark:border-teal-800 transition"
                     title="Bu muayeneye bağlı E-Reçete oluştur"
                   >
                     <Pill className="w-3.5 h-3.5" /> E-Reçete Yaz
                   </button>
                   <button
                     onClick={() => onStartAdmission(enc)}
-                    className="px-2.5 py-1 rounded-lg bg-purple-50 hover:bg-purple-100 text-purple-800 font-bold text-[11px] inline-flex items-center gap-1 border border-purple-200 transition"
+                    className="px-2.5 py-1 rounded-lg bg-purple-50 dark:bg-purple-950/50 hover:bg-purple-100 dark:hover:bg-purple-900/50 text-purple-800 dark:text-purple-300 font-bold text-[11px] inline-flex items-center gap-1 border border-purple-200 dark:border-purple-800 transition"
                     title="Yataklı servise yatış ver"
                   >
                     <BedDouble className="w-3.5 h-3.5" /> Servis Yatışı Ver
@@ -689,7 +689,7 @@ export function EncountersView({
                 </div>
                 <button
                   onClick={() => onSelectPatientDetail(enc.patient)}
-                  className="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-[11px] inline-flex items-center gap-1 transition"
+                  className="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-bold text-[11px] inline-flex items-center gap-1 transition"
                 >
                   <FileSpreadsheet className="w-3.5 h-3.5" /> Hasta Dosyası (Epikriz)
                 </button>
@@ -699,8 +699,8 @@ export function EncountersView({
         </div>
 
         {/* Muayene Sayfalama Kontrolleri */}
-        <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-100 text-xs">
-          <div className="flex items-center gap-2 text-slate-500">
+        <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-100 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-400">
+          <div className="flex items-center gap-2">
             <span>Sayfa Başına:</span>
             <select
               value={pageSize}
@@ -708,7 +708,7 @@ export function EncountersView({
                 setPageSize(Number(e.target.value));
                 setPage(1);
               }}
-              className="px-2 py-1 rounded-lg border border-slate-200 bg-white text-xs font-semibold text-slate-700"
+              className="px-2 py-1 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs font-semibold text-slate-700 dark:text-slate-200"
             >
               <option value={5}>5</option>
               <option value={10}>10</option>
@@ -726,18 +726,18 @@ export function EncountersView({
               type="button"
               disabled={page <= 1}
               onClick={() => setPage((p) => Math.max(1, p - 1))}
-              className="p-1.5 rounded-lg border border-slate-200 hover:bg-slate-100 disabled:opacity-40 disabled:hover:bg-transparent transition text-slate-700"
+              className="p-1.5 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-40 disabled:hover:bg-transparent transition text-slate-700 dark:text-slate-300"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
-            <span className="px-3 py-1 rounded-lg bg-teal-50 text-teal-800 font-bold border border-teal-200">
+            <span className="px-3 py-1 rounded-lg bg-teal-50 dark:bg-teal-950/60 text-teal-800 dark:text-teal-300 font-bold border border-teal-200 dark:border-teal-800">
               {page} / {totalPages}
             </span>
             <button
               type="button"
               disabled={page >= totalPages}
               onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-              className="p-1.5 rounded-lg border border-slate-200 hover:bg-slate-100 disabled:opacity-40 disabled:hover:bg-transparent transition text-slate-700"
+              className="p-1.5 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-40 disabled:hover:bg-transparent transition text-slate-700 dark:text-slate-300"
             >
               <ChevronRight className="w-4 h-4" />
             </button>
@@ -747,3 +747,4 @@ export function EncountersView({
     </div>
   );
 }
+

@@ -114,14 +114,14 @@ export function QueueView({
       <form
         onSubmit={handleCreateAppointment}
         method="POST"
-        className="lg:col-span-4 bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-4 h-fit"
+        className="lg:col-span-4 bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4 h-fit"
       >
-        <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+        <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
           <CalendarClock className="w-4 h-4 text-sky-600" /> Yeni Poliklinik Randevu / Sıra Ver
         </h3>
 
         <div>
-          <label htmlFor="apt-patient" className="block text-xs font-semibold text-slate-700 mb-1">
+          <label htmlFor="apt-patient" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
             Hasta Seçin
           </label>
           <select
@@ -129,7 +129,7 @@ export function QueueView({
             name="patientId"
             value={form.patientId}
             onChange={(e) => setForm({ ...form, patientId: e.target.value })}
-            className="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs"
+            className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-3 py-2 text-xs"
           >
             {(data?.patients || []).map((p) => (
               <option key={p.id} value={p.id}>
@@ -140,7 +140,7 @@ export function QueueView({
         </div>
 
         <div>
-          <label htmlFor="apt-dept" className="block text-xs font-semibold text-slate-700 mb-1">
+          <label htmlFor="apt-dept" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
             Poliklinik / Bölüm
           </label>
           <select
@@ -148,7 +148,7 @@ export function QueueView({
             name="departmentId"
             value={form.departmentId}
             onChange={(e) => handleDepartmentChange(e.target.value)}
-            className="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs"
+            className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-3 py-2 text-xs"
           >
             {(data?.departments || []).map((d) => (
               <option key={d.id} value={d.id}>
@@ -159,7 +159,7 @@ export function QueueView({
         </div>
 
         <div>
-          <label htmlFor="apt-doctor" className="block text-xs font-semibold text-slate-700 mb-1">
+          <label htmlFor="apt-doctor" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
             İlgili Hekim
           </label>
           <select
@@ -167,7 +167,7 @@ export function QueueView({
             name="doctorId"
             value={form.doctorId}
             onChange={(e) => setForm({ ...form, doctorId: e.target.value })}
-            className="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs"
+            className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-3 py-2 text-xs"
           >
             {doctors.map((d: StaffMember) => (
               <option key={d.id} value={d.id}>
@@ -179,7 +179,7 @@ export function QueueView({
 
         <div className="grid grid-cols-2 gap-3">
           <div>
-            <label htmlFor="apt-time" className="block text-xs font-semibold text-slate-700 mb-1">
+            <label htmlFor="apt-time" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
               Randevu Saati
             </label>
             <input
@@ -188,11 +188,11 @@ export function QueueView({
               type="time"
               value={form.timeSlot}
               onChange={(e) => setForm({ ...form, timeSlot: e.target.value })}
-              className="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs"
+              className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-3 py-2 text-xs"
             />
           </div>
           <div>
-            <label htmlFor="apt-priority" className="block text-xs font-semibold text-slate-700 mb-1">
+            <label htmlFor="apt-priority" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
               Öncelik Durumu
             </label>
             <select
@@ -200,7 +200,7 @@ export function QueueView({
               name="priority"
               value={form.priority}
               onChange={(e) => setForm({ ...form, priority: e.target.value })}
-              className="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs"
+              className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-3 py-2 text-xs"
             >
               <option value="Normal">Normal Sıra</option>
               <option value="65+ Yaş / Öncelikli">65+ Yaş / Öncelikli</option>
@@ -211,7 +211,7 @@ export function QueueView({
         </div>
 
         <div>
-          <label htmlFor="apt-reason" className="block text-xs font-semibold text-slate-700 mb-1">
+          <label htmlFor="apt-reason" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
             Başvuru Nedeni / Ön Şikayet
           </label>
           <input
@@ -222,7 +222,7 @@ export function QueueView({
             placeholder="Örn: Göğüs ağrısı, rutin kontrol..."
             value={form.visitReason}
             onChange={(e) => setForm({ ...form, visitReason: e.target.value })}
-            className="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs"
+            className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-3 py-2 text-xs"
           />
         </div>
 
@@ -235,18 +235,18 @@ export function QueueView({
       </form>
 
       {/* Poliklinik Çağrı Ekranı */}
-      <div className="lg:col-span-8 bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-4">
-        <h3 className="text-sm font-bold text-slate-900">
+      <div className="lg:col-span-8 bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
+        <h3 className="text-sm font-bold text-slate-900 dark:text-white">
           Canlı Poliklinik Sıra ve Çağrı Monitörü ({data?.appointments.length || 0})
         </h3>
         <div
           tabIndex={0}
           role="region"
           aria-label="Poliklinik sıra listesi"
-          className="overflow-auto max-w-full border border-slate-200 rounded-xl"
+          className="overflow-auto max-w-full border border-slate-200 dark:border-slate-800 rounded-xl"
         >
           <table className="w-full text-left border-collapse text-xs">
-            <thead className="sticky top-0 z-10 bg-slate-100 text-slate-700 uppercase">
+            <thead className="sticky top-0 z-10 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 uppercase">
               <tr>
                 <th className="py-3 px-3">Sıra No</th>
                 <th className="py-3 px-3">Saat</th>
@@ -257,31 +257,31 @@ export function QueueView({
                 <th className="py-3 px-3 text-right">İşlem</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-200">
+            <tbody className="divide-y divide-slate-200 dark:divide-slate-800 text-slate-800 dark:text-slate-200">
               {(data?.appointments || []).map((apt) => (
-                <tr key={apt.id} className="hover:bg-slate-50">
-                  <td className="py-3 px-3 font-mono font-black text-sm text-sky-700">
+                <tr key={apt.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                  <td className="py-3 px-3 font-mono font-black text-sm text-sky-700 dark:text-sky-400">
                     {apt.queueNumber}
                   </td>
                   <td className="py-3 px-3 font-semibold">{apt.timeSlot}</td>
                   <td className="py-3 px-3">
-                    <div className="font-bold text-slate-900">
+                    <div className="font-bold text-slate-900 dark:text-white">
                       {apt.patient?.firstName} {apt.patient?.lastName}
                     </div>
-                    <div className="text-slate-500 font-mono">{apt.patient?.nationalId}</div>
+                    <div className="text-slate-500 dark:text-slate-400 font-mono">{apt.patient?.nationalId}</div>
                   </td>
                   <td className="py-3 px-3">
                     <div className="font-semibold">{apt.department?.name}</div>
-                    <div className="text-slate-500">{apt.doctor?.fullTitleName}</div>
+                    <div className="text-slate-500 dark:text-slate-400">{apt.doctor?.fullTitleName}</div>
                   </td>
                   <td className="py-3 px-3">
                     <span
                       className={`px-2 py-0.5 rounded-md font-semibold ${
                         apt.priority === "Acil"
-                          ? "bg-rose-100 text-rose-700"
+                          ? "bg-rose-100 text-rose-700 dark:bg-rose-950/60 dark:text-rose-300"
                           : apt.priority.includes("65+")
-                          ? "bg-amber-100 text-amber-800"
-                          : "bg-slate-100 text-slate-700"
+                          ? "bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300"
+                          : "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300"
                       }`}
                     >
                       {apt.priority}
@@ -291,10 +291,10 @@ export function QueueView({
                     <span
                       className={`px-2.5 py-1 rounded-full font-bold ${
                         apt.status === "IN_PROGRESS"
-                          ? "bg-sky-100 text-sky-800"
+                          ? "bg-sky-100 text-sky-800 dark:bg-sky-950/60 dark:text-sky-300"
                           : apt.status === "COMPLETED"
-                          ? "bg-emerald-100 text-emerald-800"
-                          : "bg-amber-100 text-amber-800"
+                          ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300"
+                          : "bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300"
                       }`}
                     >
                       {apt.status === "WAITING"
@@ -344,7 +344,7 @@ export function QueueView({
                     )}
                     <button
                       onClick={() => handleDelete(apt.id)}
-                      className="p-1 text-rose-600 hover:bg-rose-50 rounded"
+                      className="p-1 text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded"
                       title="Sil"
                     >
                       <Trash2 className="w-4 h-4 inline" />
@@ -359,3 +359,4 @@ export function QueueView({
     </div>
   );
 }
+
