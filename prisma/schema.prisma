@@ -137,6 +137,8 @@ model Encounter {
   treatment        String?      // Eski: Tedavi
   decision         String?      // Eski: Karar
   notes            String?      // Eski: Açıklama
+  sysTrackingNo    String?      // T.C. Sağlık Bakanlığı e-Nabız SYS Takip No (Örn: SYS-2026-TR-88419)
+  medulaProvisionNo String?     // SGK MEDULA Provizyon Takip No (Örn: PRV-2026-44091)
   checkInTime      DateTime     @default(now()) // Eski: Muayene_Giriş_Tarihi
   checkOutTime     DateTime?    // Eski: Muayene_Bitiş_Tarihi
   status           String       @default("ACTIVE") // ACTIVE | COMPLETED | ADMITTED
