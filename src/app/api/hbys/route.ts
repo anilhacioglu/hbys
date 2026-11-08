@@ -13,15 +13,15 @@ import {
 } from "@/lib/validators";
 
 const ROLE_PERMISSIONS: Record<string, string[]> = {
-  patient: ["ADMIN", "DOCTOR", "RECEPTIONIST"],
-  appointment: ["ADMIN", "DOCTOR", "RECEPTIONIST"],
+  patient: ["ADMIN", "DOCTOR", "RECEPTIONIST", "NURSE", "CASHIER"],
+  appointment: ["ADMIN", "DOCTOR", "RECEPTIONIST", "NURSE"],
   encounter: ["ADMIN", "DOCTOR"],
-  prescription: ["ADMIN", "DOCTOR"],
+  prescription: ["ADMIN", "DOCTOR", "PHARMACIST"],
   admission: ["ADMIN", "DOCTOR", "NURSE"],
-  labOrder: ["ADMIN", "DOCTOR", "NURSE"],
-  invoice: ["ADMIN", "RECEPTIONIST", "DOCTOR"],
-  medication: ["ADMIN", "DOCTOR"],
-  medication_stock: ["ADMIN", "DOCTOR", "NURSE"],
+  labOrder: ["ADMIN", "DOCTOR", "NURSE", "LAB_TECHNICIAN"],
+  invoice: ["ADMIN", "CASHIER", "RECEPTIONIST"],
+  medication: ["ADMIN", "PHARMACIST", "DOCTOR"],
+  medication_stock: ["ADMIN", "PHARMACIST", "DOCTOR", "NURSE"],
   staff: ["ADMIN"],
 };
 

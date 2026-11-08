@@ -9,6 +9,7 @@ import {
   Patient,
   Prescription,
   TabId,
+  UserRole,
 } from "@/types/hbys";
 import LoginView from "@/components/LoginView";
 import PrescriptionPrintModal from "@/components/PrescriptionPrintModal";
@@ -55,6 +56,21 @@ import {
   User,
   Users,
 } from "lucide-react";
+
+// Rol Bazlı Yetkilendirme (RBAC) Menü İzin Matrisi
+const ROLE_PERMISSIONS: Record<TabId, UserRole[]> = {
+  dashboard: ["ADMIN", "DOCTOR", "RECEPTIONIST", "NURSE", "PHARMACIST", "CASHIER", "LAB_TECHNICIAN"],
+  queue: ["ADMIN", "DOCTOR", "RECEPTIONIST", "NURSE"],
+  patients: ["ADMIN", "DOCTOR", "RECEPTIONIST", "NURSE", "CASHIER"],
+  encounters: ["ADMIN", "DOCTOR"],
+  prescriptions: ["ADMIN", "DOCTOR", "PHARMACIST"],
+  rooms: ["ADMIN", "DOCTOR", "NURSE"],
+  pharmacy: ["ADMIN", "PHARMACIST", "DOCTOR"],
+  billing: ["ADMIN", "CASHIER", "RECEPTIONIST"],
+  labs: ["ADMIN", "DOCTOR", "LAB_TECHNICIAN"],
+  staff: ["ADMIN"],
+  audit: ["ADMIN"],
+};
 
 export default function HbysApp() {
   const [user, setUser] = useState<LoggedInUser | null>(null);
@@ -139,7 +155,31 @@ export default function HbysApp() {
     });
   }
 
-  // Global Kısayol Tuşları (Ctrl+K, F2, F3, F4, F5)
+  // Yetki Kontrollü Güvenli Menü Geçişi
+  function navigateToTab(tab: TabId, shortcutMsg?: string) {
+    if (!user) return;
+    const allowed = ROLE_PERMISSIONS[tab];
+    if (allowed && !allowed.includes(user.role)) {
+      showToast("error", `Yetki Yetersiz: ${user.role} rolünün bu menüye (${tab}) erişim izni bulunmamaktadır.`);
+      return;
+    }
+    setActiveTab(tab);
+    if (shortcutMsg) {
+      showToast("success", shortcutMsg);
+    }
+  }
+
+  // Rol bazlı aktif sekme doğrulama (Yetkisiz bir sekmede oturum açılırsa Dashboard'a yönlendir)
+  useEffect(() => {
+    if (user) {
+      const allowed = ROLE_PERMISSIONS[activeTab];
+      if (allowed && !allowed.includes(user.role)) {
+        setActiveTab("dashboard");
+      }
+    }
+  }, [user, activeTab]);
+
+  // Global Kısayol Tuşları (Ctrl+K, F2, F3, F4, F5, F6, F7)
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
       // Ctrl+K veya Cmd+K: Hızlı Komut Paleti
@@ -157,49 +197,43 @@ export default function HbysApp() {
       // F2: Hasta Sekmesi
       if (e.key === "F2") {
         e.preventDefault();
-        setActiveTab("patients");
-        showToast("success", "F2: Hasta Özlük Kartları ekranına geçildi.");
+        navigateToTab("patients", "F2: Hasta Özlük Kartları ekranına geçildi.");
         return;
       }
       // F3: Muayene Sekmesi
       if (e.key === "F3") {
         e.preventDefault();
-        setActiveTab("encounters");
-        showToast("success", "F3: Muayene & Vital Bulgular ekranına geçildi.");
+        navigateToTab("encounters", "F3: Muayene & Vital Bulgular ekranına geçildi.");
         return;
       }
       // F4: Reçete Sekmesi
       if (e.key === "F4") {
         e.preventDefault();
-        setActiveTab("prescriptions");
-        showToast("success", "F4: E-Reçete ekranına geçildi.");
+        navigateToTab("prescriptions", "F4: E-Reçete ekranına geçildi.");
         return;
       }
       // F5: Yatak / Oda Sekmesi (Sayfa yenilemesini engelle)
       if (e.key === "F5") {
         e.preventDefault();
-        setActiveTab("rooms");
-        showToast("success", "F5: Yataklı Servis Haritası ekranına geçildi.");
+        navigateToTab("rooms", "F5: Yataklı Servis Haritası ekranına geçildi.");
         return;
       }
       // F6: Eczane & Depo Stok
       if (e.key === "F6") {
         e.preventDefault();
-        setActiveTab("pharmacy");
-        showToast("success", "F6: Eczane & Depo Stok ekranına geçildi.");
+        navigateToTab("pharmacy", "F6: Eczane & Depo Stok ekranına geçildi.");
         return;
       }
       // F7: Vezne & Kasa
       if (e.key === "F7") {
         e.preventDefault();
-        setActiveTab("billing");
-        showToast("success", "F7: Vezne, Kasa & Faturalandırma ekranına geçildi.");
+        navigateToTab("billing", "F7: Vezne, Kasa & Faturalandırma ekranına geçildi.");
         return;
       }
     }
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
+  }, [user]);
 
   async function fetchHbysData() {
     setLoading(true);
@@ -242,36 +276,48 @@ export default function HbysApp() {
     showToast("success", "Oturum güvenli şekilde kapatıldı.");
   }
 
-  // Randevudan Muayene Aç
+  // Randevudan Muayene Aç (Yetki Kontrollü)
   function handleStartEncounterFromQueue(apt: Appointment) {
+    if (user && !ROLE_PERMISSIONS.encounters.includes(user.role)) {
+      showToast("error", `Yetki Yetersiz: ${user.role} rolü muayene protokolü başlatamaz.`);
+      return;
+    }
     setEncounterPrefill({
       patientId: String(apt.patientId),
       doctorId: String(apt.doctorId),
       departmentId: String(apt.departmentId),
     });
-    setActiveTab("encounters");
+    navigateToTab("encounters");
     showToast("success", `${apt.patient?.firstName} ${apt.patient?.lastName} için muayene formu açıldı.`);
   }
 
-  // Muayeneden E-Reçete Yaz
+  // Muayeneden E-Reçete Yaz (Yetki Kontrollü)
   function handleStartPrescriptionFromEncounter(enc: Encounter) {
+    if (user && !ROLE_PERMISSIONS.prescriptions.includes(user.role)) {
+      showToast("error", `Yetki Yetersiz: ${user.role} rolü e-reçete düzenleyemez.`);
+      return;
+    }
     setRxPrefill({
       patientId: String(enc.patientId),
       doctorId: String(enc.doctorId),
       diagnosis: enc.diagnosisCode ? `${enc.diagnosisCode} - ${enc.diagnosisName}` : "",
     });
-    setActiveTab("prescriptions");
+    navigateToTab("prescriptions");
     showToast("success", `${enc.patient?.firstName} ${enc.patient?.lastName} için e-reçete formu hazırlandı.`);
   }
 
-  // Muayeneden Servis Yatışı Ver
+  // Muayeneden Servis Yatışı Ver (Yetki Kontrollü)
   function handleStartAdmissionFromEncounter(enc: Encounter) {
+    if (user && !ROLE_PERMISSIONS.rooms.includes(user.role)) {
+      showToast("error", `Yetki Yetersiz: ${user.role} rolü servis yatış kaydı oluşturamaz.`);
+      return;
+    }
     setAdmissionPrefill({
       patientId: String(enc.patientId),
       doctorId: String(enc.doctorId),
       diagnosis: enc.diagnosisName || enc.complaint,
     });
-    setActiveTab("rooms");
+    navigateToTab("rooms");
     showToast("success", `${enc.patient?.firstName} ${enc.patient?.lastName} için servis yatış formu hazırlandı.`);
   }
 
@@ -280,7 +326,7 @@ export default function HbysApp() {
     return <LoginView onLoginSuccess={(u) => setUser(u)} />;
   }
 
-  // Gruplandırılmış Navigasyon Yapısı (Aşama 1: Minimalist Nav)
+  // Gruplandırılmış Navigasyon Yapısı (Rol Bazlı Yetkilendirme - RBAC)
   const NAV_SECTIONS: {
     title: string;
     items: {
@@ -288,38 +334,38 @@ export default function HbysApp() {
       label: string;
       icon: React.ComponentType<{ className?: string }>;
       shortcut?: string;
-      roles?: string[];
+      roles: UserRole[];
     }[];
   }[] = [
     {
       title: "GENEL BAKIŞ",
       items: [
-        { id: "dashboard", label: "Gösterge Paneli", icon: LayoutDashboard },
+        { id: "dashboard", label: "Gösterge Paneli", icon: LayoutDashboard, roles: ROLE_PERMISSIONS.dashboard },
       ],
     },
     {
       title: "KLİNİK SÜREÇLER",
       items: [
-        { id: "queue", label: "Poliklinik Sırası", icon: CalendarClock },
-        { id: "patients", label: "Hasta Özlük Kartı", icon: Users, shortcut: "F2" },
-        { id: "encounters", label: "Muayene & Vital", icon: Stethoscope, shortcut: "F3" },
-        { id: "prescriptions", label: "E-Reçete (MEDULA)", icon: Pill, shortcut: "F4" },
-        { id: "rooms", label: "Servis & Yatak", icon: BedDouble, shortcut: "F5" },
-        { id: "pharmacy", label: "Eczane & Depo Stok", icon: Boxes, shortcut: "F6" },
+        { id: "queue", label: "Poliklinik Sırası", icon: CalendarClock, roles: ROLE_PERMISSIONS.queue },
+        { id: "patients", label: "Hasta Özlük Kartı", icon: Users, shortcut: "F2", roles: ROLE_PERMISSIONS.patients },
+        { id: "encounters", label: "Muayene & Vital", icon: Stethoscope, shortcut: "F3", roles: ROLE_PERMISSIONS.encounters },
+        { id: "prescriptions", label: "E-Reçete (MEDULA)", icon: Pill, shortcut: "F4", roles: ROLE_PERMISSIONS.prescriptions },
+        { id: "rooms", label: "Servis & Yatak", icon: BedDouble, shortcut: "F5", roles: ROLE_PERMISSIONS.rooms },
+        { id: "pharmacy", label: "Eczane & Depo Stok", icon: Boxes, shortcut: "F6", roles: ROLE_PERMISSIONS.pharmacy },
       ],
     },
     {
       title: "İDARİ & FİNANS",
       items: [
-        { id: "billing", label: "Vezne & Fatura", icon: CreditCard, shortcut: "F7", roles: ["ADMIN", "RECEPTIONIST", "DOCTOR"] },
-        { id: "labs", label: "Laboratuvar & Radyo", icon: FlaskConical },
+        { id: "billing", label: "Vezne & Fatura", icon: CreditCard, shortcut: "F7", roles: ROLE_PERMISSIONS.billing },
+        { id: "labs", label: "Laboratuvar & Radyo", icon: FlaskConical, roles: ROLE_PERMISSIONS.labs },
       ],
     },
     {
       title: "YÖNETİM & GÜVENLİK",
       items: [
-        { id: "staff", label: "Personel Yönetimi", icon: Shield, roles: ["ADMIN"] },
-        { id: "audit", label: "Güvenlik & Audit Log", icon: ShieldAlert, roles: ["ADMIN", "DOCTOR"] },
+        { id: "staff", label: "Personel Yönetimi", icon: Shield, roles: ROLE_PERMISSIONS.staff },
+        { id: "audit", label: "Güvenlik & Audit Log", icon: ShieldAlert, roles: ROLE_PERMISSIONS.audit },
       ],
     },
   ];
@@ -402,7 +448,7 @@ export default function HbysApp() {
                     return (
                       <button
                         key={item.id}
-                        onClick={() => setActiveTab(item.id)}
+                        onClick={() => navigateToTab(item.id)}
                         title={`${item.label}${item.shortcut ? ` (${item.shortcut})` : ""}`}
                         className={`w-full flex items-center rounded-xl text-xs font-semibold transition ${
                           isSidebarCollapsed
@@ -733,7 +779,8 @@ export default function HbysApp() {
         isOpen={isCommandPaletteOpen}
         onClose={() => setIsCommandPaletteOpen(false)}
         data={data}
-        onNavigateTab={setActiveTab}
+        user={user}
+        onNavigateTab={navigateToTab}
         onSelectPatient={setSelectedPatientDetail}
         onOpenPasswordModal={() => setIsPasswordModalOpen(true)}
         isDarkMode={isDarkMode}

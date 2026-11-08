@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useMemo, useState } from "react";
-import { HbysPayload, Patient, TabId } from "@/types/hbys";
+import { HbysPayload, Patient, TabId, LoggedInUser, UserRole } from "@/types/hbys";
 import {
   BedDouble,
   Boxes,
@@ -28,6 +28,7 @@ interface CommandPaletteModalProps {
   isOpen: boolean;
   onClose: () => void;
   data: HbysPayload | null;
+  user?: LoggedInUser | null;
   onNavigateTab: (tab: TabId) => void;
   onSelectPatient: (patient: Patient) => void;
   onOpenPasswordModal: () => void;
@@ -40,6 +41,7 @@ export function CommandPaletteModal({
   isOpen,
   onClose,
   data,
+  user,
   onNavigateTab,
   onSelectPatient,
   onOpenPasswordModal,
@@ -67,8 +69,12 @@ export function CommandPaletteModal({
     }
   }, [isOpen]);
 
-  // Eşleşen Hastalar
+  // Eşleşen Hastalar (Yetki Kontrollü)
   const matchingPatients = useMemo(() => {
+    const allowedRoles: UserRole[] = ["ADMIN", "DOCTOR", "RECEPTIONIST", "NURSE", "CASHIER"];
+    if (user?.role && !allowedRoles.includes(user.role)) {
+      return [];
+    }
     const q = query.trim().toLowerCase();
     if (!q) return [];
     return (data?.patients || [])
@@ -80,17 +86,26 @@ export function CommandPaletteModal({
           p.fileNo.toLowerCase().includes(q)
       )
       .slice(0, 5);
-  }, [data?.patients, query]);
+  }, [data?.patients, query, user?.role]);
 
-  // Sabit Hızlı Eylemler
+  // Sabit Hızlı Eylemler (Rol Filtreli)
   const actions = useMemo(() => {
-    const all = [
+    const all: {
+      id: string;
+      title: string;
+      category: string;
+      shortcut: string;
+      icon: React.ComponentType<{ className?: string }>;
+      roles?: UserRole[];
+      run: () => void;
+    }[] = [
       {
         id: "new-patient",
         title: "Yeni Hasta Özlük Kartı Aç",
         category: "Klinik İşlemler",
         shortcut: "F2",
         icon: UserPlus,
+        roles: ["ADMIN", "DOCTOR", "RECEPTIONIST", "NURSE", "CASHIER"],
         run: () => {
           onNavigateTab("patients");
           onClose();
@@ -102,6 +117,7 @@ export function CommandPaletteModal({
         category: "Klinik İşlemler",
         shortcut: "F3",
         icon: Stethoscope,
+        roles: ["ADMIN", "DOCTOR"],
         run: () => {
           onNavigateTab("encounters");
           onClose();
@@ -113,6 +129,7 @@ export function CommandPaletteModal({
         category: "Klinik İşlemler",
         shortcut: "F4",
         icon: Pill,
+        roles: ["ADMIN", "DOCTOR", "PHARMACIST"],
         run: () => {
           onNavigateTab("prescriptions");
           onClose();
@@ -124,6 +141,7 @@ export function CommandPaletteModal({
         category: "Klinik İşlemler",
         shortcut: "F5",
         icon: BedDouble,
+        roles: ["ADMIN", "DOCTOR", "NURSE"],
         run: () => {
           onNavigateTab("rooms");
           onClose();
@@ -135,6 +153,7 @@ export function CommandPaletteModal({
         category: "Klinik İşlemler",
         shortcut: "F6",
         icon: Boxes,
+        roles: ["ADMIN", "PHARMACIST", "DOCTOR"],
         run: () => {
           onNavigateTab("pharmacy");
           onClose();
@@ -146,6 +165,7 @@ export function CommandPaletteModal({
         category: "Finans & İdari",
         shortcut: "F7",
         icon: CreditCard,
+        roles: ["ADMIN", "CASHIER", "RECEPTIONIST"],
         run: () => {
           onNavigateTab("billing");
           onClose();
@@ -157,6 +177,7 @@ export function CommandPaletteModal({
         category: "Navigasyon",
         shortcut: "G Q",
         icon: CalendarClock,
+        roles: ["ADMIN", "DOCTOR", "RECEPTIONIST", "NURSE"],
         run: () => {
           onNavigateTab("queue");
           onClose();
@@ -168,6 +189,7 @@ export function CommandPaletteModal({
         category: "Navigasyon",
         shortcut: "G L",
         icon: FlaskConical,
+        roles: ["ADMIN", "DOCTOR", "LAB_TECHNICIAN"],
         run: () => {
           onNavigateTab("labs");
           onClose();
@@ -179,6 +201,7 @@ export function CommandPaletteModal({
         category: "Sistem & Güvenlik",
         shortcut: "G A",
         icon: ShieldAlert,
+        roles: ["ADMIN"],
         run: () => {
           onNavigateTab("audit");
           onClose();
@@ -201,6 +224,7 @@ export function CommandPaletteModal({
         category: "Raporlama",
         shortcut: "Alt+E",
         icon: Download,
+        roles: ["ADMIN", "DOCTOR", "RECEPTIONIST", "NURSE", "CASHIER"],
         run: () => {
           if (data?.patients) {
             exportPatientsCsv(data.patients);
@@ -215,6 +239,7 @@ export function CommandPaletteModal({
         category: "Raporlama",
         shortcut: "Alt+M",
         icon: FileSpreadsheet,
+        roles: ["ADMIN", "DOCTOR"],
         run: () => {
           if (data?.encounters) {
             exportEncountersCsv(data.encounters);
@@ -236,15 +261,20 @@ export function CommandPaletteModal({
       },
     ];
 
+    // Rol Filtresi
+    const allowed = user?.role
+      ? all.filter((a) => !a.roles || a.roles.includes(user.role))
+      : all;
+
     const q = query.trim().toLowerCase();
-    if (!q) return all;
-    return all.filter(
+    if (!q) return allowed;
+    return allowed.filter(
       (a) =>
         a.title.toLowerCase().includes(q) ||
         a.category.toLowerCase().includes(q) ||
         a.shortcut.toLowerCase().includes(q)
     );
-  }, [query, isDarkMode, data, onNavigateTab, onClose, onToggleDarkMode, onOpenPasswordModal, onToast]);
+  }, [query, isDarkMode, data, user, onNavigateTab, onClose, onToggleDarkMode, onOpenPasswordModal, onToast]);
 
   if (!isOpen) return null;
 

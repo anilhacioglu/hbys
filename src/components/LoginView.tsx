@@ -53,6 +53,30 @@ const DEMO_ACCOUNTS = [
     desc: "Triaj & Vital Ölçüm, Yataklı Servis Oda Takibi ve Laboratuvar",
     color: "from-rose-600 to-pink-700",
   },
+  {
+    username: "eczaci.ece",
+    password: "123456",
+    roleLabel: "Başeczacı / Depo",
+    name: "Eczacı Ece Dağdelen",
+    desc: "Eczane & Depo Stok Takibi, İlaç Girişi ve Reçete Kontrolü",
+    color: "from-cyan-600 to-teal-700",
+  },
+  {
+    username: "vezne.sibel",
+    password: "123456",
+    roleLabel: "Vezne & Muhasebe",
+    name: "Vezne Memuru Sibel Tekin",
+    desc: "SGK Katkı Payı, Hasta Faturalandırma, POS Kasa ve Makbuz",
+    color: "from-emerald-600 to-green-700",
+  },
+  {
+    username: "laborant.caner",
+    password: "123456",
+    roleLabel: "Tıbbi Laborant",
+    name: "Laborant Caner Eren",
+    desc: "Biyokimya / Mikrobiyoloji Sonuç Girişi ve Kritik Değer Bildirimi",
+    color: "from-indigo-600 to-purple-700",
+  },
 ];
 
 export default function LoginView({ onLoginSuccess }: Props) {

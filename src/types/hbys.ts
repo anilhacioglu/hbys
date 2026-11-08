@@ -1,3 +1,12 @@
+export type UserRole =
+  | "ADMIN"
+  | "DOCTOR"
+  | "RECEPTIONIST"
+  | "NURSE"
+  | "PHARMACIST"
+  | "CASHIER"
+  | "LAB_TECHNICIAN";
+
 export interface Department {
   id: number;
   code: string;
@@ -14,7 +23,7 @@ export interface StaffMember {
   username: string;
   firstName: string;
   lastName: string;
-  role: "ADMIN" | "DOCTOR" | "RECEPTIONIST" | "NURSE";
+  role: UserRole;
   title: string;
   shortTitle: string;
   fullTitleName: string;
@@ -281,7 +290,7 @@ export interface LoggedInUser {
   firstName: string;
   lastName: string;
   fullTitleName: string;
-  role: "ADMIN" | "DOCTOR" | "RECEPTIONIST" | "NURSE";
+  role: UserRole;
   title: string;
   departmentName: string;
 }
@@ -290,7 +299,7 @@ export interface AuditLogItem {
   id: number;
   userId?: number | null;
   userName: string;
-  userRole: "ADMIN" | "DOCTOR" | "RECEPTIONIST" | "NURSE" | string;
+  userRole: UserRole | string;
   action: "LOGIN" | "LOGOUT" | "CREATE" | "UPDATE" | "DELETE" | "PRESCRIBE" | "ADMIT" | "DISCHARGE" | "LAB_ORDER" | "PASSWORD_CHANGE" | string;
   entityType: string;
   entityId?: string | null;

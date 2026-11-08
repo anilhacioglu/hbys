@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { ensureDatabaseSeeded } from "@/lib/seed-data";
 import { createSessionToken, SESSION_COOKIE_NAME } from "@/lib/auth";
 import { recordAuditLog } from "@/lib/audit";
+import { UserRole } from "@/types/hbys";
 
 export async function POST(request: Request) {
   try {
@@ -47,7 +48,7 @@ export async function POST(request: Request) {
       firstName: staff.firstName,
       lastName: staff.lastName,
       fullTitleName: staff.fullTitleName,
-      role: staff.role as "ADMIN" | "DOCTOR" | "RECEPTIONIST" | "NURSE",
+      role: staff.role as UserRole,
       title: staff.title,
       departmentName: staff.department?.name || "Genel Yönetim",
     };

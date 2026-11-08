@@ -16,6 +16,11 @@ const DOCTOR_TITLES = [
   "Stajyer Doktor",
   "Başhemşire",
   "Servis Hemşiresi",
+  "Başeczacı",
+  "Eczacı",
+  "Vezne Memuru",
+  "Tıbbi Laborant",
+  "Laboratuvar Teknisyeni",
   "Hasta Kabul Uzmanı",
   "Sistem Yöneticisi",
 ];
@@ -206,6 +211,9 @@ export function StaffView({ data, onRefresh, onToast }: StaffViewProps) {
               <option value="DOCTOR">DOCTOR (Hekim)</option>
               <option value="NURSE">NURSE (Hemşire)</option>
               <option value="RECEPTIONIST">RECEPTIONIST (Hasta Kabul)</option>
+              <option value="PHARMACIST">PHARMACIST (Eczacı / Depo)</option>
+              <option value="CASHIER">CASHIER (Vezne & Muhasebe)</option>
+              <option value="LAB_TECHNICIAN">LAB_TECHNICIAN (Laborant)</option>
               <option value="ADMIN">ADMIN (Yönetici)</option>
             </select>
           </div>

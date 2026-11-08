@@ -9,6 +9,120 @@ export async function ensureDatabaseSeeded(force = false) {
   try {
     const existingCount = await prisma.department.count();
     if (existingCount > 0 && !force) {
+      // 1. Yeni Roller ve Personellerin Kontrolü (Eczacı, Veznedar, Laborant)
+      const defaultPasswordHash = await bcrypt.hash("123456", 10);
+      
+      let eczDept = await prisma.department.findUnique({ where: { code: "ECZ" } });
+      if (!eczDept) {
+        eczDept = await prisma.department.create({
+          data: { code: "ECZ", name: "Eczane ve İlaç Deposu", floor: "Zemin Kat", phoneExtension: "1180" },
+        });
+      }
+
+      let mliDept = await prisma.department.findUnique({ where: { code: "MLI" } });
+      if (!mliDept) {
+        mliDept = await prisma.department.create({
+          data: { code: "MLI", name: "İdari, Mali İşler ve Vezne", floor: "Giriş Kat", phoneExtension: "1020" },
+        });
+      }
+
+      let labDept = await prisma.department.findUnique({ where: { code: "LAB" } });
+      if (!labDept) {
+        labDept = await prisma.department.create({
+          data: { code: "LAB", name: "Tıbbi Biyokimya ve Mikrobiyoloji Laboratuvarı", floor: "Bodrum Kat", phoneExtension: "1050" },
+        });
+      }
+
+      // Eczacı Ece
+      const existingEcz = await prisma.staff.findUnique({ where: { username: "eczaci.ece" } });
+      if (!existingEcz) {
+        await prisma.staff.create({
+          data: {
+            employeeCode: "ECZ-5001",
+            nationalId: "89012345678",
+            username: "eczaci.ece",
+            passwordHash: defaultPasswordHash,
+            firstName: "Ece",
+            lastName: "Dağdelen",
+            role: "PHARMACIST",
+            title: "Başeczacı",
+            shortTitle: "Ecz.",
+            fullTitleName: "Başeczacı Ece Dağdelen",
+            departmentId: eczDept.id,
+            phone: "0538 777 88 99",
+            email: "ece.dagdelen@hbys.gov.tr",
+            birthPlace: "İstanbul",
+            birthDate: new Date("1991-08-17"),
+            gender: "Kadın",
+            bloodType: "0 Rh+",
+            insuranceType: "SGK (4A)",
+            resume: "İstanbul Üniversitesi Eczacılık Fakültesi. Klinik eczacılık ve hastane depo ilaç envanter sorumlusu.",
+            notes: "Eczane ve Depo İlaç Stok Sorumlusu",
+            hireDate: new Date("2021-02-01"),
+          },
+        });
+      }
+
+      // Veznedar Sibel
+      const existingVezne = await prisma.staff.findUnique({ where: { username: "vezne.sibel" } });
+      if (!existingVezne) {
+        await prisma.staff.create({
+          data: {
+            employeeCode: "VZN-6001",
+            nationalId: "90123456789",
+            username: "vezne.sibel",
+            passwordHash: defaultPasswordHash,
+            firstName: "Sibel",
+            lastName: "Tekin",
+            role: "CASHIER",
+            title: "Vezne ve Kasa Sorumlusu",
+            shortTitle: "Veznedar",
+            fullTitleName: "Vezne Memuru Sibel Tekin",
+            departmentId: mliDept.id,
+            phone: "0539 888 12 34",
+            email: "sibel.tekin@hbys.gov.tr",
+            birthPlace: "Ankara",
+            birthDate: new Date("1994-06-21"),
+            gender: "Kadın",
+            bloodType: "A Rh+",
+            insuranceType: "SGK (4A)",
+            resume: "Maliye ve Muhasebe mezunu. SGK MEDULA faturalandırma ve POS kasa uzmanı.",
+            notes: "Vezne ve Kasa Sorumlusu",
+            hireDate: new Date("2022-07-15"),
+          },
+        });
+      }
+
+      // Laborant Caner
+      const existingLab = await prisma.staff.findUnique({ where: { username: "laborant.caner" } });
+      if (!existingLab) {
+        await prisma.staff.create({
+          data: {
+            employeeCode: "LAB-7001",
+            nationalId: "91234567890",
+            username: "laborant.caner",
+            passwordHash: defaultPasswordHash,
+            firstName: "Caner",
+            lastName: "Eren",
+            role: "LAB_TECHNICIAN",
+            title: "Tıbbi Laboratuvar Teknisyeni",
+            shortTitle: "Laborant",
+            fullTitleName: "Laborant Caner Eren",
+            departmentId: labDept.id,
+            phone: "0541 999 56 78",
+            email: "caner.eren@hbys.gov.tr",
+            birthPlace: "Bursa",
+            birthDate: new Date("1993-02-11"),
+            gender: "Erkek",
+            bloodType: "B Rh+",
+            insuranceType: "SGK (4A)",
+            resume: "Tıbbi Laboratuvar Teknikleri. Otoanalizör, hemogram ve mikrobiyoloji kültürü uzmanı.",
+            notes: "Laboratuvar ve Radyoloji Tetkik Sorumlusu",
+            hireDate: new Date("2020-09-01"),
+          },
+        });
+      }
+
       // Fatura tablosu boşsa örnek faturaları oluştur
       const existingInvoiceCount = await prisma.invoice.count();
       if (existingInvoiceCount === 0) {
