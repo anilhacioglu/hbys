@@ -1,0 +1,494 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="VeritabanıHasta" targetNamespace="http://tempuri.org/VeritabanıHasta.xsd" xmlns:mstns="http://tempuri.org/VeritabanıHasta.xsd" xmlns="http://tempuri.org/VeritabanıHasta.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="HastaneVeritabanıConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="HastaneVeritabanıConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.Hastane_Bilgi_Yönetim_Sistemi.Properties.Settings.GlobalReference.Default.HastaneVeritabanıConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="patientlistTableAdapter" GeneratorDataComponentClassName="patientlistTableAdapter" Name="patientlist" UserDataComponentName="patientlistTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="HastaneVeritabanıConnectionString (Settings)" DbObjectName="dbo.patientlist" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <DeleteCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>DELETE FROM [dbo].[patientlist] WHERE (([Hasta_Kayıt_Numarası] = @Original_Hasta_Kayıt_Numarası) AND ((@IsNull_TC_Kimlik_Numarası = 1 AND [TC_Kimlik_Numarası] IS NULL) OR ([TC_Kimlik_Numarası] = @Original_TC_Kimlik_Numarası)) AND ((@IsNull_Ad = 1 AND [Ad] IS NULL) OR ([Ad] = @Original_Ad)) AND ((@IsNull_Soyad = 1 AND [Soyad] IS NULL) OR ([Soyad] = @Original_Soyad)) AND ((@IsNull_Baba_Adı = 1 AND [Baba_Adı] IS NULL) OR ([Baba_Adı] = @Original_Baba_Adı)) AND ((@IsNull_Doğum_Yeri = 1 AND [Doğum_Yeri] IS NULL) OR ([Doğum_Yeri] = @Original_Doğum_Yeri)) AND ((@IsNull_Doğum_Tarihi = 1 AND [Doğum_Tarihi] IS NULL) OR ([Doğum_Tarihi] = @Original_Doğum_Tarihi)) AND ((@IsNull_Cinsiyet = 1 AND [Cinsiyet] IS NULL) OR ([Cinsiyet] = @Original_Cinsiyet)) AND ((@IsNull_Kan_Grubu = 1 AND [Kan_Grubu] IS NULL) OR ([Kan_Grubu] = @Original_Kan_Grubu)) AND ((@IsNull_Güvenlik_Kurumu = 1 AND [Güvenlik_Kurumu] IS NULL) OR ([Güvenlik_Kurumu] = @Original_Güvenlik_Kurumu)) AND ((@IsNull_Ateş = 1 AND [Ateş] IS NULL) OR ([Ateş] = @Original_Ateş)) AND ((@IsNull_Tansiyon = 1 AND [Tansiyon] IS NULL) OR ([Tansiyon] = @Original_Tansiyon)) AND ((@IsNull_Nabız = 1 AND [Nabız] IS NULL) OR ([Nabız] = @Original_Nabız)) AND ((@IsNull_Kilo = 1 AND [Kilo] IS NULL) OR ([Kilo] = @Original_Kilo)) AND ((@IsNull_Boy = 1 AND [Boy] IS NULL) OR ([Boy] = @Original_Boy)) AND ((@IsNull_Öz_Geçmiş = 1 AND [Öz_Geçmiş] IS NULL) OR ([Öz_Geçmiş] = @Original_Öz_Geçmiş)) AND ((@IsNull_Soy_Geçmiş = 1 AND [Soy_Geçmiş] IS NULL) OR ([Soy_Geçmiş] = @Original_Soy_Geçmiş)) AND ((@IsNull_Şikayet = 1 AND [Şikayet] IS NULL) OR ([Şikayet] = @Original_Şikayet)) AND ((@IsNull_Hikayesi = 1 AND [Hikayesi] IS NULL) OR ([Hikayesi] = @Original_Hikayesi)) AND ((@IsNull_Fiziki_Bulgu = 1 AND [Fiziki_Bulgu] IS NULL) OR ([Fiziki_Bulgu] = @Original_Fiziki_Bulgu)) AND ((@IsNull_Laboratuvar_Bulgusu = 1 AND [Laboratuvar_Bulgusu] IS NULL) OR ([Laboratuvar_Bulgusu] = @Original_Laboratuvar_Bulgusu)) AND ((@IsNull_Tedavi = 1 AND [Tedavi] IS NULL) OR ([Tedavi] = @Original_Tedavi)) AND ((@IsNull_Karar = 1 AND [Karar] IS NULL) OR ([Karar] = @Original_Karar)) AND ((@IsNull_Triaj_Rengi = 1 AND [Triaj_Rengi] IS NULL) OR ([Triaj_Rengi] = @Original_Triaj_Rengi)) AND ((@IsNull_Kabul_Şekli = 1 AND [Kabul_Şekli] IS NULL) OR ([Kabul_Şekli] = @Original_Kabul_Şekli)) AND ((@IsNull_Çıkış_Şekli = 1 AND [Çıkış_Şekli] IS NULL) OR ([Çıkış_Şekli] = @Original_Çıkış_Şekli)) AND ((@IsNull_Açıklama = 1 AND [Açıklama] IS NULL) OR ([Açıklama] = @Original_Açıklama)) AND ((@IsNull_Hekim = 1 AND [Hekim] IS NULL) OR ([Hekim] = @Original_Hekim)) AND ((@IsNull_Muayene_Giriş_Tarihi = 1 AND [Muayene_Giriş_Tarihi] IS NULL) OR ([Muayene_Giriş_Tarihi] = @Original_Muayene_Giriş_Tarihi)) AND ((@IsNull_Muayene_Bitiş_Tarihi = 1 AND [Muayene_Bitiş_Tarihi] IS NULL) OR ([Muayene_Bitiş_Tarihi] = @Original_Muayene_Bitiş_Tarihi)) AND ((@IsNull_Tanı = 1 AND [Tanı] IS NULL) OR ([Tanı] = @Original_Tanı)))</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_Hasta_Kayıt_Numarası" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Hasta_Kayıt_Numarası" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_TC_Kimlik_Numarası" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="TC_Kimlik_Numarası" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_TC_Kimlik_Numarası" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="TC_Kimlik_Numarası" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Ad" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Ad" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Ad" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Ad" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Soyad" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Soyad" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Soyad" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Soyad" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Baba_Adı" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Baba_Adı" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Baba_Adı" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Baba_Adı" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Doğum_Yeri" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Doğum_Yeri" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Doğum_Yeri" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Doğum_Yeri" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Doğum_Tarihi" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Doğum_Tarihi" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Doğum_Tarihi" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Doğum_Tarihi" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Cinsiyet" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Cinsiyet" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Cinsiyet" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Cinsiyet" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Kan_Grubu" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Kan_Grubu" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Kan_Grubu" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Kan_Grubu" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Güvenlik_Kurumu" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Güvenlik_Kurumu" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Güvenlik_Kurumu" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Güvenlik_Kurumu" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Ateş" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Ateş" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Ateş" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Ateş" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Tansiyon" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Tansiyon" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Tansiyon" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Tansiyon" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Nabız" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Nabız" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Nabız" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Nabız" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Kilo" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Kilo" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Kilo" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Kilo" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Boy" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Boy" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Boy" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Boy" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Öz_Geçmiş" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Öz_Geçmiş" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Öz_Geçmiş" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Öz_Geçmiş" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Soy_Geçmiş" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Soy_Geçmiş" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Soy_Geçmiş" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Soy_Geçmiş" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Şikayet" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Şikayet" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Şikayet" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Şikayet" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Hikayesi" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Hikayesi" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Hikayesi" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Hikayesi" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Fiziki_Bulgu" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Fiziki_Bulgu" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Fiziki_Bulgu" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Fiziki_Bulgu" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Laboratuvar_Bulgusu" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Laboratuvar_Bulgusu" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Laboratuvar_Bulgusu" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Laboratuvar_Bulgusu" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Tedavi" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Tedavi" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Tedavi" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Tedavi" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Karar" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Karar" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Karar" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Karar" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Triaj_Rengi" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Triaj_Rengi" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Triaj_Rengi" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Triaj_Rengi" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Kabul_Şekli" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Kabul_Şekli" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Kabul_Şekli" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Kabul_Şekli" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Çıkış_Şekli" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Çıkış_Şekli" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Çıkış_Şekli" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Çıkış_Şekli" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Açıklama" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Açıklama" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Açıklama" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Açıklama" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Hekim" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Hekim" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Hekim" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Hekim" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Muayene_Giriş_Tarihi" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Muayene_Giriş_Tarihi" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Muayene_Giriş_Tarihi" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Muayene_Giriş_Tarihi" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Muayene_Bitiş_Tarihi" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Muayene_Bitiş_Tarihi" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Muayene_Bitiş_Tarihi" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Muayene_Bitiş_Tarihi" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Tanı" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Tanı" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Tanı" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Tanı" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </DeleteCommand>
+                <InsertCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>INSERT INTO [dbo].[patientlist] ([TC_Kimlik_Numarası], [Ad], [Soyad], [Baba_Adı], [Doğum_Yeri], [Doğum_Tarihi], [Cinsiyet], [Kan_Grubu], [Güvenlik_Kurumu], [Ateş], [Tansiyon], [Nabız], [Kilo], [Boy], [Öz_Geçmiş], [Soy_Geçmiş], [Şikayet], [Hikayesi], [Fiziki_Bulgu], [Laboratuvar_Bulgusu], [Tedavi], [Karar], [Triaj_Rengi], [Kabul_Şekli], [Çıkış_Şekli], [Açıklama], [Hekim], [Muayene_Giriş_Tarihi], [Muayene_Bitiş_Tarihi], [Tanı]) VALUES (@TC_Kimlik_Numarası, @Ad, @Soyad, @Baba_Adı, @Doğum_Yeri, @Doğum_Tarihi, @Cinsiyet, @Kan_Grubu, @Güvenlik_Kurumu, @Ateş, @Tansiyon, @Nabız, @Kilo, @Boy, @Öz_Geçmiş, @Soy_Geçmiş, @Şikayet, @Hikayesi, @Fiziki_Bulgu, @Laboratuvar_Bulgusu, @Tedavi, @Karar, @Triaj_Rengi, @Kabul_Şekli, @Çıkış_Şekli, @Açıklama, @Hekim, @Muayene_Giriş_Tarihi, @Muayene_Bitiş_Tarihi, @Tanı);
+SELECT Hasta_Kayıt_Numarası, TC_Kimlik_Numarası, Ad, Soyad, Baba_Adı, Doğum_Yeri, Doğum_Tarihi, Cinsiyet, Kan_Grubu, Güvenlik_Kurumu, Ateş, Tansiyon, Nabız, Kilo, Boy, Öz_Geçmiş, Soy_Geçmiş, Şikayet, Hikayesi, Fiziki_Bulgu, Laboratuvar_Bulgusu, Tedavi, Karar, Triaj_Rengi, Kabul_Şekli, Çıkış_Şekli, Açıklama, Hekim, Muayene_Giriş_Tarihi, Muayene_Bitiş_Tarihi, Tanı FROM patientlist WHERE (Hasta_Kayıt_Numarası = SCOPE_IDENTITY())</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@TC_Kimlik_Numarası" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="TC_Kimlik_Numarası" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Ad" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Ad" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Soyad" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Soyad" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Baba_Adı" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Baba_Adı" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Doğum_Yeri" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Doğum_Yeri" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Doğum_Tarihi" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Doğum_Tarihi" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Cinsiyet" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Cinsiyet" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Kan_Grubu" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Kan_Grubu" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Güvenlik_Kurumu" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Güvenlik_Kurumu" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Ateş" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Ateş" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Tansiyon" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Tansiyon" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Nabız" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Nabız" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Kilo" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Kilo" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Boy" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Boy" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Öz_Geçmiş" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Öz_Geçmiş" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Soy_Geçmiş" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Soy_Geçmiş" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Şikayet" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Şikayet" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Hikayesi" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Hikayesi" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Fiziki_Bulgu" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Fiziki_Bulgu" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Laboratuvar_Bulgusu" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Laboratuvar_Bulgusu" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Tedavi" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Tedavi" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Karar" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Karar" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Triaj_Rengi" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Triaj_Rengi" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Kabul_Şekli" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Kabul_Şekli" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Çıkış_Şekli" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Çıkış_Şekli" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Açıklama" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Açıklama" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Hekim" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Hekim" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Muayene_Giriş_Tarihi" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Muayene_Giriş_Tarihi" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Muayene_Bitiş_Tarihi" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Muayene_Bitiş_Tarihi" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Tanı" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Tanı" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </InsertCommand>
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT Hasta_Kayıt_Numarası, TC_Kimlik_Numarası, Ad, Soyad, Baba_Adı, Doğum_Yeri, Doğum_Tarihi, Cinsiyet, Kan_Grubu, Güvenlik_Kurumu, Ateş, Tansiyon, Nabız, Kilo, Boy, Öz_Geçmiş, Soy_Geçmiş, Şikayet, Hikayesi, Fiziki_Bulgu, Laboratuvar_Bulgusu, Tedavi, Karar, Triaj_Rengi, Kabul_Şekli, Çıkış_Şekli, Açıklama, Hekim, Muayene_Giriş_Tarihi, Muayene_Bitiş_Tarihi, Tanı FROM dbo.patientlist</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+                <UpdateCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>UPDATE [dbo].[patientlist] SET [TC_Kimlik_Numarası] = @TC_Kimlik_Numarası, [Ad] = @Ad, [Soyad] = @Soyad, [Baba_Adı] = @Baba_Adı, [Doğum_Yeri] = @Doğum_Yeri, [Doğum_Tarihi] = @Doğum_Tarihi, [Cinsiyet] = @Cinsiyet, [Kan_Grubu] = @Kan_Grubu, [Güvenlik_Kurumu] = @Güvenlik_Kurumu, [Ateş] = @Ateş, [Tansiyon] = @Tansiyon, [Nabız] = @Nabız, [Kilo] = @Kilo, [Boy] = @Boy, [Öz_Geçmiş] = @Öz_Geçmiş, [Soy_Geçmiş] = @Soy_Geçmiş, [Şikayet] = @Şikayet, [Hikayesi] = @Hikayesi, [Fiziki_Bulgu] = @Fiziki_Bulgu, [Laboratuvar_Bulgusu] = @Laboratuvar_Bulgusu, [Tedavi] = @Tedavi, [Karar] = @Karar, [Triaj_Rengi] = @Triaj_Rengi, [Kabul_Şekli] = @Kabul_Şekli, [Çıkış_Şekli] = @Çıkış_Şekli, [Açıklama] = @Açıklama, [Hekim] = @Hekim, [Muayene_Giriş_Tarihi] = @Muayene_Giriş_Tarihi, [Muayene_Bitiş_Tarihi] = @Muayene_Bitiş_Tarihi, [Tanı] = @Tanı WHERE (([Hasta_Kayıt_Numarası] = @Original_Hasta_Kayıt_Numarası) AND ((@IsNull_TC_Kimlik_Numarası = 1 AND [TC_Kimlik_Numarası] IS NULL) OR ([TC_Kimlik_Numarası] = @Original_TC_Kimlik_Numarası)) AND ((@IsNull_Ad = 1 AND [Ad] IS NULL) OR ([Ad] = @Original_Ad)) AND ((@IsNull_Soyad = 1 AND [Soyad] IS NULL) OR ([Soyad] = @Original_Soyad)) AND ((@IsNull_Baba_Adı = 1 AND [Baba_Adı] IS NULL) OR ([Baba_Adı] = @Original_Baba_Adı)) AND ((@IsNull_Doğum_Yeri = 1 AND [Doğum_Yeri] IS NULL) OR ([Doğum_Yeri] = @Original_Doğum_Yeri)) AND ((@IsNull_Doğum_Tarihi = 1 AND [Doğum_Tarihi] IS NULL) OR ([Doğum_Tarihi] = @Original_Doğum_Tarihi)) AND ((@IsNull_Cinsiyet = 1 AND [Cinsiyet] IS NULL) OR ([Cinsiyet] = @Original_Cinsiyet)) AND ((@IsNull_Kan_Grubu = 1 AND [Kan_Grubu] IS NULL) OR ([Kan_Grubu] = @Original_Kan_Grubu)) AND ((@IsNull_Güvenlik_Kurumu = 1 AND [Güvenlik_Kurumu] IS NULL) OR ([Güvenlik_Kurumu] = @Original_Güvenlik_Kurumu)) AND ((@IsNull_Ateş = 1 AND [Ateş] IS NULL) OR ([Ateş] = @Original_Ateş)) AND ((@IsNull_Tansiyon = 1 AND [Tansiyon] IS NULL) OR ([Tansiyon] = @Original_Tansiyon)) AND ((@IsNull_Nabız = 1 AND [Nabız] IS NULL) OR ([Nabız] = @Original_Nabız)) AND ((@IsNull_Kilo = 1 AND [Kilo] IS NULL) OR ([Kilo] = @Original_Kilo)) AND ((@IsNull_Boy = 1 AND [Boy] IS NULL) OR ([Boy] = @Original_Boy)) AND ((@IsNull_Öz_Geçmiş = 1 AND [Öz_Geçmiş] IS NULL) OR ([Öz_Geçmiş] = @Original_Öz_Geçmiş)) AND ((@IsNull_Soy_Geçmiş = 1 AND [Soy_Geçmiş] IS NULL) OR ([Soy_Geçmiş] = @Original_Soy_Geçmiş)) AND ((@IsNull_Şikayet = 1 AND [Şikayet] IS NULL) OR ([Şikayet] = @Original_Şikayet)) AND ((@IsNull_Hikayesi = 1 AND [Hikayesi] IS NULL) OR ([Hikayesi] = @Original_Hikayesi)) AND ((@IsNull_Fiziki_Bulgu = 1 AND [Fiziki_Bulgu] IS NULL) OR ([Fiziki_Bulgu] = @Original_Fiziki_Bulgu)) AND ((@IsNull_Laboratuvar_Bulgusu = 1 AND [Laboratuvar_Bulgusu] IS NULL) OR ([Laboratuvar_Bulgusu] = @Original_Laboratuvar_Bulgusu)) AND ((@IsNull_Tedavi = 1 AND [Tedavi] IS NULL) OR ([Tedavi] = @Original_Tedavi)) AND ((@IsNull_Karar = 1 AND [Karar] IS NULL) OR ([Karar] = @Original_Karar)) AND ((@IsNull_Triaj_Rengi = 1 AND [Triaj_Rengi] IS NULL) OR ([Triaj_Rengi] = @Original_Triaj_Rengi)) AND ((@IsNull_Kabul_Şekli = 1 AND [Kabul_Şekli] IS NULL) OR ([Kabul_Şekli] = @Original_Kabul_Şekli)) AND ((@IsNull_Çıkış_Şekli = 1 AND [Çıkış_Şekli] IS NULL) OR ([Çıkış_Şekli] = @Original_Çıkış_Şekli)) AND ((@IsNull_Açıklama = 1 AND [Açıklama] IS NULL) OR ([Açıklama] = @Original_Açıklama)) AND ((@IsNull_Hekim = 1 AND [Hekim] IS NULL) OR ([Hekim] = @Original_Hekim)) AND ((@IsNull_Muayene_Giriş_Tarihi = 1 AND [Muayene_Giriş_Tarihi] IS NULL) OR ([Muayene_Giriş_Tarihi] = @Original_Muayene_Giriş_Tarihi)) AND ((@IsNull_Muayene_Bitiş_Tarihi = 1 AND [Muayene_Bitiş_Tarihi] IS NULL) OR ([Muayene_Bitiş_Tarihi] = @Original_Muayene_Bitiş_Tarihi)) AND ((@IsNull_Tanı = 1 AND [Tanı] IS NULL) OR ([Tanı] = @Original_Tanı)));
+SELECT Hasta_Kayıt_Numarası, TC_Kimlik_Numarası, Ad, Soyad, Baba_Adı, Doğum_Yeri, Doğum_Tarihi, Cinsiyet, Kan_Grubu, Güvenlik_Kurumu, Ateş, Tansiyon, Nabız, Kilo, Boy, Öz_Geçmiş, Soy_Geçmiş, Şikayet, Hikayesi, Fiziki_Bulgu, Laboratuvar_Bulgusu, Tedavi, Karar, Triaj_Rengi, Kabul_Şekli, Çıkış_Şekli, Açıklama, Hekim, Muayene_Giriş_Tarihi, Muayene_Bitiş_Tarihi, Tanı FROM patientlist WHERE (Hasta_Kayıt_Numarası = @Hasta_Kayıt_Numarası)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@TC_Kimlik_Numarası" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="TC_Kimlik_Numarası" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Ad" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Ad" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Soyad" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Soyad" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Baba_Adı" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Baba_Adı" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Doğum_Yeri" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Doğum_Yeri" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Doğum_Tarihi" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Doğum_Tarihi" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Cinsiyet" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Cinsiyet" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Kan_Grubu" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Kan_Grubu" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Güvenlik_Kurumu" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Güvenlik_Kurumu" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Ateş" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Ateş" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Tansiyon" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Tansiyon" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Nabız" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Nabız" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Kilo" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Kilo" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Boy" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Boy" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Öz_Geçmiş" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Öz_Geçmiş" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Soy_Geçmiş" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Soy_Geçmiş" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Şikayet" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Şikayet" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Hikayesi" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Hikayesi" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Fiziki_Bulgu" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Fiziki_Bulgu" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Laboratuvar_Bulgusu" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Laboratuvar_Bulgusu" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Tedavi" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Tedavi" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Karar" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Karar" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Triaj_Rengi" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Triaj_Rengi" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Kabul_Şekli" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Kabul_Şekli" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Çıkış_Şekli" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Çıkış_Şekli" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Açıklama" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Açıklama" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Hekim" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Hekim" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Muayene_Giriş_Tarihi" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Muayene_Giriş_Tarihi" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Muayene_Bitiş_Tarihi" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Muayene_Bitiş_Tarihi" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Tanı" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Tanı" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_Hasta_Kayıt_Numarası" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Hasta_Kayıt_Numarası" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_TC_Kimlik_Numarası" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="TC_Kimlik_Numarası" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_TC_Kimlik_Numarası" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="TC_Kimlik_Numarası" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Ad" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Ad" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Ad" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Ad" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Soyad" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Soyad" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Soyad" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Soyad" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Baba_Adı" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Baba_Adı" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Baba_Adı" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Baba_Adı" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Doğum_Yeri" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Doğum_Yeri" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Doğum_Yeri" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Doğum_Yeri" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Doğum_Tarihi" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Doğum_Tarihi" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Doğum_Tarihi" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Doğum_Tarihi" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Cinsiyet" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Cinsiyet" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Cinsiyet" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Cinsiyet" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Kan_Grubu" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Kan_Grubu" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Kan_Grubu" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Kan_Grubu" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Güvenlik_Kurumu" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Güvenlik_Kurumu" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Güvenlik_Kurumu" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Güvenlik_Kurumu" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Ateş" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Ateş" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Ateş" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Ateş" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Tansiyon" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Tansiyon" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Tansiyon" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Tansiyon" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Nabız" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Nabız" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Nabız" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Nabız" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Kilo" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Kilo" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Kilo" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Kilo" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Boy" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Boy" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Boy" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Boy" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Öz_Geçmiş" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Öz_Geçmiş" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Öz_Geçmiş" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Öz_Geçmiş" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Soy_Geçmiş" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Soy_Geçmiş" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Soy_Geçmiş" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Soy_Geçmiş" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Şikayet" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Şikayet" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Şikayet" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Şikayet" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Hikayesi" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Hikayesi" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Hikayesi" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Hikayesi" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Fiziki_Bulgu" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Fiziki_Bulgu" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Fiziki_Bulgu" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Fiziki_Bulgu" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Laboratuvar_Bulgusu" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Laboratuvar_Bulgusu" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Laboratuvar_Bulgusu" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Laboratuvar_Bulgusu" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Tedavi" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Tedavi" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Tedavi" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Tedavi" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Karar" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Karar" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Karar" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Karar" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Triaj_Rengi" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Triaj_Rengi" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Triaj_Rengi" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Triaj_Rengi" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Kabul_Şekli" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Kabul_Şekli" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Kabul_Şekli" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Kabul_Şekli" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Çıkış_Şekli" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Çıkış_Şekli" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Çıkış_Şekli" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Çıkış_Şekli" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Açıklama" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Açıklama" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Açıklama" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Açıklama" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Hekim" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Hekim" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Hekim" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Hekim" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Muayene_Giriş_Tarihi" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Muayene_Giriş_Tarihi" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Muayene_Giriş_Tarihi" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Muayene_Giriş_Tarihi" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Muayene_Bitiş_Tarihi" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Muayene_Bitiş_Tarihi" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Muayene_Bitiş_Tarihi" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Muayene_Bitiş_Tarihi" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Tanı" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Tanı" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Tanı" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Tanı" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="Hasta_Kayıt_Numarası" ColumnName="Hasta_Kayıt_Numarası" DataSourceName="[C:\USERS\ANILH\ONEDRIVE\MASAÜSTÜ\HASTANE BILGI YÖNETIM SISTEMI\VERITABANıHASTANE.MDF].dbo.patientlist" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@Hasta_Kayıt_Numarası" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="Hasta_Kayıt_Numarası" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </UpdateCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="Hasta_Kayıt_Numarası" DataSetColumn="Hasta_Kayıt_Numarası" />
+              <Mapping SourceColumn="TC_Kimlik_Numarası" DataSetColumn="TC_Kimlik_Numarası" />
+              <Mapping SourceColumn="Ad" DataSetColumn="Ad" />
+              <Mapping SourceColumn="Soyad" DataSetColumn="Soyad" />
+              <Mapping SourceColumn="Baba_Adı" DataSetColumn="Baba_Adı" />
+              <Mapping SourceColumn="Doğum_Yeri" DataSetColumn="Doğum_Yeri" />
+              <Mapping SourceColumn="Doğum_Tarihi" DataSetColumn="Doğum_Tarihi" />
+              <Mapping SourceColumn="Cinsiyet" DataSetColumn="Cinsiyet" />
+              <Mapping SourceColumn="Kan_Grubu" DataSetColumn="Kan_Grubu" />
+              <Mapping SourceColumn="Güvenlik_Kurumu" DataSetColumn="Güvenlik_Kurumu" />
+              <Mapping SourceColumn="Ateş" DataSetColumn="Ateş" />
+              <Mapping SourceColumn="Tansiyon" DataSetColumn="Tansiyon" />
+              <Mapping SourceColumn="Nabız" DataSetColumn="Nabız" />
+              <Mapping SourceColumn="Kilo" DataSetColumn="Kilo" />
+              <Mapping SourceColumn="Boy" DataSetColumn="Boy" />
+              <Mapping SourceColumn="Öz_Geçmiş" DataSetColumn="Öz_Geçmiş" />
+              <Mapping SourceColumn="Soy_Geçmiş" DataSetColumn="Soy_Geçmiş" />
+              <Mapping SourceColumn="Şikayet" DataSetColumn="Şikayet" />
+              <Mapping SourceColumn="Hikayesi" DataSetColumn="Hikayesi" />
+              <Mapping SourceColumn="Fiziki_Bulgu" DataSetColumn="Fiziki_Bulgu" />
+              <Mapping SourceColumn="Laboratuvar_Bulgusu" DataSetColumn="Laboratuvar_Bulgusu" />
+              <Mapping SourceColumn="Tedavi" DataSetColumn="Tedavi" />
+              <Mapping SourceColumn="Karar" DataSetColumn="Karar" />
+              <Mapping SourceColumn="Triaj_Rengi" DataSetColumn="Triaj_Rengi" />
+              <Mapping SourceColumn="Kabul_Şekli" DataSetColumn="Kabul_Şekli" />
+              <Mapping SourceColumn="Çıkış_Şekli" DataSetColumn="Çıkış_Şekli" />
+              <Mapping SourceColumn="Açıklama" DataSetColumn="Açıklama" />
+              <Mapping SourceColumn="Hekim" DataSetColumn="Hekim" />
+              <Mapping SourceColumn="Muayene_Giriş_Tarihi" DataSetColumn="Muayene_Giriş_Tarihi" />
+              <Mapping SourceColumn="Muayene_Bitiş_Tarihi" DataSetColumn="Muayene_Bitiş_Tarihi" />
+              <Mapping SourceColumn="Tanı" DataSetColumn="Tanı" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="VeritabanıHasta" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_UserDSName="VeritabanıHasta" msprop:Generator_DataSetName="VeritabanıHasta">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="patientlist" msprop:Generator_RowEvHandlerName="patientlistRowChangeEventHandler" msprop:Generator_RowDeletedName="patientlistRowDeleted" msprop:Generator_RowDeletingName="patientlistRowDeleting" msprop:Generator_RowEvArgName="patientlistRowChangeEvent" msprop:Generator_TablePropName="patientlist" msprop:Generator_RowChangedName="patientlistRowChanged" msprop:Generator_RowChangingName="patientlistRowChanging" msprop:Generator_TableClassName="patientlistDataTable" msprop:Generator_RowClassName="patientlistRow" msprop:Generator_TableVarName="tablepatientlist" msprop:Generator_UserTableName="patientlist">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Hasta_Kayıt_Numarası" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnPropNameInRow="Hasta_Kayıt_Numarası" msprop:Generator_ColumnPropNameInTable="Hasta_Kayıt_NumarasıColumn" msprop:Generator_ColumnVarNameInTable="columnHasta_Kayıt_Numarası" msprop:Generator_UserColumnName="Hasta_Kayıt_Numarası" type="xs:int" />
+              <xs:element name="TC_Kimlik_Numarası" msprop:Generator_ColumnPropNameInRow="TC_Kimlik_Numarası" msprop:Generator_ColumnPropNameInTable="TC_Kimlik_NumarasıColumn" msprop:Generator_ColumnVarNameInTable="columnTC_Kimlik_Numarası" msprop:Generator_UserColumnName="TC_Kimlik_Numarası" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="11" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Ad" msprop:Generator_ColumnPropNameInRow="Ad" msprop:Generator_ColumnPropNameInTable="AdColumn" msprop:Generator_ColumnVarNameInTable="columnAd" msprop:Generator_UserColumnName="Ad" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Soyad" msprop:Generator_ColumnPropNameInRow="Soyad" msprop:Generator_ColumnPropNameInTable="SoyadColumn" msprop:Generator_ColumnVarNameInTable="columnSoyad" msprop:Generator_UserColumnName="Soyad" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Baba_Adı" msprop:Generator_ColumnPropNameInRow="Baba_Adı" msprop:Generator_ColumnPropNameInTable="Baba_AdıColumn" msprop:Generator_ColumnVarNameInTable="columnBaba_Adı" msprop:Generator_UserColumnName="Baba_Adı" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Doğum_Yeri" msprop:Generator_ColumnPropNameInRow="Doğum_Yeri" msprop:Generator_ColumnPropNameInTable="Doğum_YeriColumn" msprop:Generator_ColumnVarNameInTable="columnDoğum_Yeri" msprop:Generator_UserColumnName="Doğum_Yeri" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Doğum_Tarihi" msprop:Generator_ColumnPropNameInRow="Doğum_Tarihi" msprop:Generator_ColumnPropNameInTable="Doğum_TarihiColumn" msprop:Generator_ColumnVarNameInTable="columnDoğum_Tarihi" msprop:Generator_UserColumnName="Doğum_Tarihi" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="15" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Cinsiyet" msprop:Generator_ColumnPropNameInRow="Cinsiyet" msprop:Generator_ColumnPropNameInTable="CinsiyetColumn" msprop:Generator_ColumnVarNameInTable="columnCinsiyet" msprop:Generator_UserColumnName="Cinsiyet" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="5" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Kan_Grubu" msprop:Generator_ColumnPropNameInRow="Kan_Grubu" msprop:Generator_ColumnPropNameInTable="Kan_GrubuColumn" msprop:Generator_ColumnVarNameInTable="columnKan_Grubu" msprop:Generator_UserColumnName="Kan_Grubu" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Güvenlik_Kurumu" msprop:Generator_ColumnPropNameInRow="Güvenlik_Kurumu" msprop:Generator_ColumnPropNameInTable="Güvenlik_KurumuColumn" msprop:Generator_ColumnVarNameInTable="columnGüvenlik_Kurumu" msprop:Generator_UserColumnName="Güvenlik_Kurumu" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="15" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Ateş" msprop:Generator_ColumnPropNameInRow="Ateş" msprop:Generator_ColumnPropNameInTable="AteşColumn" msprop:Generator_ColumnVarNameInTable="columnAteş" msprop:Generator_UserColumnName="Ateş" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Tansiyon" msprop:Generator_ColumnPropNameInRow="Tansiyon" msprop:Generator_ColumnPropNameInTable="TansiyonColumn" msprop:Generator_ColumnVarNameInTable="columnTansiyon" msprop:Generator_UserColumnName="Tansiyon" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="8" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Nabız" msprop:Generator_ColumnPropNameInRow="Nabız" msprop:Generator_ColumnPropNameInTable="NabızColumn" msprop:Generator_ColumnVarNameInTable="columnNabız" msprop:Generator_UserColumnName="Nabız" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="3" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Kilo" msprop:Generator_ColumnPropNameInRow="Kilo" msprop:Generator_ColumnPropNameInTable="KiloColumn" msprop:Generator_ColumnVarNameInTable="columnKilo" msprop:Generator_UserColumnName="Kilo" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="3" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Boy" msprop:Generator_ColumnPropNameInRow="Boy" msprop:Generator_ColumnPropNameInTable="BoyColumn" msprop:Generator_ColumnVarNameInTable="columnBoy" msprop:Generator_UserColumnName="Boy" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="3" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Öz_Geçmiş" msprop:Generator_ColumnPropNameInRow="Öz_Geçmiş" msprop:Generator_ColumnPropNameInTable="Öz_GeçmişColumn" msprop:Generator_ColumnVarNameInTable="columnÖz_Geçmiş" msprop:Generator_UserColumnName="Öz_Geçmiş" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Soy_Geçmiş" msprop:Generator_ColumnPropNameInRow="Soy_Geçmiş" msprop:Generator_ColumnPropNameInTable="Soy_GeçmişColumn" msprop:Generator_ColumnVarNameInTable="columnSoy_Geçmiş" msprop:Generator_UserColumnName="Soy_Geçmiş" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Şikayet" msprop:Generator_ColumnPropNameInRow="Şikayet" msprop:Generator_ColumnPropNameInTable="ŞikayetColumn" msprop:Generator_ColumnVarNameInTable="columnŞikayet" msprop:Generator_UserColumnName="Şikayet" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Hikayesi" msprop:Generator_ColumnPropNameInRow="Hikayesi" msprop:Generator_ColumnPropNameInTable="HikayesiColumn" msprop:Generator_ColumnVarNameInTable="columnHikayesi" msprop:Generator_UserColumnName="Hikayesi" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Fiziki_Bulgu" msprop:Generator_ColumnPropNameInRow="Fiziki_Bulgu" msprop:Generator_ColumnPropNameInTable="Fiziki_BulguColumn" msprop:Generator_ColumnVarNameInTable="columnFiziki_Bulgu" msprop:Generator_UserColumnName="Fiziki_Bulgu" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Laboratuvar_Bulgusu" msprop:Generator_ColumnPropNameInRow="Laboratuvar_Bulgusu" msprop:Generator_ColumnPropNameInTable="Laboratuvar_BulgusuColumn" msprop:Generator_ColumnVarNameInTable="columnLaboratuvar_Bulgusu" msprop:Generator_UserColumnName="Laboratuvar_Bulgusu" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Tedavi" msprop:Generator_ColumnPropNameInRow="Tedavi" msprop:Generator_ColumnPropNameInTable="TedaviColumn" msprop:Generator_ColumnVarNameInTable="columnTedavi" msprop:Generator_UserColumnName="Tedavi" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Karar" msprop:Generator_ColumnPropNameInRow="Karar" msprop:Generator_ColumnPropNameInTable="KararColumn" msprop:Generator_ColumnVarNameInTable="columnKarar" msprop:Generator_UserColumnName="Karar" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Triaj_Rengi" msprop:Generator_ColumnPropNameInRow="Triaj_Rengi" msprop:Generator_ColumnPropNameInTable="Triaj_RengiColumn" msprop:Generator_ColumnVarNameInTable="columnTriaj_Rengi" msprop:Generator_UserColumnName="Triaj_Rengi" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Kabul_Şekli" msprop:Generator_ColumnPropNameInRow="Kabul_Şekli" msprop:Generator_ColumnPropNameInTable="Kabul_ŞekliColumn" msprop:Generator_ColumnVarNameInTable="columnKabul_Şekli" msprop:Generator_UserColumnName="Kabul_Şekli" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="30" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Çıkış_Şekli" msprop:Generator_ColumnPropNameInRow="Çıkış_Şekli" msprop:Generator_ColumnPropNameInTable="Çıkış_ŞekliColumn" msprop:Generator_ColumnVarNameInTable="columnÇıkış_Şekli" msprop:Generator_UserColumnName="Çıkış_Şekli" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="30" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Açıklama" msprop:Generator_ColumnPropNameInRow="Açıklama" msprop:Generator_ColumnPropNameInTable="AçıklamaColumn" msprop:Generator_ColumnVarNameInTable="columnAçıklama" msprop:Generator_UserColumnName="Açıklama" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Hekim" msprop:Generator_ColumnPropNameInRow="Hekim" msprop:Generator_ColumnPropNameInTable="HekimColumn" msprop:Generator_ColumnVarNameInTable="columnHekim" msprop:Generator_UserColumnName="Hekim" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="30" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Muayene_Giriş_Tarihi" msprop:Generator_ColumnPropNameInRow="Muayene_Giriş_Tarihi" msprop:Generator_ColumnPropNameInTable="Muayene_Giriş_TarihiColumn" msprop:Generator_ColumnVarNameInTable="columnMuayene_Giriş_Tarihi" msprop:Generator_UserColumnName="Muayene_Giriş_Tarihi" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="15" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Muayene_Bitiş_Tarihi" msprop:Generator_ColumnPropNameInRow="Muayene_Bitiş_Tarihi" msprop:Generator_ColumnPropNameInTable="Muayene_Bitiş_TarihiColumn" msprop:Generator_ColumnVarNameInTable="columnMuayene_Bitiş_Tarihi" msprop:Generator_UserColumnName="Muayene_Bitiş_Tarihi" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="15" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Tanı" msprop:Generator_ColumnPropNameInRow="Tanı" msprop:Generator_ColumnPropNameInTable="TanıColumn" msprop:Generator_ColumnVarNameInTable="columnTanı" msprop:Generator_UserColumnName="Tanı" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:patientlist" />
+      <xs:field xpath="mstns:Hasta_Kayıt_Numarası" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

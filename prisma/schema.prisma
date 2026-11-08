@@ -1,0 +1,323 @@
+// ============================================================================
+// HASTANE BİLGİ YÖNETİM SİSTEMİ (HBYS) - 3NF İLİŞKİSEL VERİTABANI ŞEMASI
+// Local SQLite + Prisma ORM (Sıfır Kurulum, Tam İlişkisel Mimari)
+// ============================================================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// 1. POLİKLİNİK VE BRANŞLAR (Departments)
+model Department {
+  id             Int           @id @default(autoincrement())
+  code           String        @unique // Örn: KRD, DHL, ACL, NRL
+  name           String        @unique // Örn: Kardiyoloji, İç Hastalıkları (Dahiliye)
+  floor          String        // Örn: 1. Kat, Zemin Kat (Acil)
+  phoneExtension String?       // Dahili No: 1102
+  isActive       Boolean       @default(true)
+  createdAt      DateTime      @default(now())
+
+  staff          Staff[]
+  appointments   Appointment[]
+  encounters     Encounter[]
+  rooms          Room[]
+}
+
+// 2. HASTANE PERSONELİ VE KULLANICI HESAPLARI (Staff & RBAC Auth)
+// Eski sistemdeki 'login' ve 'doctorlist' tablolarının güvenli ve ilişkisel karşılığı
+model Staff {
+  id            Int          @id @default(autoincrement()) // Eski: Çalışan_Numarası
+  employeeCode  String       @unique // Örn: PRS-1001
+  nationalId    String       @unique // Eski: TC_Kimlik_Numarası (11 hane Unique)
+  username      String       @unique // Eski: login.username
+  passwordHash  String       // BCrypt ile hashlenmiş şifre (Plain-text şifre sorunu çözüldü)
+  firstName     String       // Eski: Ad
+  lastName      String       // Eski: Soyad
+  role          String       // ADMIN | DOCTOR | RECEPTIONIST | NURSE
+  title         String       // Eski: Ünvan (Profesör, Doçent, Uzman Doktor, Hemşire vb.)
+  shortTitle    String       // Eski: kisaunvan (Prof. Dr., Doç. Dr., Uz. Dr.)
+  fullTitleName String       // Eski: fulldoctorid (Uz. Dr. Ad Soyad - 30 karakter sınırı kaldırıldı)
+  departmentId  Int?         // Eski: Bölüm (Artık Foreign Key ile bağlı)
+  phone         String?      // Eski: İletişim_Numarası
+  email         String?      // Eski: Mail_Adresi
+  birthPlace    String?      // Eski: Doğum_Yeri
+  birthDate     DateTime?    // Eski: Doğum_Tarihi (Gerçek DateTime tipi)
+  gender        String?      // Eski: Cinsiyet
+  bloodType     String?      // Eski: Kan_Grubu
+  insuranceType String?      // Eski: Güvenlik_Kurumu
+  resume        String?      // Eski: Öz_Geçmiş
+  notes         String?      // Eski: Açıklama
+  hireDate      DateTime     @default(now()) // Eski: Hastaneye_Giriş_Tarihi
+  isActive      Boolean      @default(true)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+
+  department    Department?  @relation(fields: [departmentId], references: [id])
+  appointments  Appointment[]
+  encounters    Encounter[]
+  prescriptions Prescription[]
+  admissions    Admission[]
+  labOrders     LabOrder[]
+}
+
+// 3. TEKİL HASTA ÖZLÜK KARTI (Patients)
+// Eski sistemde hasta kimliği ile muayene bulguları aynı tablodaydı; artık 3NF ile ayrıldı!
+model Patient {
+  id             Int          @id @default(autoincrement()) // Eski: Hasta_Kayıt_Numarası
+  fileNo         String       @unique // Dosya No: HST-2026-001
+  nationalId     String       @unique // Eski: TC_Kimlik_Numarası (11 Hane Unique)
+  firstName      String       // Eski: Ad
+  lastName       String       // Eski: Soyad
+  fatherName     String?      // Eski: Baba_Adı
+  birthPlace     String?      // Eski: Doğum_Yeri
+  birthDate      DateTime     // Eski: Doğum_Tarihi (Gerçek DateTime)
+  gender         String       // Eski: Cinsiyet (Erkek / Kadın)
+  bloodType      String?      // Eski: Kan_Grubu (A Rh+, 0 Rh- vb.)
+  insuranceType  String       // Eski: Güvenlik_Kurumu (SGK, Bağ-Kur, Emekli Sandığı, Özel Sigorta)
+  phone          String?      // Telefon Numarası
+  address        String?      // Adres
+  chronicHistory String?      // Eski: Öz_Geçmiş (Kronik hastalıklar, ameliyatlar)
+  familyHistory  String?      // Eski: Soy_Geçmiş (Aile öyküsü)
+  allergies      String?      // İlaç / Besin Alerjileri
+  notes          String?      // Eski: Açıklama
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  appointments   Appointment[]
+  encounters     Encounter[]
+  prescriptions  Prescription[]
+  admissions     Admission[]
+  labOrders      LabOrder[]
+}
+
+// 4. RANDEVU VE POLİKLİNİK SIRA / KUYRUK YÖNETİMİ (Appointments)
+model Appointment {
+  id              Int        @id @default(autoincrement())
+  queueNumber     String     // Sıra No: KRD-012, ACL-005
+  patientId       Int
+  doctorId        Int
+  departmentId    Int
+  appointmentDate DateTime
+  timeSlot        String     // Örn: "09:30", "10:15"
+  status          String     // WAITING (Bekliyor) | IN_PROGRESS (Muayenede) | COMPLETED (Tamamlandı) | CANCELLED (İptal)
+  priority        String     @default("Normal") // Normal | Acil | 65+ Yaş / Öncelikli | Engelli / Gebe
+  visitReason     String?
+  createdAt       DateTime   @default(now())
+
+  patient         Patient    @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  doctor          Staff      @relation(fields: [doctorId], references: [id])
+  department      Department @relation(fields: [departmentId], references: [id])
+  encounter       Encounter?
+}
+
+// 5. POLİKLİNİK & ACİL MUAYENE (VİZİT / EPİKRİZ) KAYITLARI (Encounters)
+// Bir hastanın hastaneye her gelişi ayrı bir vizit kaydı olarak geçmişiyle saklanır
+model Encounter {
+  id               Int          @id @default(autoincrement())
+  protocolNo       String       @unique // Örn: PRT-2026-1042
+  patientId        Int
+  doctorId         Int
+  departmentId     Int
+  appointmentId    Int?         @unique
+  triageColor      String       // Eski: Triaj_Rengi (Yeşil, Sarı, Kırmızı, Siyah)
+  admissionType    String       // Eski: Kabul_Şekli (Poliklinik Ayaktan, Acil Ambulans, Kurum Sevki)
+  dischargeType    String?      // Eski: Çıkış_Şekli (Şifa ile Taburcu, Servis Yatışı, Takip Devam Ediyor)
+  complaint        String       // Eski: Şikayet
+  story            String?      // Eski: Hikayesi
+  physicalFindings String?      // Eski: Fiziki_Bulgu
+  labSummary       String?      // Eski: Laboratuvar_Bulgusu
+  diagnosisCode    String?      // ICD-10 Kodu (Örn: I10, J06.9)
+  diagnosisName    String?      // Eski: Tanı (Örn: Esansiyel Hipertansiyon)
+  treatment        String?      // Eski: Tedavi
+  decision         String?      // Eski: Karar
+  notes            String?      // Eski: Açıklama
+  checkInTime      DateTime     @default(now()) // Eski: Muayene_Giriş_Tarihi
+  checkOutTime     DateTime?    // Eski: Muayene_Bitiş_Tarihi
+  status           String       @default("ACTIVE") // ACTIVE | COMPLETED | ADMITTED
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+
+  patient          Patient      @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  doctor           Staff        @relation(fields: [doctorId], references: [id])
+  department       Department   @relation(fields: [departmentId], references: [id])
+  appointment      Appointment? @relation(fields: [appointmentId], references: [id])
+  vitalSigns       VitalSign?
+  prescriptions    Prescription[]
+  labOrders        LabOrder[]
+  admission        Admission?
+}
+
+// 6. VİTAL BULGULAR (VitalSigns)
+// Eski sistemde Ateş maxLength=2 metindi (36.5 yazılamıyordu); artık gerçek sayısal tiplerde!
+model VitalSign {
+  id                Int       @id @default(autoincrement())
+  encounterId       Int       @unique
+  temperature       Float?    // Eski: Ateş (°C - Örn: 36.8)
+  systolicBp        Int?      // Büyük Tansiyon (mmHg - Örn: 120)
+  diastolicBp       Int?      // Küçük Tansiyon (mmHg - Örn: 80)
+  bloodPressureText String?   // Eski: Tansiyon ("120/80")
+  heartRate         Int?      // Eski: Nabız (dk - Örn: 76)
+  spO2              Int?      // Oksijen Satürasyonu (% - Örn: 98)
+  weightKg          Float?    // Eski: Kilo (kg - Örn: 74.5)
+  heightCm          Float?    // Eski: Boy (cm - Örn: 175)
+  bmi               Float?    // Otomatik Hesaplanan VKİ (Vücut Kitle İndeksi)
+  measuredAt        DateTime  @default(now())
+
+  encounter         Encounter @relation(fields: [encounterId], references: [id], onDelete: Cascade)
+}
+
+// 7. İLAÇ VE ICD-10 TANI KATALOĞU (Medications & DiagnosisCatalog)
+model Medication {
+  id                Int                @id @default(autoincrement())
+  barcode           String             @unique
+  name              String             @unique // Örn: PAROL 500 MG 30 TABLET
+  activeIngredient  String             // Etken Madde: Parasetamol
+  category          String             // Analjezik, Antibiyotik, Antihipertansif vb.
+  defaultUsage      String             // Ağızdan (Oral), İntravenöz, İnhalasyon
+  defaultPeriod     Int                @default(1)
+  defaultPeriodUnit String             @default("Günde")
+  defaultDoseCount  Int                @default(2)
+  defaultDoseAmount String             @default("1 Tablet")
+  stockCount        Int                @default(100)
+
+  prescriptionItems PrescriptionItem[]
+}
+
+model DiagnosisCatalog {
+  id       Int    @id @default(autoincrement())
+  code     String @unique // ICD-10 Kodu: J06.9, I10, E11.9, K29.7
+  name     String // Tanı Adı
+  category String // Branş / Grup
+}
+
+// 8. E-REÇETE BAŞLIĞI VE ÇOKLU İLAÇ KALEMLERİ (Prescriptions & PrescriptionItems)
+// Eski sistemdeki tek satırlık 'reçetelist' yerine 1 Reçete -> N İlaç ilişkisi
+model Prescription {
+  id             Int                @id @default(autoincrement()) // Eski: Reçete_Numarası
+  prescriptionNo String             @unique // Örn: EREC-2026-8841
+  patientId      Int
+  doctorId       Int
+  encounterId    Int?
+  diagnosis      String?
+  notes          String?
+  createdAt      DateTime           @default(now())
+
+  patient        Patient            @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  doctor         Staff              @relation(fields: [doctorId], references: [id])
+  encounter      Encounter?         @relation(fields: [encounterId], references: [id])
+  items          PrescriptionItem[]
+}
+
+model PrescriptionItem {
+  id             Int          @id @default(autoincrement())
+  prescriptionId Int
+  medicationId   Int?
+  medicationName String       // Eski: İlaç_Adı
+  usageMethod    String       // Eski: İlaç_Kullanım_Şekli
+  period         Int          // Eski: Kul_Periyodu (Sayısal)
+  periodUnit     String       // Eski: Per_Birimi (Günde, Haftada, Ayda)
+  boxCount       Int          // Eski: Kutu_Adeti (Sayısal)
+  doseCount      Int          // Eski: P_Adet (Günde kaç kez)
+  doseAmount     String       // Eski: P_Doz (Her seferde kaç ölçek/tablet)
+  instructions   String?      // Aç/Tok karnına vb.
+
+  prescription   Prescription @relation(fields: [prescriptionId], references: [id], onDelete: Cascade)
+  medication     Medication?  @relation(fields: [medicationId], references: [id])
+}
+
+// 9. YATAKLI SERVİS, ODALAR, YATAKLAR VE YATIŞ TAKİBİ (Rooms, Beds & Admissions)
+// Eski sistemdeki '[Hasta ]' boşluklu kolon hatası ve tekil oda kısıtı çözüldü
+model Room {
+  id           Int         @id @default(autoincrement())
+  roomNumber   String      @unique // Eski: Oda_Numarası ("101", "102", "YB-01")
+  floor        Int         // Kat
+  roomType     String      // SERVIS | VIP | YOGUN_BAKIM | IZOLASYON
+  capacity     Int         @default(2) // Yatak kapasitesi
+  departmentId Int
+  dailyRate    Float       @default(0)
+  notes        String?
+
+  department   Department  @relation(fields: [departmentId], references: [id])
+  beds         Bed[]
+  admissions   Admission[]
+}
+
+model Bed {
+  id         Int         @id @default(autoincrement())
+  roomId     Int
+  bedNumber  String      // Örn: "101-A", "101-B"
+  isOccupied Boolean     @default(false)
+
+  room       Room        @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  admissions Admission[]
+
+  @@unique([roomId, bedNumber])
+}
+
+model Admission {
+  id                    Int        @id @default(autoincrement())
+  patientId             Int        // Eski: Hasta (Artık Foreign Key!)
+  doctorId              Int
+  roomId                Int
+  bedId                 Int
+  encounterId           Int?       @unique
+  admissionDate         DateTime   @default(now()) // Eski: Giriş_Tarihi
+  estimatedDischarge    DateTime?  // Eski: Çıkıcağı_Tarih
+  actualDischarge       DateTime?  // Gerçekleşen Taburcu Tarihi
+  status                String     @default("ACTIVE") // ACTIVE (Yatıyor) | DISCHARGED (Taburcu Oldu)
+  companionName         String?    // Refakatçi Adı Soyadı
+  companionPhone        String?    // Refakatçi Telefonu
+  diagnosis             String?    // Yatış Tanısı
+  notes                 String?
+
+  patient               Patient    @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  doctor                Staff      @relation(fields: [doctorId], references: [id])
+  room                  Room       @relation(fields: [roomId], references: [id])
+  bed                   Bed        @relation(fields: [bedId], references: [id])
+  encounter             Encounter? @relation(fields: [encounterId], references: [id])
+}
+
+// 10. LABORATUVAR VE RADYOLOJİ TETKİK TAKİBİ (LabOrders)
+model LabOrder {
+  id             Int        @id @default(autoincrement())
+  orderCode      String     @unique // Örn: LAB-2026-501
+  patientId      Int
+  doctorId       Int
+  encounterId    Int?
+  category       String     // HEMATOLOJI | BIYOKIMYA | RADYOLOJI | KARDIYOLOJI
+  testName       String     // Örn: Hemogram (Tam Kan Sayımı), Açlık Kan Şekeri, Akciğer PA Grafi
+  resultValue    String?    // Örn: "142 mg/dL", "Normal Sinüs Ritmi"
+  unit           String?    // Örn: "mg/dL", "g/dL", "U/L"
+  referenceRange String?    // Örn: "70 - 105 mg/dL"
+  status         String     @default("PENDING") // PENDING (Bekliyor) |COMPLETED (Sonuçlandı)
+  isCritical     Boolean    @default(false) // Referans dışı / Kritik değer uyarısı
+  requestedAt    DateTime   @default(now())
+  completedAt    DateTime?
+  notes          String?
+
+  patient        Patient    @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  doctor         Staff      @relation(fields: [doctorId], references: [id])
+  encounter      Encounter? @relation(fields: [encounterId], references: [id])
+}
+
+// 11. GÜVENLİK VE DENETİM İZİ (Audit Logs & KVKK / Compliance)
+// Sistemde kimin ne zaman hangi işlemi yaptığı (Giriş, Hasta Güncelleme, Reçete, Yatış vb.) kaydedilir
+model AuditLog {
+  id         Int      @id @default(autoincrement())
+  userId     Int?
+  userName   String   // İşlemi yapan personel (Örn: "dr.mehmet - Uz. Dr. Mehmet Öz")
+  userRole   String   // ADMIN | DOCTOR | RECEPTIONIST | NURSE
+  action     String   // LOGIN | LOGOUT | CREATE | UPDATE | DELETE | PRESCRIBE | ADMIT | DISCHARGE | LAB_ORDER | PASSWORD_CHANGE
+  entityType String   // Auth | Patient | Staff | Encounter | Prescription | Admission | LabOrder
+  entityId   String?  // İlgili kayıt referansı (Örn: "HST-2026-001", "EREC-2026-8841")
+  details    String?  // Açıklayıcı işlem detayı
+  ipAddress  String?  // İstemci IP adresi
+  createdAt  DateTime @default(now())
+}
+
+

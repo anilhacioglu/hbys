@@ -1,0 +1,307 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{81F386EB-AE4C-437E-B5E0-B38133BA52F6}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Hastane_Bilgi_Yönetim_Sistemi</RootNamespace>
+    <AssemblyName>Hastane Bilgi Yönetim Sistemi</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Dim.cs" />
+    <Compile Include="EkranReçeteGörüntüleme.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EkranReçeteGörüntüleme.Designer.cs">
+      <DependentUpon>EkranReçeteGörüntüleme.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EkranGiriş.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EkranGiriş.Designer.cs">
+      <DependentUpon>EkranGiriş.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GüncellemeEkranıHasta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GüncellemeEkranıHasta.Designer.cs">
+      <DependentUpon>GüncellemeEkranıHasta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GüncellemeEkranıOda.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GüncellemeEkranıOda.Designer.cs">
+      <DependentUpon>GüncellemeEkranıOda.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GüncellemeEkranıÇalışan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GüncellemeEkranıÇalışan.Designer.cs">
+      <DependentUpon>GüncellemeEkranıÇalışan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ListeHastaTCKimlikNumarası.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ListeHastaTCKimlikNumarası.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ListeHekim.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ListeHekim.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="EkranMenü.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EkranMenü.Designer.cs">
+      <DependentUpon>EkranMenü.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VeritabanıDoktor.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>VeritabanıDoktor.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="VeritabanıHasta.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>VeritabanıHasta.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="VeritabanıOda.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>VeritabanıOda.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="VeritabanıReçete.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>VeritabanıReçete.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="YeniKayıtHasta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="YeniKayıtHasta.Designer.cs">
+      <DependentUpon>YeniKayıtHasta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="YeniOdaAtama.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="YeniOdaAtama.Designer.cs">
+      <DependentUpon>YeniOdaAtama.cs</DependentUpon>
+    </Compile>
+    <Compile Include="YeniReçeteYaz.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="YeniReçeteYaz.Designer.cs">
+      <DependentUpon>YeniReçeteYaz.cs</DependentUpon>
+    </Compile>
+    <Compile Include="YeniÇalışanKayıt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="YeniÇalışanKayıt.Designer.cs">
+      <DependentUpon>YeniÇalışanKayıt.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="EkranGiriş.resx">
+      <DependentUpon>EkranGiriş.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EkranMenü.resx">
+      <DependentUpon>EkranMenü.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EkranReçeteGörüntüleme.resx">
+      <DependentUpon>EkranReçeteGörüntüleme.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GüncellemeEkranıHasta.resx">
+      <DependentUpon>GüncellemeEkranıHasta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GüncellemeEkranıOda.resx">
+      <DependentUpon>GüncellemeEkranıOda.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GüncellemeEkranıÇalışan.resx">
+      <DependentUpon>GüncellemeEkranıÇalışan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="YeniKayıtHasta.resx">
+      <DependentUpon>YeniKayıtHasta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="YeniOdaAtama.resx">
+      <DependentUpon>YeniOdaAtama.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="YeniReçeteYaz.resx">
+      <DependentUpon>YeniReçeteYaz.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="YeniÇalışanKayıt.resx">
+      <DependentUpon>YeniÇalışanKayıt.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="ListeHastaTCKimlikNumarası.xsc">
+      <DependentUpon>ListeHastaTCKimlikNumarası.xsd</DependentUpon>
+    </None>
+    <None Include="ListeHastaTCKimlikNumarası.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ListeHastaTCKimlikNumarası.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="ListeHastaTCKimlikNumarası.xss">
+      <DependentUpon>ListeHastaTCKimlikNumarası.xsd</DependentUpon>
+    </None>
+    <None Include="ListeHekim.xsc">
+      <DependentUpon>ListeHekim.xsd</DependentUpon>
+    </None>
+    <None Include="ListeHekim.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ListeHekim.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="ListeHekim.xss">
+      <DependentUpon>ListeHekim.xsd</DependentUpon>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="VeritabanıDoktor.xsc">
+      <DependentUpon>VeritabanıDoktor.xsd</DependentUpon>
+    </None>
+    <None Include="VeritabanıDoktor.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>VeritabanıDoktor.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="VeritabanıDoktor.xss">
+      <DependentUpon>VeritabanıDoktor.xsd</DependentUpon>
+    </None>
+    <None Include="VeritabanıHasta.xsc">
+      <DependentUpon>VeritabanıHasta.xsd</DependentUpon>
+    </None>
+    <None Include="VeritabanıHasta.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>VeritabanıHasta.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="VeritabanıHasta.xss">
+      <DependentUpon>VeritabanıHasta.xsd</DependentUpon>
+    </None>
+    <None Include="VeritabanıOda.xsc">
+      <DependentUpon>VeritabanıOda.xsd</DependentUpon>
+    </None>
+    <None Include="VeritabanıOda.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>VeritabanıOda.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="VeritabanıOda.xss">
+      <DependentUpon>VeritabanıOda.xsd</DependentUpon>
+    </None>
+    <None Include="VeritabanıReçete.xsc">
+      <DependentUpon>VeritabanıReçete.xsd</DependentUpon>
+    </None>
+    <None Include="VeritabanıReçete.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>VeritabanıReçete.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="VeritabanıReçete.xss">
+      <DependentUpon>VeritabanıReçete.xsd</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Used Pictures\Girisekrani.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 ve x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 </ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="VeritabanıHastane.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="VeritabanıHastane_log.ldf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DependentUpon>VeritabanıHastane.mdf</DependentUpon>
+    </Content>
+    <None Include="Used Pictures\logout.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
+    <Folder Include="Veritabanları\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
