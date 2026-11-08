@@ -338,114 +338,119 @@ export function BillingView({ data, onRefresh, onToast, user }: BillingViewProps
           tabIndex={0}
           role="region"
           aria-label="Vezne ve fatura listesi tablosu"
-          className="overflow-auto max-w-full border border-slate-200 dark:border-slate-800 rounded-xl"
+          className="overflow-auto max-w-full border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm"
         >
           <table className="w-full text-left border-collapse text-xs">
-            <thead className="sticky top-0 z-10 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 uppercase">
+            <thead className="sticky top-0 z-10 bg-slate-100/90 dark:bg-slate-800/90 backdrop-blur text-slate-700 dark:text-slate-300 uppercase text-[11px] font-bold tracking-wider">
               <tr>
-                <th className="py-3 px-3">Fatura No</th>
-                <th className="py-3 px-3">Hasta (TC Kimlik)</th>
-                <th className="py-3 px-3">Tarih</th>
-                <th className="py-3 px-3">Hizmet Kalemleri</th>
-                <th className="py-3 px-3">Toplam / SGK</th>
-                <th className="py-3 px-3">Hasta Payı</th>
-                <th className="py-3 px-3">Durum / Ödeme</th>
-                <th className="py-3 px-3 text-right">İşlem</th>
+                <th className="py-3 px-3.5">Fatura No</th>
+                <th className="py-3 px-3.5">Hasta & Güvence</th>
+                <th className="py-3 px-3.5">Tarih</th>
+                <th className="py-3 px-3.5">Hizmet Kalemleri</th>
+                <th className="py-3 px-3.5">Toplam / SGK</th>
+                <th className="py-3 px-3.5">Hasta Payı</th>
+                <th className="py-3 px-3.5">Durum / Ödeme</th>
+                <th className="py-3 px-3.5 text-right">İşlem</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-200 dark:divide-slate-800">
+            <tbody className="divide-y divide-slate-100 dark:divide-slate-800/70">
               {paginatedInvoices.map((inv) => (
-                <tr key={inv.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/50">
-                  <td className="py-3 px-3 font-mono font-bold text-sky-800 dark:text-sky-300">
-                    {inv.invoiceNo}
+                <tr
+                  key={inv.id}
+                  className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors duration-150 group"
+                >
+                  <td className="py-3.5 px-3.5 font-mono font-black text-sky-800 dark:text-sky-300">
+                    <span className="px-2 py-1 rounded-xl bg-sky-50 dark:bg-sky-950/60 border border-sky-200/80 dark:border-sky-800/60">
+                      {inv.invoiceNo}
+                    </span>
                   </td>
-                  <td className="py-3 px-3">
-                    <div className="font-bold text-slate-900 dark:text-white">
+                  <td className="py-3.5 px-3.5">
+                    <div className="font-bold text-slate-900 dark:text-white group-hover:text-sky-600 dark:group-hover:text-sky-400 transition-colors">
                       {inv.patient?.firstName} {inv.patient?.lastName}
                     </div>
-                    <div className="font-mono text-[11px] text-slate-500 dark:text-slate-400">
-                      TC: {inv.patient?.nationalId} ({inv.patient?.insuranceType || "SGK"})
+                    <div className="font-mono text-[11px] text-slate-400 mt-0.5">
+                      TC: {inv.patient?.nationalId} • <span className="font-sans text-sky-600 dark:text-sky-400 font-semibold">{inv.patient?.insuranceType || "SGK"}</span>
                     </div>
                   </td>
-                  <td className="py-3 px-3 text-slate-600 dark:text-slate-400">
+                  <td className="py-3.5 px-3.5 text-slate-600 dark:text-slate-400 whitespace-nowrap">
                     {new Date(inv.createdAt).toLocaleDateString("tr-TR")}
                   </td>
-                  <td className="py-3 px-3">
+                  <td className="py-3.5 px-3.5">
                     <div className="flex flex-wrap gap-1 max-w-xs">
                       {inv.items?.map((it, idx) => (
                         <span
                           key={idx}
-                          className="px-1.5 py-0.5 rounded text-[10px] bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700"
+                          className="px-2 py-0.5 rounded-lg text-[10px] font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700"
                         >
                           {it.description}
                         </span>
                       ))}
                     </div>
                   </td>
-                  <td className="py-3 px-3">
-                    <div className="font-semibold text-slate-800 dark:text-slate-200">
+                  <td className="py-3.5 px-3.5 whitespace-nowrap">
+                    <div className="font-bold text-slate-800 dark:text-slate-200">
                       {inv.totalAmount.toFixed(2)} ₺
                     </div>
-                    <div className="text-[11px] text-slate-500 dark:text-slate-400">
+                    <div className="text-[11px] text-slate-400">
                       SGK: {inv.sgkCoverage.toFixed(2)} ₺
                     </div>
                   </td>
-                  <td className="py-3 px-3">
-                    <span className="font-bold text-sm text-emerald-700 dark:text-emerald-400">
+                  <td className="py-3.5 px-3.5 whitespace-nowrap">
+                    <span className="font-black text-sm text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 px-2 py-0.5 rounded-lg border border-emerald-200 dark:border-emerald-800">
                       {inv.patientShare.toFixed(2)} ₺
                     </span>
                   </td>
-                  <td className="py-3 px-3">
+                  <td className="py-3.5 px-3.5 whitespace-nowrap">
                     {inv.status === "PAID" ? (
                       <div>
-                        <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 inline-flex items-center gap-1">
-                          <CheckCircle2 className="w-3 h-3" /> TAHSİL EDİLDİ
+                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 inline-flex items-center gap-1.5">
+                          <CheckCircle2 className="w-3 h-3 text-emerald-500" /> TAHSİL EDİLDİ
                         </span>
-                        <div className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">
+                        <div className="text-[10px] text-slate-400 mt-1">
                           {inv.paymentMethod} • {inv.cashierName}
                         </div>
                       </div>
                     ) : (
-                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-800 inline-flex items-center gap-1">
-                        <Clock className="w-3 h-3" /> BEKLİYOR
+                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800 inline-flex items-center gap-1.5">
+                        <Clock className="w-3 h-3 text-amber-500" /> BEKLİYOR
                       </span>
                     )}
                   </td>
-                  <td className="py-3 px-3 text-right space-x-1 whitespace-nowrap">
+                  <td className="py-3.5 px-3.5 text-right space-x-1.5 whitespace-nowrap">
                     {inv.status === "PENDING" && (
                       <>
                         <button
                           type="button"
                           onClick={() => handlePayInvoice(inv.id, "NAKIT")}
-                          className="px-2.5 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-bold inline-flex items-center gap-1"
+                          className="px-2.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs inline-flex items-center gap-1 transition shadow-xs"
                           title="Nakit Tahsilat Yap"
                         >
-                          <Banknote className="w-3 h-3" /> Nakit
+                          <Banknote className="w-3.5 h-3.5" /> Nakit
                         </button>
                         <button
                           type="button"
                           onClick={() => handlePayInvoice(inv.id, "KREDI_KARTI")}
-                          className="px-2.5 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-bold inline-flex items-center gap-1"
+                          className="px-2.5 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs inline-flex items-center gap-1 transition shadow-xs"
                           title="Kredi Kartı POS Tahsilat Yap"
                         >
-                          <CreditCard className="w-3 h-3" /> Kart
+                          <CreditCard className="w-3.5 h-3.5" /> Kart
                         </button>
                       </>
                     )}
                     <button
                       type="button"
                       onClick={() => setSelectedInvoiceForPrint(inv)}
-                      className="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-bold border border-slate-300 dark:border-slate-700 inline-flex items-center gap-1"
+                      className="px-2.5 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-bold text-xs border border-slate-200 dark:border-slate-700 inline-flex items-center gap-1 transition shadow-xs"
                       title="Resmi Makbuz / Fatura Belgesi Yazdır"
                     >
-                      <Printer className="w-3 h-3" /> Makbuz
+                      <Printer className="w-3.5 h-3.5" /> Makbuz
                     </button>
                     <button
                       type="button"
                       onClick={() => handleDeleteInvoice(inv.id)}
-                      className="p-1 text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded"
+                      className="p-1.5 text-rose-500 hover:text-rose-700 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/50 rounded-xl transition inline-flex items-center"
                     >
-                      <Trash2 className="w-4 h-4 inline" />
+                      <Trash2 className="w-3.5 h-3.5" />
                     </button>
                   </td>
                 </tr>

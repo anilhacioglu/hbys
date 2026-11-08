@@ -319,47 +319,54 @@ export function PharmacyView({ data, onRefresh, onToast, user }: PharmacyViewPro
           tabIndex={0}
           role="region"
           aria-label="Eczane ilaç stok tablosu"
-          className="overflow-auto max-w-full border border-slate-200 dark:border-slate-800 rounded-xl"
+          className="overflow-auto max-w-full border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm"
         >
           <table className="w-full text-left border-collapse text-xs">
-            <thead className="sticky top-0 z-10 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 uppercase">
+            <thead className="sticky top-0 z-10 bg-slate-100/90 dark:bg-slate-800/90 backdrop-blur text-slate-700 dark:text-slate-300 uppercase text-[11px] font-bold tracking-wider">
               <tr>
-                <th className="py-3 px-3">Barkod / GTIN</th>
-                <th className="py-3 px-3">İlaç Ticari Adı & Etken Madde</th>
-                <th className="py-3 px-3">Kategori</th>
-                <th className="py-3 px-3">Varsayılan Doz / Yol</th>
-                <th className="py-3 px-3">Kalan Stok Durumu</th>
-                <th className="py-3 px-3 text-right">Depo Stok Aksiyonu</th>
+                <th className="py-3 px-3.5">Barkod / GTIN</th>
+                <th className="py-3 px-3.5">İlaç Adı & Etken Madde</th>
+                <th className="py-3 px-3.5">Kategori</th>
+                <th className="py-3 px-3.5">Varsayılan Doz / Yol</th>
+                <th className="py-3 px-3.5">Kalan Stok Durumu</th>
+                <th className="py-3 px-3.5 text-right">Depo Stok Aksiyonu</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-200 dark:divide-slate-800">
+            <tbody className="divide-y divide-slate-100 dark:divide-slate-800/70">
               {paginatedMeds.map((med) => {
                 const isOutOfStock = med.stockCount <= 0;
                 const isCritical = med.stockCount > 0 && med.stockCount < 10;
                 return (
-                  <tr key={med.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/50">
-                    <td className="py-3 px-3 font-mono font-bold text-teal-800 dark:text-teal-300">
-                      {med.barcode}
+                  <tr
+                    key={med.id}
+                    className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors duration-150 group"
+                  >
+                    <td className="py-3.5 px-3.5 font-mono font-black text-teal-800 dark:text-teal-300">
+                      <span className="px-2 py-1 rounded-xl bg-teal-50 dark:bg-teal-950/60 border border-teal-200/80 dark:border-teal-800/60">
+                        {med.barcode}
+                      </span>
                     </td>
-                    <td className="py-3 px-3">
-                      <div className="font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                    <td className="py-3.5 px-3.5">
+                      <div className="font-bold text-slate-900 dark:text-white flex items-center gap-1.5 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
                         <Pill className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400 shrink-0" />
                         {med.name}
                       </div>
-                      <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
-                        Etken Madde: <b>{med.activeIngredient}</b>
+                      <div className="text-[11px] text-slate-400 mt-0.5">
+                        Etken Madde: <b className="text-slate-700 dark:text-slate-300">{med.activeIngredient}</b>
                       </div>
                     </td>
-                    <td className="py-3 px-3">
-                      <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
+                    <td className="py-3.5 px-3.5 whitespace-nowrap">
+                      <span className="px-2 py-0.5 rounded-lg text-[10px] font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
                         {med.category}
                       </span>
                     </td>
-                    <td className="py-3 px-3 text-slate-600 dark:text-slate-400">
-                      <div>{med.defaultUsage}</div>
-                      <div className="text-[10px] text-slate-500">{med.defaultPeriodUnit} {med.defaultDoseCount}x{med.defaultDoseAmount}</div>
+                    <td className="py-3.5 px-3.5 text-slate-600 dark:text-slate-400">
+                      <div className="font-medium text-slate-800 dark:text-slate-200">{med.defaultUsage}</div>
+                      <div className="text-[10px] text-slate-400 font-mono mt-0.5">
+                        {med.defaultPeriodUnit} {med.defaultDoseCount}x{med.defaultDoseAmount}
+                      </div>
                     </td>
-                    <td className="py-3 px-3">
+                    <td className="py-3.5 px-3.5 whitespace-nowrap">
                       <div className="flex items-center gap-2">
                         <span
                           className={`font-black text-sm ${
@@ -373,15 +380,15 @@ export function PharmacyView({ data, onRefresh, onToast, user }: PharmacyViewPro
                           {med.stockCount} Kutu
                         </span>
                         {isOutOfStock ? (
-                          <span className="px-2 py-0.5 rounded-full text-[10px] font-black bg-rose-100 dark:bg-rose-950/60 text-rose-800 dark:text-rose-300 border border-rose-200 dark:border-rose-900/50 animate-pulse">
+                          <span className="px-2 py-0.5 rounded-full text-[10px] font-black bg-rose-50 dark:bg-rose-950/60 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-900/50 animate-pulse">
                             TÜKENDİ
                           </span>
                         ) : isCritical ? (
-                          <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-800">
+                          <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800">
                             KRİTİK AZ
                           </span>
                         ) : (
-                          <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300">
+                          <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
                             YETERLİ
                           </span>
                         )}
@@ -400,22 +407,22 @@ export function PharmacyView({ data, onRefresh, onToast, user }: PharmacyViewPro
                         />
                       </div>
                     </td>
-                    <td className="py-3 px-3 text-right space-x-1.5 whitespace-nowrap">
+                    <td className="py-3.5 px-3.5 text-right space-x-1.5 whitespace-nowrap">
                       <button
                         type="button"
                         onClick={() => handleAddStock(med.id, 50)}
-                        className="px-2 py-1 rounded-lg bg-teal-50 dark:bg-teal-950/40 hover:bg-teal-100 dark:hover:bg-teal-900/50 text-teal-800 dark:text-teal-300 font-bold text-xs border border-teal-200 dark:border-teal-800/60 transition inline-flex items-center gap-1"
+                        className="px-2.5 py-1.5 rounded-xl bg-teal-50 dark:bg-teal-950/40 hover:bg-teal-100 dark:hover:bg-teal-900/50 text-teal-800 dark:text-teal-300 font-bold text-xs border border-teal-200 dark:border-teal-800/60 transition inline-flex items-center gap-1 shadow-xs"
                         title="Depodan 50 Kutu Ekle"
                       >
-                        <PackagePlus className="w-3 h-3" /> +50 Kutu
+                        <PackagePlus className="w-3.5 h-3.5" /> +50 Kutu
                       </button>
                       <button
                         type="button"
                         onClick={() => handleAddStock(med.id, 100)}
-                        className="px-2 py-1 rounded-lg bg-sky-50 dark:bg-sky-950/40 hover:bg-sky-100 dark:hover:bg-sky-900/50 text-sky-800 dark:text-sky-300 font-bold text-xs border border-sky-200 dark:border-sky-800/60 transition inline-flex items-center gap-1"
+                        className="px-2.5 py-1.5 rounded-xl bg-sky-50 dark:bg-sky-950/40 hover:bg-sky-100 dark:hover:bg-sky-900/50 text-sky-800 dark:text-sky-300 font-bold text-xs border border-sky-200 dark:border-sky-800/60 transition inline-flex items-center gap-1 shadow-xs"
                         title="Depodan 100 Kutu Ekle"
                       >
-                        <PackagePlus className="w-3 h-3" /> +100 Kutu
+                        <PackagePlus className="w-3.5 h-3.5" /> +100 Kutu
                       </button>
                       <button
                         type="button"
@@ -423,10 +430,10 @@ export function PharmacyView({ data, onRefresh, onToast, user }: PharmacyViewPro
                           setEditingMed(med);
                           setCustomStockValue(med.stockCount);
                         }}
-                        className="p-1 rounded-lg text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"
+                        className="p-1.5 rounded-xl text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition inline-flex items-center"
                         title="Stok Sayımını Düzenle"
                       >
-                        <Edit3 className="w-4 h-4 inline" />
+                        <Edit3 className="w-3.5 h-3.5" />
                       </button>
                     </td>
                   </tr>

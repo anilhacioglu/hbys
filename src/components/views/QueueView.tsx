@@ -2,7 +2,16 @@
 
 import React, { useState } from "react";
 import { Appointment, HbysPayload, StaffMember } from "@/types/hbys";
-import { CalendarClock, Plus, Stethoscope, Trash2 } from "lucide-react";
+import {
+  CalendarClock,
+  CheckCircle2,
+  Clock,
+  Play,
+  Plus,
+  Stethoscope,
+  Trash2,
+  User,
+} from "lucide-react";
 
 interface QueueViewProps {
   data: HbysPayload | null;
@@ -243,75 +252,125 @@ export function QueueView({
           tabIndex={0}
           role="region"
           aria-label="Poliklinik sıra listesi"
-          className="overflow-auto max-w-full border border-slate-200 dark:border-slate-800 rounded-xl"
+          className="overflow-auto max-w-full border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm"
         >
           <table className="w-full text-left border-collapse text-xs">
-            <thead className="sticky top-0 z-10 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 uppercase">
+            <thead className="sticky top-0 z-10 bg-slate-100/90 dark:bg-slate-800/90 backdrop-blur text-slate-700 dark:text-slate-300 uppercase text-[11px] font-bold tracking-wider">
               <tr>
-                <th className="py-3 px-3">Sıra No</th>
-                <th className="py-3 px-3">Saat</th>
-                <th className="py-3 px-3">Hasta</th>
-                <th className="py-3 px-3">Poliklinik / Hekim</th>
-                <th className="py-3 px-3">Öncelik</th>
-                <th className="py-3 px-3">Durum</th>
-                <th className="py-3 px-3 text-right">İşlem</th>
+                <th className="py-3 px-3.5">Sıra & Saat</th>
+                <th className="py-3 px-3.5">Hasta Kimliği</th>
+                <th className="py-3 px-3.5">Poliklinik & Hekim</th>
+                <th className="py-3 px-3.5">Öncelik & Durum</th>
+                <th className="py-3 px-3.5 text-right">İşlemler</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-200 dark:divide-slate-800 text-slate-800 dark:text-slate-200">
+            <tbody className="divide-y divide-slate-100 dark:divide-slate-800/70 text-slate-800 dark:text-slate-200">
               {(data?.appointments || []).map((apt) => (
-                <tr key={apt.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/50">
-                  <td className="py-3 px-3 font-mono font-black text-sm text-sky-700 dark:text-sky-400">
-                    {apt.queueNumber}
-                  </td>
-                  <td className="py-3 px-3 font-semibold">{apt.timeSlot}</td>
-                  <td className="py-3 px-3">
-                    <div className="font-bold text-slate-900 dark:text-white">
-                      {apt.patient?.firstName} {apt.patient?.lastName}
+                <tr
+                  key={apt.id}
+                  className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors duration-150 group"
+                >
+                  {/* Sıra & Saat */}
+                  <td className="py-3.5 px-3.5 whitespace-nowrap">
+                    <div className="flex items-center gap-2">
+                      <span className="font-mono font-black text-sm text-sky-700 dark:text-sky-300 bg-sky-50 dark:bg-sky-950/60 px-2.5 py-1 rounded-xl border border-sky-200/80 dark:border-sky-800/60 shadow-xs">
+                        {apt.queueNumber}
+                      </span>
+                      <div className="flex items-center gap-1 text-slate-600 dark:text-slate-400 font-semibold text-xs">
+                        <Clock className="w-3.5 h-3.5 text-slate-400" />
+                        <span>{apt.timeSlot}</span>
+                      </div>
                     </div>
-                    <div className="text-slate-500 dark:text-slate-400 font-mono">{apt.patient?.nationalId}</div>
                   </td>
-                  <td className="py-3 px-3">
-                    <div className="font-semibold">{apt.department?.name}</div>
-                    <div className="text-slate-500 dark:text-slate-400">{apt.doctor?.fullTitleName}</div>
+
+                  {/* Hasta Kimliği (Ad + TC + Şikayet) */}
+                  <td className="py-3.5 px-3.5">
+                    <div className="flex items-start gap-2.5">
+                      <div className="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 flex items-center justify-center shrink-0 font-bold text-xs mt-0.5">
+                        {apt.patient?.firstName?.[0]}
+                        {apt.patient?.lastName?.[0]}
+                      </div>
+                      <div>
+                        <div className="font-bold text-slate-900 dark:text-white text-xs group-hover:text-sky-600 dark:group-hover:text-sky-400 transition-colors">
+                          {apt.patient?.firstName} {apt.patient?.lastName}
+                        </div>
+                        <div className="text-[11px] text-slate-400 font-mono tracking-wide">
+                          TC: {apt.patient?.nationalId}
+                        </div>
+                        {apt.visitReason && (
+                          <div className="text-[11px] text-slate-500 dark:text-slate-400 italic line-clamp-1 mt-0.5">
+                            "{apt.visitReason}"
+                          </div>
+                        )}
+                      </div>
+                    </div>
                   </td>
-                  <td className="py-3 px-3">
-                    <span
-                      className={`px-2 py-0.5 rounded-md font-semibold ${
-                        apt.priority === "Acil"
-                          ? "bg-rose-100 text-rose-700 dark:bg-rose-950/60 dark:text-rose-300"
-                          : apt.priority.includes("65+")
-                          ? "bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300"
-                          : "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300"
-                      }`}
-                    >
-                      {apt.priority}
-                    </span>
+
+                  {/* Poliklinik & Hekim */}
+                  <td className="py-3.5 px-3.5">
+                    <div className="font-bold text-slate-800 dark:text-slate-200 text-xs">
+                      {apt.department?.name}
+                    </div>
+                    <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
+                      {apt.doctor?.fullTitleName}
+                    </div>
                   </td>
-                  <td className="py-3 px-3">
-                    <span
-                      className={`px-2.5 py-1 rounded-full font-bold ${
-                        apt.status === "IN_PROGRESS"
-                          ? "bg-sky-100 text-sky-800 dark:bg-sky-950/60 dark:text-sky-300"
-                          : apt.status === "COMPLETED"
-                          ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300"
-                          : "bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300"
-                      }`}
-                    >
-                      {apt.status === "WAITING"
-                        ? "Sırada Bekliyor"
-                        : apt.status === "IN_PROGRESS"
-                        ? "İçeride (Muayenede)"
-                        : "Tamamlandı"}
-                    </span>
+
+                  {/* Öncelik & Durum */}
+                  <td className="py-3.5 px-3.5 whitespace-nowrap">
+                    <div className="flex flex-col gap-1 items-start">
+                      {/* Durum Rozeti */}
+                      <span
+                        className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold border ${
+                          apt.status === "IN_PROGRESS"
+                            ? "bg-sky-50 dark:bg-sky-950/60 text-sky-700 dark:text-sky-300 border-sky-200 dark:border-sky-800"
+                            : apt.status === "COMPLETED"
+                            ? "bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800"
+                            : "bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800"
+                        }`}
+                      >
+                        <span
+                          className={`w-1.5 h-1.5 rounded-full ${
+                            apt.status === "IN_PROGRESS"
+                              ? "bg-sky-500 animate-pulse"
+                              : apt.status === "COMPLETED"
+                              ? "bg-emerald-500"
+                              : "bg-amber-500"
+                          }`}
+                        />
+                        {apt.status === "WAITING"
+                          ? "Sırada Bekliyor"
+                          : apt.status === "IN_PROGRESS"
+                          ? "İçeride (Muayenede)"
+                          : "Tamamlandı"}
+                      </span>
+
+                      {/* Öncelik Rozeti */}
+                      <span
+                        className={`text-[10px] font-semibold px-2 py-0.5 rounded-md ${
+                          apt.priority === "Acil"
+                            ? "bg-rose-100 text-rose-700 dark:bg-rose-950/60 dark:text-rose-300 font-bold"
+                            : apt.priority.includes("65+")
+                            ? "bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300"
+                            : "text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800/80"
+                        }`}
+                      >
+                        {apt.priority}
+                      </span>
+                    </div>
                   </td>
-                  <td className="py-3 px-3 text-right space-x-1 whitespace-nowrap">
+
+                  {/* İşlemler */}
+                  <td className="py-3.5 px-3.5 text-right space-x-1.5 whitespace-nowrap">
                     <button
                       onClick={() => onStartEncounter(apt)}
-                      className="px-2.5 py-1 rounded-lg bg-indigo-600 text-white font-semibold hover:bg-indigo-700 inline-flex items-center gap-1 text-[11px]"
+                      className="px-2.5 py-1.5 rounded-xl bg-indigo-50 dark:bg-indigo-950/50 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 border border-indigo-200/80 dark:border-indigo-800/60 font-bold text-xs inline-flex items-center gap-1.5 transition shadow-xs"
                       title="Klinik Muayene Formunu Aç"
                     >
-                      <Stethoscope className="w-3.5 h-3.5" /> Muayene Aç
+                      <Stethoscope className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
+                      <span>Muayene Aç</span>
                     </button>
+
                     {apt.status === "WAITING" && (
                       <button
                         onClick={() =>
@@ -322,11 +381,14 @@ export function QueueView({
                             apt.timeSlot
                           )
                         }
-                        className="px-2.5 py-1 rounded-lg bg-sky-600 text-white font-semibold hover:bg-sky-700 text-[11px]"
+                        className="px-2.5 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs inline-flex items-center gap-1 transition shadow-xs"
+                        title="Hastayı Odaya Çağır"
                       >
-                        Çağır
+                        <Play className="w-3 h-3 fill-current" />
+                        <span>Çağır</span>
                       </button>
                     )}
+
                     {apt.status === "IN_PROGRESS" && (
                       <button
                         onClick={() =>
@@ -337,17 +399,20 @@ export function QueueView({
                             apt.timeSlot
                           )
                         }
-                        className="px-2.5 py-1 rounded-lg bg-emerald-600 text-white font-semibold hover:bg-emerald-700 text-[11px]"
+                        className="px-2.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs inline-flex items-center gap-1 transition shadow-xs"
+                        title="Muayeneyi Tamamlandı Olarak İşaretle"
                       >
-                        Tamamla
+                        <CheckCircle2 className="w-3.5 h-3.5" />
+                        <span>Tamamla</span>
                       </button>
                     )}
+
                     <button
                       onClick={() => handleDelete(apt.id)}
-                      className="p-1 text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded"
-                      title="Sil"
+                      className="p-1.5 text-rose-500 hover:text-rose-700 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/50 rounded-xl transition inline-flex items-center"
+                      title="Randevu Kaydını Sil"
                     >
-                      <Trash2 className="w-4 h-4 inline" />
+                      <Trash2 className="w-3.5 h-3.5" />
                     </button>
                   </td>
                 </tr>

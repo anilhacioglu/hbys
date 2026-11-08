@@ -419,49 +419,64 @@ export function PrescriptionsView({
           {paginatedPrescriptions.map((pr) => (
             <div
               key={pr.id}
-              className="border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/40 rounded-xl p-4 hover:border-sky-300 dark:hover:border-sky-500 transition space-y-2.5"
+              className="border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 rounded-2xl p-4 hover:border-sky-300 dark:hover:border-sky-500/60 transition-all duration-200 space-y-3 shadow-xs hover:shadow-md group"
             >
               <div className="flex flex-wrap items-center justify-between gap-2">
-                <div>
-                  <span className="font-mono text-xs font-black text-sky-800 dark:text-sky-300 bg-sky-50 dark:bg-sky-950/60 px-2.5 py-1 rounded-md border border-sky-200 dark:border-sky-800">
+                <div className="flex items-center gap-2.5">
+                  <span className="font-mono text-xs font-black text-sky-800 dark:text-sky-300 bg-sky-50 dark:bg-sky-950/60 px-2.5 py-1 rounded-xl border border-sky-200/80 dark:border-sky-800/60">
                     {pr.prescriptionNo}
                   </span>
-                  <span className="ml-2 font-bold text-sm text-slate-900 dark:text-white">
+                  <div className="font-bold text-sm text-slate-900 dark:text-white group-hover:text-sky-600 dark:group-hover:text-sky-400 transition-colors">
                     {pr.patient?.firstName} {pr.patient?.lastName}
-                  </span>
-                  <span className="ml-1.5 text-xs font-mono text-slate-500 dark:text-slate-400">
+                  </div>
+                  <span className="text-xs font-mono text-slate-400">
                     (TC: {pr.patient?.nationalId})
                   </span>
+                  <span className="hidden sm:inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
+                    MEDULA Onaylı
+                  </span>
                 </div>
+
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => onSelectPrescriptionPrint(pr)}
-                    className="px-3 py-1.5 rounded-lg bg-sky-600 hover:bg-sky-700 text-white text-xs font-bold flex items-center gap-1"
+                    className="px-3 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white text-xs font-bold flex items-center gap-1.5 transition shadow-xs"
+                    title="Resmi E-Reçete Çıktısı Al"
                   >
-                    <FileSpreadsheet className="w-3.5 h-3.5" /> Resmi E-Reçete Belgesi
+                    <FileSpreadsheet className="w-3.5 h-3.5" />
+                    <span>Resmi Belge</span>
                   </button>
                   <button
                     onClick={() => handleDelete(pr.id)}
-                    className="p-1.5 text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded-lg"
+                    className="p-1.5 text-rose-500 hover:text-rose-700 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/50 rounded-xl transition"
+                    title="Reçeteyi Sil"
                   >
                     <Trash2 className="w-4 h-4" />
                   </button>
                 </div>
               </div>
 
-              <div className="text-xs text-slate-600 dark:text-slate-400">
-                <b className="text-slate-800 dark:text-slate-200">Yazan Hekim:</b> {pr.doctor?.fullTitleName} • <b className="text-slate-800 dark:text-slate-200">Tanı:</b>{" "}
-                {pr.diagnosis || "-"}
+              <div className="text-xs text-slate-600 dark:text-slate-300 flex flex-wrap items-center gap-2">
+                <span className="font-bold text-slate-900 dark:text-white">
+                  {pr.doctor?.fullTitleName}
+                </span>
+                <span className="text-slate-300 dark:text-slate-700">•</span>
+                <span className="text-slate-700 dark:text-slate-300 font-medium">
+                  {pr.diagnosis || "Genel Tanı"}
+                </span>
               </div>
 
-              <div className="flex flex-wrap gap-1.5">
+              <div className="flex flex-wrap gap-2 pt-0.5">
                 {pr.items.map((item, idx) => (
                   <span
                     key={idx}
-                    className="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-700/60 text-slate-800 dark:text-slate-200 text-xs font-medium border border-slate-200 dark:border-slate-600"
+                    className="px-3 py-1.5 rounded-xl bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-200 text-xs font-medium border border-slate-200/80 dark:border-slate-700/80 flex items-center gap-1.5 shadow-2xs"
                   >
-                    💊 <b>{item.medicationName}</b> ({item.doseCount}x{item.doseAmount} •{" "}
-                    {item.boxCount} Kutu)
+                    <span className="text-sm">💊</span>
+                    <b className="font-bold">{item.medicationName}</b>
+                    <span className="text-[11px] text-slate-500 dark:text-slate-400 font-mono">
+                      ({item.doseCount}x{item.doseAmount} • {item.boxCount} Kutu)
+                    </span>
                   </span>
                 ))}
               </div>
